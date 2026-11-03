@@ -1,0 +1,75 @@
+# ============================================================================
+# Decisions on individual IP26 rows (review items c, d, e, f)
+# Read by ip26_horizon_filter.py (step 3: which branches a row lists / applies to) and by
+# ip26_final_network.py (step 5: how the change is applied). Change a decision here and
+# rerun steps 3 and 5.
+# ============================================================================
+
+# c) One IP26 row per circuit. Rilland-Zandvliet 380 (project A-1000664) is one project with two
+#    circuits drawn as two rows: each row upgrades only its own circuit, so every physical circuit
+#    is upgraded exactly once. Key = OBJECTID, value = circuit letters of full_network.csv.
+circuit_assignment:
+  290: [G]
+  303: [W]
+
+# e) Route choice for rows mapped to alternative routes. Only the branches between consecutive
+#    stations of 'route' are changed.
+#    302 Vijfhuizen-Nieuwe Meer-Rozenburg Zuid 150 kV (A-1003169): the project name and the
+#    station assignment go via Nieuwe Meer, so the route VHZ150-NMR150-RBZ150 is used
+#    (branches VHZ-NMR150 W/Z and manual:RBZ150-NMR150-W/Z). Alternative (direct circuit):
+#    route: [VHZ150, RBZ150]  (branches VHZ-RBZ150 P and manual:RBZ150-VHZ150-W/Z).
+route_choice:
+  302:
+    route: [VHZ150, NMR150, RBZ150]
+    status: "proposed - to confirm (review item e)"
+
+# f) manual: copies. A branch 'branch:manual:...' that repeats a real circuit of full_network.csv
+#    (same stations, same circuit letter) is a copy: it is never changed, only the real circuit
+#    is. The copy stays in the final network unchanged and is marked in column manual_copy_of.
+#    (manual: branches without a real counterpart, e.g. manual:RBZ150-NMR150-W, are real circuits.)
+manual_copies: never_change
+
+# Rows left out for now (review 16-10-2026, point 4): Nieuwdorp Liechtensteinweg (NDLS) is discussed separately.
+#    375 NDLS380 (loop-in of Borssele-Rilland 380), 376 / 377 NDLS150-BSL150: not added, no split; Borssele-Rilland
+#    380 stays one branch per circuit (the 378 cabling is applied to it). The rows stay in the horizon workbooks,
+#    marked "no - excluded for now".
+exclude_rows:
+  375: "NDLS380 - discussed separately (no transformer to NDLS150, split of Borssele-Rilland open)"
+  376: "NDLS150-BSL150 - discussed separately (two edges on the same NDLS-BSL 150 pair)"
+  377: "NDLS150-BSL150 - discussed separately (two edges on the same NDLS-BSL 150 pair)"
+
+# d) Split of an existing line at a new station (loop-in), done before any upgrade on that line.
+#    ON HOLD (enabled: false) while 375 is excluded. When enabled: BSL-RLL380 G/O/P/Z is cut at NDLS380 into
+#    BSL-NDLS380 and NDLS-RLL380 (per circuit); the row's IP26 edge is the loop-in connection and becomes part
+#    of both new branches.
+#      tap_position_km: km from the first station of 'line' along GridAware's branch length; auto = projection of the
+#        IP26 line end (the end on the existing line) onto the straight line between the two stations, scaled to
+#        GridAware's length (BSL-RLL: ~1.67 km).
+#      loop_in_length_m: connection between the cut point and the new station, added to both new branches with
+#        the parameters of the IP26 row; ip26 = length_m of the row, 0 = the station lies on the line.
+splits:
+  375:
+    enabled: false
+    station: NDLS380
+    line: [BSL380, RLL380]
+    circuits: [G, O, P, Z]
+    tap_position_km: auto
+    loop_in_length_m: ip26
+    status: "on hold (review 16-10-2026, point 4)"
+
+# d) Location of a partial upgrade on a line that is split (only used when the split is enabled). auto = from
+#    the IP26 line geometry: both ends projected onto the line as above. For 378 (Borssele-Rilland 380 kV cabling,
+#    19.8 km) the section runs from ~17.4 km to 37.2 km (ends at Rilland), i.e. entirely on NDLS-RLL380.
+#    Without the split, 378 is applied to BSL-RLL380 as a partial upgrade of 19.8 of 37.2 km.
+#    Alternatives: [from_km, to_km] along GridAware's original branch, or "proportional" (spread over
+#    the parts in proportion to their lengths).
+section_location:
+  378:
+    location: auto
+    status: "used only with the split (on hold)"
+
+# Cabling rows (n_werkzaamheden_ip = Verkabelen) that IP26 marks as overhead
+# (bovengronds_ondergrond = bovengronds): true = use the cable parameters (r', x', b', rating)
+# of the scenario's Parameters tab for the row's voltage, because a cabling project lays cable.
+# Affects 378 (2030, 2040) and 346 (2040). Review 16-10-2026, point 2: X of the cabled branch must go down.
+verkabelen_uses_cable_parameters: true

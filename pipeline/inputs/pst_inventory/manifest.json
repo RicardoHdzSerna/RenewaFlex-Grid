@@ -1,0 +1,127 @@
+{
+ "status": "finished",
+ "finished": "2026-10-06T15:18:01",
+ "script": "scripts/74_pst_inventory_capability.py",
+ "script_sha256": "23638f38a87361df2d4dbbf588cff765c779318c0dcadd3c95a67a02f9cc71f6",
+ "package_run": "2026-10-06-stage2-v23-LP-virtual",
+ "placement": [
+  {
+   "corridor": "Meeden-Diele (NL-DE)",
+   "a": "MEEDEN_380",
+   "b": "DIELE_380",
+   "units": [
+    "Meeden PST W",
+    "Meeden PST Z"
+   ],
+   "basis": "comment: 'Connected to tie-line 10T-DE-NL-00002T and 10T-DE-NL-00001V'",
+   "per_circuit": 1
+  },
+  {
+   "corridor": "Conneforde-Diele (DE, feeds Meeden-Diele)",
+   "a": "DIELE_380",
+   "b": "CONNEFORDE_380",
+   "units": [
+    "Diele T441",
+    "Diele T442"
+   ],
+   "basis": "comment: line 'Conneforde - Diele rot / weiss'",
+   "per_circuit": 1
+  },
+  {
+   "corridor": "Gronau-Hengelo (DE-NL)",
+   "a": "GRONAU_380",
+   "b": "HENGELO_380",
+   "units": [
+    "Gronau TR 441"
+   ],
+   "basis": "station: Gronau is the terminal of one cross-border corridor; ONE unit for two circuits (taken as acting on both)",
+   "per_circuit": 1
+  },
+  {
+   "corridor": "Van Eyck-Maasbracht (BE-NL)",
+   "a": "VAN EYCK_380",
+   "b": "MAASBRACHT_380",
+   "units": [
+    "VAN EYCK PST 1",
+    "VAN EYCK PST 2"
+   ],
+   "basis": "station: Van Eyck is the terminal of one cross-border corridor",
+   "per_circuit": 1
+  },
+  {
+   "corridor": "Zandvliet-Rilland (BE-NL)",
+   "a": "ZANDVLIET_380",
+   "b": "RILLAND_380",
+   "units": [
+    "ZANDVLIET PST 2",
+    "ZANDVLIET PST 3",
+    "ZANDVLIET PST 4"
+   ],
+   "basis": "station: Zandvliet is the terminal of one cross-border corridor; THREE units listed for two circuits (one per circuit assumed)",
+   "per_circuit": 1
+  },
+  {
+   "corridor": "Vierraden-Krajnik (DE-PL)",
+   "a": "VIERRADEN_380",
+   "b": "KRAJNIK_380",
+   "units": [
+    "Vierraden 441",
+    "Vierraden 442",
+    "Vierraden 443",
+    "Vierraden 444"
+   ],
+   "basis": "station: Vierraden is the terminal of one cross-border corridor; FOUR units for two circuits (two in series per circuit assumed)",
+   "per_circuit": 2
+  },
+  {
+   "corridor": "Mikulowa-Hagenwerder (PL-DE)",
+   "a": "MIKULOWA_380",
+   "b": "HAGENWERDER_380",
+   "units": [
+    "MIKULOWA-PF1",
+    "MIKULOWA-PF2",
+    "MIKULOWA-PF3",
+    "MIKULOWA-PF4"
+   ],
+   "basis": "comment: 'phase shifting transformer (400) on line Mik\u2026'; FOUR units for two circuits (two in series per circuit assumed)",
+   "per_circuit": 2
+  },
+  {
+   "corridor": "Roehrsdorf-Hradec (DE-CZ), German end",
+   "a": "ROEHRSDORF_380",
+   "b": "HRADEC VYCHOD_380",
+   "units": [
+    "Rohrsdorf 441",
+    "Rohrsdorf 442"
+   ],
+   "basis": "station: Roehrsdorf is the terminal of one cross-border corridor",
+   "per_circuit": 1
+  },
+  {
+   "corridor": "Hradec-Roehrsdorf (CZ-DE), Czech end",
+   "a": "HRADEC VYCHOD_380",
+   "b": "ROEHRSDORF_380",
+   "units": [
+    "Hradec 1",
+    "Hradec 2",
+    "Hradec 3"
+   ],
+   "basis": "comment: units 1 and 2 'connected to tieline 10T-CZ-DE-00002U' (circuit V445), unit 3 to 10T-CZ-DE-00003S (circuit V446); THREE units for two circuits (one in series per circuit assumed)",
+   "per_circuit": 1
+  }
+ ],
+ "validation_data_read": "none",
+ "inputs_sha256": {
+  "Line_Details_LP.csv": "c3f7a3c2f365a20d17b462e3295a2c981116eb1349baeeeaa0bc7a36a21e253a",
+  "Bus_ID_Map_LP.csv": "29e08b2a80ccd4635aa30b3d514a223e9c37c543598574b5948c988255d3a02f",
+  "jao_core.xlsx": "40386108189de2e17a734719e848b2c85e75013122739d23c440e8ac3d8af5b5",
+  "202603_Core Static Grid Model_External.xlsx": "fcf99279135433f3bf6f9dd587418de1bd289039c82cc0cf2ce54f2d48613d4e"
+ },
+ "outputs_sha256": {
+  "pst_border_effect.csv": "ae445b937baf3db56630c053e2b416d5abff83d69e2c554805ea9da1e448f38e",
+  "pst_capability.csv": "a17d901d727342e2dc2993d7998f8553ad8c9a0cebedb6333e63eb68339b1707",
+  "pst_inventory.csv": "7f9fc0e542a4898f1687b392279f804b1d51c84c32ca0c0ba9c666228f129d7c",
+  "pst_placement.csv": "804a68c144f554751dd5c43c20e44a7c726c5dbb7bf80c84e6cd29ef51326be0",
+  "report.md": "5eaf1abde09787e70541a9b80736733bd9ff1666f9a42613681602e9088fe38f"
+ }
+}

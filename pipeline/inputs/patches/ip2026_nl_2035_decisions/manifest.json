@@ -1,0 +1,43 @@
+{
+ "status": "finished",
+ "started": "2026-10-16T14:53:28",
+ "config": {
+  "script": "111_build_ip2026_2035_decision_table.py",
+  "script_sha256": "eab5c8359a46a04aa2eaa708016de71438a8dff218888c3818c6a92c16bee334",
+  "base_version": "v29",
+  "horizon": 2035,
+  "year_basis": "end of the commissioning window, inclusive",
+  "rules": {
+   "project": "phase in (Realisatie, Voorbereiding)",
+   "tennet": "phase == Realisatie"
+  },
+  "voltage": "220 and 380 kV",
+  "reinforced_current_A": 4000.0,
+  "k_380": 400.0,
+  "decision": "user 2026-10-16: \"go with the project rule, build the decision table\"; \"also build the tennet one\"",
+  "plan_entries": 13,
+  "validation_data_read": "none",
+  "x_ohm_per_km_overhead_380": 0.2727,
+  "x_ohm_per_km_cable_380": 0.1335,
+  "cable_source": "median of 8 GridAware 380 kV cable records"
+ },
+ "inputs_sha256": {
+  "inputs/external/tennet_ip2026_2026-10-16/IP26_line.xlsx": "cff947b340d47792d6af724e472203da157a0ed58d560ab917624d48f9dc9e05",
+  "inputs/external/tennet_ip2026_2026-10-16/IP26_point.xlsx": "71a210fed61da6d4e8c6ae84639620a8791211623d51bdf3841e9323a11e1faa",
+  "inputs/external/tennet_ip2026_2026-10-16/Investeringsplan 2026 Net op land.pdf": "62e8306aba5a1a259af33fb6d117ce025e1cdc6963cc872d2e2c1d2a35b54682",
+  "inputs/derived/jao_core_v29/jao_core.xlsx": "e2a998bab2b806dca67fff80a77a49c9f7ce470e4b9ca1b048db2740c79827af",
+  "inputs/external/gridaware_full_network_2026-10-16/full_network.csv": "6e009210a8b38616e66e95c406348e3107624a80e2d3c56d8cae5710b33749c5"
+ },
+ "finished": "2026-10-16T14:53:29",
+ "counts": {
+  "projects_project_rule": 13,
+  "projects_tennet": 7,
+  "rows": 27,
+  "rows_tennet": 17
+ },
+ "outputs_sha256": {
+  "README.md": "882beace8f6aca64386cc426f18a901a9714a0bc115041acc045f15eca5b17b6",
+  "decision_table.csv": "34d5d6e724b62eb647f2f4148da72d9c5edf42aba87e4de65f830e1568f2084c",
+  "projects.csv": "41e274d5f5bc638bcb459e90eafdfc11ca15761b1b77f1c9f90ae282592a4745"
+ }
+}

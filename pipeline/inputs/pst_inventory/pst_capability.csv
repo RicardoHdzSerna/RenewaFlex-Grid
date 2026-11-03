@@ -1,0 +1,10 @@
+corridor,circuits,units,angle_one_unit_deg,angle_per_circuit_deg,corridor_shift_mw_per_deg,corridor_shift_mw_at_range,share_of_ideal,line_reactance_ohm_per_circuit,pst_reactance_ohm_per_circuit,reactance_with_pst_over_line
+Meeden-Diele (NL-DE),2,2,12.9762,12.9762,63.4765,823.6818,0.0952,7.5575,10.0060,2.3240
+"Conneforde-Diele (DE, feeds Meeden-Diele)",2,2,7.2725,7.2725,60.0295,436.5655,0.1982,16.6450,12.3200,1.7402
+Gronau-Hengelo (DE-NL),2,1,6.3396,6.3396,84.5895,536.2607,0.0975,5.8071,3.3100,1.5700
+Van Eyck-Maasbracht (BE-NL),2,2,6.7348,6.7348,97.9846,659.9067,0.0614,3.1568,10.4950,4.3245
+Zandvliet-Rilland (BE-NL),2,3,6.7348,6.7348,76.4060,514.5792,0.0310,2.0463,11.0600,6.4049
+Vierraden-Krajnik (DE-PL),2,4,6.1191,12.2382,31.7003,387.9541,0.0464,7.3780,24.7940,4.3605
+Mikulowa-Hagenwerder (PL-DE),2,4,5.0754,10.1508,40.8816,414.9787,0.0396,4.8800,23.2080,5.7557
+"Roehrsdorf-Hradec (DE-CZ), German end",2,2,6.1191,6.1191,58.4440,357.6243,0.2538,21.8850,12.3970,1.5665
+"Hradec-Roehrsdorf (CZ-DE), Czech end",2,3,5.5991,5.5991,58.4440,327.2318,0.2538,21.8850,25.5100,2.1656

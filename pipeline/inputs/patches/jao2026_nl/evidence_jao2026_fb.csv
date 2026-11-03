@@ -1,0 +1,9 @@
+patch_id,eic,names,roles,days,imax_A
+PATCH-NL-0001,49T000000000049V,Beverwijk - Vijfhuizen 380 Wit,outage (contingency),2026-01-14; 2026-07-15; 2026-09-10,
+PATCH-NL-0002,49T000000000048X,Beverwijk - Vijfhuizen 380 Zwart,outage (contingency),2026-01-14; 2026-07-15; 2026-09-10,
+PATCH-NL-0003,49T000000000047Z,Bleiswijk - Vijfhuizen 380 Oranje,outage (contingency),2026-01-14; 2026-07-15; 2026-09-10,
+PATCH-NL-0004,49T0000000000460,Bleiswijk - Vijfhuizen 380 Paars,monitored (CNE); outage (contingency),2026-01-14; 2026-07-15; 2026-09-10,3000
+PATCH-NL-0005,49T0000000000517,Beverwijk - Oostzaan 380 Wit,outage (contingency),2026-01-14; 2026-07-15; 2026-09-10,
+PATCH-NL-0006,49T0000000000509,Beverwijk - Oostzaan 380 Zwart,outage (contingency),2026-01-14; 2026-07-15; 2026-09-10,
+PATCH-NL-0007,49T000000000068R,Bergum - Vierverlaten 220 wit,outage (contingency),2026-01-14; 2026-07-15; 2026-09-10,
+PATCH-NL-0008,49T0000000000169,Bergum - Vierverlaten 220 zwart,outage (contingency),2026-01-14; 2026-07-15; 2026-09-10,

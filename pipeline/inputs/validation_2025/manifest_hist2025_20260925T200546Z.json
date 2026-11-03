@@ -1,0 +1,8025 @@
+{
+ "script": "60_fetch_hist2025.py",
+ "script_version": "1.1.0",
+ "script_sha256": "675e2654ce5cee9ff13f38e40c70b9c0ea4f0107965e40be5a6c556c827f44a2",
+ "run_utc": "2026-09-25T20:06:03Z",
+ "python": "3.9.6",
+ "packages": {
+  "entsoe-py": "0.8.1",
+  "pandas": "2.3.3",
+  "pyarrow": "21.0.0",
+  "numpy": "2.0.2",
+  "requests": "2.32.5"
+ },
+ "period_utc": [
+  "2025-01-01 00:00:00+00:00",
+  "2026-01-01 00:00:00+00:00"
+ ],
+ "hours": 8760,
+ "zones": {
+  "core": [
+   "AT",
+   "BE",
+   "CZ",
+   "DE_LU",
+   "FR",
+   "HR",
+   "HU",
+   "NL",
+   "PL",
+   "RO",
+   "SI",
+   "SK"
+  ],
+  "ntc": [
+   "ES",
+   "PT",
+   "IT_NORD",
+   "IT_CNOR",
+   "IT_CSUD",
+   "IT_SUD",
+   "IT_CALA",
+   "IT_SICI",
+   "IT_SARD",
+   "CH",
+   "GB",
+   "NO_2",
+   "DK_1",
+   "DK_2",
+   "SE_4"
+  ],
+  "aux_load_only": [
+   "LU"
+  ]
+ },
+ "zone_to_tulipa_nodes": {
+  "AT": [
+   "AT00"
+  ],
+  "BE": [
+   "BE00"
+  ],
+  "CZ": [
+   "CZ00"
+  ],
+  "DE_LU": [
+   "DE00",
+   "LUG1"
+  ],
+  "FR": [
+   "FR00"
+  ],
+  "HR": [
+   "HR00"
+  ],
+  "HU": [
+   "HU00"
+  ],
+  "NL": [
+   "NL00"
+  ],
+  "PL": [
+   "PL00"
+  ],
+  "RO": [
+   "RO00"
+  ],
+  "SI": [
+   "SI00"
+  ],
+  "SK": [
+   "SK00"
+  ],
+  "ES": [
+   "ES00"
+  ],
+  "PT": [
+   "PT00"
+  ],
+  "IT_NORD": [
+   "ITN1"
+  ],
+  "IT_CNOR": [
+   "ITCN"
+  ],
+  "IT_CSUD": [
+   "ITCS"
+  ],
+  "IT_SUD": [
+   "ITS1"
+  ],
+  "IT_CALA": [
+   "ITCA"
+  ],
+  "IT_SICI": [
+   "ITSI"
+  ],
+  "IT_SARD": [
+   "ITSA"
+  ],
+  "CH": [
+   "CH00"
+  ],
+  "GB": [
+   "UK00"
+  ],
+  "NO_2": [
+   "NOS2"
+  ],
+  "DK_1": [
+   "DKW1"
+  ],
+  "DK_2": [
+   "DKE1"
+  ],
+  "SE_4": [
+   "SE04"
+  ],
+  "LU": [
+   "LUG1"
+  ]
+ },
+ "mapping_notes": {
+  "DE_LU": "one bidding zone; see DE_LU_NOTE",
+  "GB": "GB = Great Britain; Northern Ireland (Tulipa UKNI) belongs to IE_SEM and is not included",
+  "NO_2": "TYNDP NOS1/NOS2/NOS3 ~ NO1/NO2/NO5 (inferred: NOS2 hosts the NOSF/NOWF offshore hubs, which lie in NO2)",
+  "PL": "Tulipa v2 virtual buses PL00E/PL00I carry no demand and are not mapped"
+ },
+ "de_lu": "DE_LU is a single bidding zone in all ENTSO-E and JAO market data and is kept as ONE zone in every table (load, generation, capacity, prices, flows, net positions are DE_LU totals). Reduced network: in the DC-OPF network v11b (--zone-merge=LU:DE) the LU buses are merged into zone DE, so the reduced network's DE node covers exactly the DE_LU bidding zone. Tulipa market nodes: the baseline keeps DE00 and LUG1 as two nodes (LUG1 = Creos grid, linked by baseline NTC flows); every comparison in this script sums DE00 + LUG1. The LU country load is fetched as an auxiliary series so the input builder can split DE_LU load between DE00 and LUG1; nothing is subtracted here.",
+ "zone_check": {
+  "tulipa_folder": "/Users/ricardohernandezserna/TNO/TestTulipa_TYNDP2026 copy (1)/dcopf/inputs/baseline-copy/2035_v2",
+  "tulipa_nodes_in_scope": [
+   "AT00",
+   "BE00",
+   "CH00",
+   "CZ00",
+   "DE00",
+   "DKE1",
+   "DKW1",
+   "ES00",
+   "FR00",
+   "HR00",
+   "HU00",
+   "ITCA",
+   "ITCN",
+   "ITCS",
+   "ITN1",
+   "ITS1",
+   "ITSA",
+   "ITSI",
+   "LUG1",
+   "NL00",
+   "NOS2",
+   "PL00",
+   "PT00",
+   "RO00",
+   "SE04",
+   "SI00",
+   "SK00",
+   "UK00"
+  ],
+  "tulipa_nodes_out_of_scope": [
+   "AL00",
+   "BA00",
+   "BG00",
+   "CY00",
+   "EE00",
+   "FI00",
+   "GR00",
+   "GR03",
+   "IE00",
+   "LT00",
+   "LV00",
+   "MD00",
+   "ME00",
+   "MK00",
+   "MT00",
+   "NOM1",
+   "NON1",
+   "NOS1",
+   "NOS3",
+   "PL00E",
+   "PL00I",
+   "RS00",
+   "SE01",
+   "SE02",
+   "SE03",
+   "TR00",
+   "UA00",
+   "UKNI"
+  ]
+ },
+ "borders_fetched_directed": [
+  "AT>CH",
+  "AT>CZ",
+  "AT>DE_LU",
+  "AT>HU",
+  "AT>IT_NORD",
+  "AT>SI",
+  "BE>DE_LU",
+  "BE>FR",
+  "BE>GB",
+  "BE>NL",
+  "CH>AT",
+  "CH>DE_LU",
+  "CH>FR",
+  "CH>IT_NORD",
+  "CZ>AT",
+  "CZ>DE_LU",
+  "CZ>PL",
+  "CZ>SK",
+  "DE_LU>AT",
+  "DE_LU>BE",
+  "DE_LU>CH",
+  "DE_LU>CZ",
+  "DE_LU>DK_1",
+  "DE_LU>DK_2",
+  "DE_LU>FR",
+  "DE_LU>NL",
+  "DE_LU>NO_2",
+  "DE_LU>PL",
+  "DE_LU>SE_4",
+  "DK_1>DE_LU",
+  "DK_1>DK_2",
+  "DK_1>GB",
+  "DK_1>NL",
+  "DK_1>NO_2",
+  "DK_2>DE_LU",
+  "DK_2>DK_1",
+  "DK_2>SE_4",
+  "ES>FR",
+  "ES>PT",
+  "FR>BE",
+  "FR>CH",
+  "FR>DE_LU",
+  "FR>ES",
+  "FR>GB",
+  "FR>IT_NORD",
+  "GB>BE",
+  "GB>DK_1",
+  "GB>FR",
+  "GB>NL",
+  "GB>NO_2",
+  "HR>HU",
+  "HR>SI",
+  "HU>AT",
+  "HU>HR",
+  "HU>RO",
+  "HU>SI",
+  "HU>SK",
+  "IT_CALA>IT_SICI",
+  "IT_CALA>IT_SUD",
+  "IT_CNOR>IT_CSUD",
+  "IT_CNOR>IT_NORD",
+  "IT_CNOR>IT_SARD",
+  "IT_CSUD>IT_CNOR",
+  "IT_CSUD>IT_SARD",
+  "IT_CSUD>IT_SUD",
+  "IT_NORD>AT",
+  "IT_NORD>CH",
+  "IT_NORD>FR",
+  "IT_NORD>IT_CNOR",
+  "IT_NORD>SI",
+  "IT_SARD>IT_CNOR",
+  "IT_SARD>IT_CSUD",
+  "IT_SICI>IT_CALA",
+  "IT_SUD>IT_CALA",
+  "IT_SUD>IT_CSUD",
+  "NL>BE",
+  "NL>DE_LU",
+  "NL>DK_1",
+  "NL>GB",
+  "NL>NO_2",
+  "NO_2>DE_LU",
+  "NO_2>DK_1",
+  "NO_2>GB",
+  "NO_2>NL",
+  "PL>CZ",
+  "PL>DE_LU",
+  "PL>SE_4",
+  "PL>SK",
+  "PT>ES",
+  "RO>HU",
+  "SE_4>DE_LU",
+  "SE_4>DK_2",
+  "SE_4>PL",
+  "SI>AT",
+  "SI>HR",
+  "SI>HU",
+  "SI>IT_NORD",
+  "SK>CZ",
+  "SK>HU",
+  "SK>PL"
+ ],
+ "borders_to_unmodelled_zones_not_fetched": [
+  "BA-HR",
+  "BG-RO",
+  "DK_1-SE_3",
+  "GB-IE_SEM",
+  "HR-RS",
+  "HU-RS",
+  "HU-UA",
+  "IT_SICI-MT",
+  "LT-PL",
+  "LT-SE_4",
+  "NO_1-NO_2",
+  "NO_2-NO_5",
+  "PL-UA",
+  "RO-RS",
+  "RO-UA",
+  "SE_3-SE_4",
+  "SK-UA"
+ ],
+ "datasets": {
+  "load": {
+   "role": "input",
+   "scope": "zone_load",
+   "chunk": "month",
+   "source": "entsoe query_load \u2014 actual total load [MW]",
+   "raw_files": 324,
+   "raw_rows": 763070
+  },
+  "installed_capacity": {
+   "role": "input",
+   "scope": "zone",
+   "chunk": "year",
+   "source": "entsoe query_installed_generation_capacity [MW]",
+   "raw_files": 18,
+   "raw_rows": 18
+  },
+  "installed_capacity_per_unit": {
+   "role": "input",
+   "scope": "zone",
+   "chunk": "year",
+   "source": "entsoe query_installed_generation_capacity_per_unit",
+   "raw_files": 26,
+   "raw_rows": 1414
+  },
+  "generation": {
+   "role": "input",
+   "scope": "zone",
+   "chunk": "month",
+   "source": "entsoe query_generation \u2014 actual generation per type [MW]",
+   "raw_files": 312,
+   "raw_rows": 734191
+  },
+  "unavailability_gen": {
+   "role": "input",
+   "scope": "zone",
+   "chunk": "month",
+   "source": "entsoe query_unavailability_of_generation_units (events)",
+   "raw_files": 311,
+   "raw_rows": 94602
+  },
+  "reservoir": {
+   "role": "input",
+   "scope": "zone",
+   "chunk": "year",
+   "source": "entsoe query_aggregate_water_reservoirs_and_hydro_storage [MWh], weekly",
+   "raw_files": 17,
+   "raw_rows": 1070
+  },
+  "ntc_dayahead": {
+   "role": "input",
+   "scope": "border_ntc",
+   "chunk": "month",
+   "source": "entsoe query_net_transfer_capacity_dayahead [MW]",
+   "raw_files": 528,
+   "raw_rows": 410664
+  },
+  "offered_capacity": {
+   "role": "input",
+   "scope": "border_ntc",
+   "chunk": "month",
+   "source": "entsoe query_offered_capacity (A01 daily, implicit) [MW]",
+   "raw_files": 252,
+   "raw_rows": 405852
+  },
+  "boundary_exchanges": {
+   "role": "input",
+   "scope": "border_outside",
+   "chunk": "month",
+   "source": "entsoe query_scheduled_exchanges(dayahead=False) on borders to unmodelled zones [MW] \u2014 fixed boundary flows",
+   "raw_files": 552,
+   "raw_rows": 515388
+  },
+  "da_prices": {
+   "role": "validation",
+   "scope": "zone",
+   "chunk": "month",
+   "source": "entsoe query_day_ahead_prices [EUR/MWh]",
+   "raw_files": 312,
+   "raw_rows": 393822
+  },
+  "crossborder_flows": {
+   "role": "validation",
+   "scope": "border_all",
+   "chunk": "month",
+   "source": "entsoe query_crossborder_flows \u2014 physical [MW]",
+   "raw_files": 1175,
+   "raw_rows": 2912000
+  },
+  "scheduled_exchanges_da": {
+   "role": "validation",
+   "scope": "border_all",
+   "chunk": "month",
+   "source": "entsoe query_scheduled_exchanges(dayahead=True) [MW]",
+   "raw_files": 1176,
+   "raw_rows": 2516997
+  },
+  "net_position_da": {
+   "role": "validation",
+   "scope": "zone",
+   "chunk": "month",
+   "source": "entsoe query_net_position(dayahead=True) [MW], + = export",
+   "raw_files": 300,
+   "raw_rows": 377132
+  },
+  "jao_net_position": {
+   "role": "validation",
+   "scope": "core",
+   "chunk": "month",
+   "source": "JAO Publication Tool core/api/data/netPos [MW], + = export",
+   "raw_files": 12,
+   "raw_rows": 15390
+  }
+ },
+ "processed_tables": {
+  "inputs/load_hourly_mw": {
+   "rows": 8760,
+   "cols": 27,
+   "hourly": true
+  },
+  "inputs/generation_hourly_mw": {
+   "rows": 2741880,
+   "cols": 4,
+   "hourly": true
+  },
+  "inputs/consumption_by_type_hourly_mw": {
+   "rows": 613200,
+   "cols": 5,
+   "hourly": true
+  },
+  "inputs/installed_capacity_per_type_mw": {
+   "rows": 239,
+   "cols": 4,
+   "hourly": false
+  },
+  "inputs/installed_capacity_per_unit": {
+   "rows": 1414,
+   "cols": 8,
+   "hourly": false
+  },
+  "inputs/unavailability_events": {
+   "rows": 47124,
+   "cols": 22,
+   "hourly": false
+  },
+  "inputs/unavailable_capacity_hourly_mw": {
+   "rows": 1839600,
+   "cols": 5,
+   "hourly": true
+  },
+  "inputs/reservoir_weekly_mwh": {
+   "rows": 189,
+   "cols": 17,
+   "hourly": false
+  },
+  "inputs/reservoir_hourly_mwh": {
+   "rows": 8760,
+   "cols": 17,
+   "hourly": true
+  },
+  "inputs/ntc_dayahead_hourly_mw": {
+   "rows": 8760,
+   "cols": 44,
+   "hourly": true
+  },
+  "inputs/offered_capacity_hourly_mw": {
+   "rows": 8760,
+   "cols": 28,
+   "hourly": true
+  },
+  "inputs/boundary_exchanges_hourly_mw": {
+   "rows": 8760,
+   "cols": 46,
+   "hourly": true
+  },
+  "inputs/capacity_factors_hourly": {
+   "rows": 8760,
+   "cols": 41,
+   "hourly": true
+  },
+  "_reports/cf_exceedances": {
+   "rows": 9,
+   "cols": 7,
+   "hourly": false
+  },
+  "validation/da_prices_hourly_eur_mwh": {
+   "rows": 8760,
+   "cols": 26,
+   "hourly": true
+  },
+  "validation/crossborder_flows_physical_hourly_mw": {
+   "rows": 8760,
+   "cols": 98,
+   "hourly": true
+  },
+  "validation/scheduled_exchanges_da_hourly_mw": {
+   "rows": 8760,
+   "cols": 98,
+   "hourly": true
+  },
+  "validation/net_position_da_hourly_mw": {
+   "rows": 8760,
+   "cols": 25,
+   "hourly": true
+  },
+  "validation/jao_net_position_hourly_mw": {
+   "rows": 8760,
+   "cols": 14,
+   "hourly": true
+  },
+  "_reports/resolution": {
+   "rows": 4978,
+   "cols": 6,
+   "hourly": false
+  },
+  "_reports/gaps": {
+   "rows": 23430,
+   "cols": 6,
+   "hourly": false
+  },
+  "_reports/gap_summary_per_series": {
+   "rows": 244,
+   "cols": 7,
+   "hourly": false
+  },
+  "_reports/resolution_15min_chunks": {
+   "rows": 2547,
+   "cols": 6,
+   "hourly": false
+  },
+  "_reports/check_annual_load": {
+   "rows": 30,
+   "cols": 9,
+   "hourly": false
+  },
+  "_reports/check_installed_capacity_vs_tulipa": {
+   "rows": 223,
+   "cols": 7,
+   "hourly": false
+  },
+  "_reports/check_net_position_entsoe_vs_jao": {
+   "rows": 12,
+   "cols": 8,
+   "hourly": false
+  },
+  "_reports/check_8760": {
+   "rows": 14,
+   "cols": 4,
+   "hourly": false
+  },
+  "_reports/raw_inventory": {
+   "rows": 5315,
+   "cols": 4,
+   "hourly": false
+  }
+ },
+ "missing_data_log": {
+  "file": "/Users/ricardohernandezserna/TNO/TestTulipa_TYNDP2026 copy (1)/dcopf/inputs/external/hist2025/raw/_missing.csv",
+  "entries_total": 1087,
+  "open_by_dataset_status": {
+   "crossborder_flows|error": 1,
+   "crossborder_flows|no_data": 24,
+   "da_prices|no_data": 12,
+   "generation|no_data": 12,
+   "installed_capacity|no_data": 9,
+   "installed_capacity_per_unit|no_data": 1,
+   "load|no_data": 12,
+   "net_position_da|no_data": 24,
+   "ntc_dayahead|no_data": 216,
+   "offered_capacity|no_data": 492,
+   "reservoir|no_data": 10,
+   "scheduled_exchanges_da|no_data": 24,
+   "unavailability_gen|no_data": 13
+  },
+  "open_entries": [
+   {
+    "dataset": "load",
+    "role": "input",
+    "key": "GB",
+    "chunk": "2025-01",
+    "status": "no_data",
+    "detail": NaN
+   },
+   {
+    "dataset": "load",
+    "role": "input",
+    "key": "GB",
+    "chunk": "2025-02",
+    "status": "no_data",
+    "detail": NaN
+   },
+   {
+    "dataset": "load",
+    "role": "input",
+    "key": "GB",
+    "chunk": "2025-03",
+    "status": "no_data",
+    "detail": NaN
+   },
+   {
+    "dataset": "load",
+    "role": "input",
+    "key": "GB",
+    "chunk": "2025-04",
+    "status": "no_data",
+    "detail": NaN
+   },
+   {
+    "dataset": "load",
+    "role": "input",
+    "key": "GB",
+    "chunk": "2025-05",
+    "status": "no_data",
+    "detail": NaN
+   },
+   {
+    "dataset": "load",
+    "role": "input",
+    "key": "GB",
+    "chunk": "2025-06",
+    "status": "no_data",
+    "detail": NaN
+   },
+   {
+    "dataset": "load",
+    "role": "input",
+    "key": "GB",
+    "chunk": "2025-07",
+    "status": "no_data",
+    "detail": NaN
+   },
+   {
+    "dataset": "load",
+    "role": "input",
+    "key": "GB",
+    "chunk": "2025-08",
+    "status": "no_data",
+    "detail": NaN
+   },
+   {
+    "dataset": "load",
+    "role": "input",
+    "key": "GB",
+    "chunk": "2025-09",
+    "status": "no_data",
+    "detail": NaN
+   },
+   {
+    "dataset": "load",
+    "role": "input",
+    "key": "GB",
+    "chunk": "2025-10",
+    "status": "no_data",
+    "detail": NaN
+   },
+   {
+    "dataset": "load",
+    "role": "input",
+    "key": "GB",
+    "chunk": "2025-11",
+    "status": "no_data",
+    "detail": NaN
+   },
+   {
+    "dataset": "load",
+    "role": "input",
+    "key": "GB",
+    "chunk": "2025-12",
+    "status": "no_data",
+    "detail": NaN
+   },
+   {
+    "dataset": "installed_capacity",
+    "role": "input",
+    "key": "IT_NORD",
+    "chunk": "2025",
+    "status": "no_data",
+    "detail": NaN
+   },
+   {
+    "dataset": "installed_capacity",
+    "role": "input",
+    "key": "IT_CNOR",
+    "chunk": "2025",
+    "status": "no_data",
+    "detail": NaN
+   },
+   {
+    "dataset": "installed_capacity",
+    "role": "input",
+    "key": "IT_CSUD",
+    "chunk": "2025",
+    "status": "no_data",
+    "detail": NaN
+   },
+   {
+    "dataset": "installed_capacity",
+    "role": "input",
+    "key": "IT_SUD",
+    "chunk": "2025",
+    "status": "no_data",
+    "detail": NaN
+   },
+   {
+    "dataset": "installed_capacity",
+    "role": "input",
+    "key": "IT_CALA",
+    "chunk": "2025",
+    "status": "no_data",
+    "detail": NaN
+   },
+   {
+    "dataset": "installed_capacity",
+    "role": "input",
+    "key": "IT_SICI",
+    "chunk": "2025",
+    "status": "no_data",
+    "detail": NaN
+   },
+   {
+    "dataset": "installed_capacity",
+    "role": "input",
+    "key": "IT_SARD",
+    "chunk": "2025",
+    "status": "no_data",
+    "detail": NaN
+   },
+   {
+    "dataset": "installed_capacity",
+    "role": "input",
+    "key": "GB",
+    "chunk": "2025",
+    "status": "no_data",
+    "detail": NaN
+   },
+   {
+    "dataset": "installed_capacity",
+    "role": "input",
+    "key": "SE_4",
+    "chunk": "2025",
+    "status": "no_data",
+    "detail": NaN
+   },
+   {
+    "dataset": "installed_capacity_per_unit",
+    "role": "input",
+    "key": "HR",
+    "chunk": "2025",
+    "status": "no_data",
+    "detail": NaN
+   },
+   {
+    "dataset": "generation",
+    "role": "input",
+    "key": "GB",
+    "chunk": "2025-01",
+    "status": "no_data",
+    "detail": NaN
+   },
+   {
+    "dataset": "generation",
+    "role": "input",
+    "key": "GB",
+    "chunk": "2025-02",
+    "status": "no_data",
+    "detail": NaN
+   },
+   {
+    "dataset": "generation",
+    "role": "input",
+    "key": "GB",
+    "chunk": "2025-03",
+    "status": "no_data",
+    "detail": NaN
+   },
+   {
+    "dataset": "generation",
+    "role": "input",
+    "key": "GB",
+    "chunk": "2025-04",
+    "status": "no_data",
+    "detail": NaN
+   },
+   {
+    "dataset": "generation",
+    "role": "input",
+    "key": "GB",
+    "chunk": "2025-05",
+    "status": "no_data",
+    "detail": NaN
+   },
+   {
+    "dataset": "generation",
+    "role": "input",
+    "key": "GB",
+    "chunk": "2025-06",
+    "status": "no_data",
+    "detail": NaN
+   },
+   {
+    "dataset": "generation",
+    "role": "input",
+    "key": "GB",
+    "chunk": "2025-07",
+    "status": "no_data",
+    "detail": NaN
+   },
+   {
+    "dataset": "generation",
+    "role": "input",
+    "key": "GB",
+    "chunk": "2025-08",
+    "status": "no_data",
+    "detail": NaN
+   },
+   {
+    "dataset": "generation",
+    "role": "input",
+    "key": "GB",
+    "chunk": "2025-09",
+    "status": "no_data",
+    "detail": NaN
+   },
+   {
+    "dataset": "generation",
+    "role": "input",
+    "key": "GB",
+    "chunk": "2025-10",
+    "status": "no_data",
+    "detail": NaN
+   },
+   {
+    "dataset": "generation",
+    "role": "input",
+    "key": "GB",
+    "chunk": "2025-11",
+    "status": "no_data",
+    "detail": NaN
+   },
+   {
+    "dataset": "generation",
+    "role": "input",
+    "key": "GB",
+    "chunk": "2025-12",
+    "status": "no_data",
+    "detail": NaN
+   },
+   {
+    "dataset": "unavailability_gen",
+    "role": "input",
+    "key": "HR",
+    "chunk": "2025-01",
+    "status": "no_data",
+    "detail": NaN
+   },
+   {
+    "dataset": "unavailability_gen",
+    "role": "input",
+    "key": "HR",
+    "chunk": "2025-02",
+    "status": "no_data",
+    "detail": NaN
+   },
+   {
+    "dataset": "unavailability_gen",
+    "role": "input",
+    "key": "HR",
+    "chunk": "2025-03",
+    "status": "no_data",
+    "detail": NaN
+   },
+   {
+    "dataset": "unavailability_gen",
+    "role": "input",
+    "key": "HR",
+    "chunk": "2025-04",
+    "status": "no_data",
+    "detail": NaN
+   },
+   {
+    "dataset": "unavailability_gen",
+    "role": "input",
+    "key": "HR",
+    "chunk": "2025-05",
+    "status": "no_data",
+    "detail": NaN
+   },
+   {
+    "dataset": "unavailability_gen",
+    "role": "input",
+    "key": "HR",
+    "chunk": "2025-06",
+    "status": "no_data",
+    "detail": NaN
+   },
+   {
+    "dataset": "unavailability_gen",
+    "role": "input",
+    "key": "HR",
+    "chunk": "2025-07",
+    "status": "no_data",
+    "detail": NaN
+   },
+   {
+    "dataset": "unavailability_gen",
+    "role": "input",
+    "key": "HR",
+    "chunk": "2025-08",
+    "status": "no_data",
+    "detail": NaN
+   },
+   {
+    "dataset": "unavailability_gen",
+    "role": "input",
+    "key": "HR",
+    "chunk": "2025-09",
+    "status": "no_data",
+    "detail": NaN
+   },
+   {
+    "dataset": "unavailability_gen",
+    "role": "input",
+    "key": "HR",
+    "chunk": "2025-10",
+    "status": "no_data",
+    "detail": NaN
+   },
+   {
+    "dataset": "unavailability_gen",
+    "role": "input",
+    "key": "HR",
+    "chunk": "2025-11",
+    "status": "no_data",
+    "detail": NaN
+   },
+   {
+    "dataset": "unavailability_gen",
+    "role": "input",
+    "key": "HR",
+    "chunk": "2025-12",
+    "status": "no_data",
+    "detail": NaN
+   },
+   {
+    "dataset": "unavailability_gen",
+    "role": "input",
+    "key": "SE_4",
+    "chunk": "2025-08",
+    "status": "no_data",
+    "detail": NaN
+   },
+   {
+    "dataset": "reservoir",
+    "role": "input",
+    "key": "BE",
+    "chunk": "2025",
+    "status": "no_data",
+    "detail": NaN
+   },
+   {
+    "dataset": "reservoir",
+    "role": "input",
+    "key": "CZ",
+    "chunk": "2025",
+    "status": "no_data",
+    "detail": NaN
+   },
+   {
+    "dataset": "reservoir",
+    "role": "input",
+    "key": "DE_LU",
+    "chunk": "2025",
+    "status": "no_data",
+    "detail": NaN
+   },
+   {
+    "dataset": "reservoir",
+    "role": "input",
+    "key": "HU",
+    "chunk": "2025",
+    "status": "no_data",
+    "detail": NaN
+   },
+   {
+    "dataset": "reservoir",
+    "role": "input",
+    "key": "NL",
+    "chunk": "2025",
+    "status": "no_data",
+    "detail": NaN
+   },
+   {
+    "dataset": "reservoir",
+    "role": "input",
+    "key": "PL",
+    "chunk": "2025",
+    "status": "no_data",
+    "detail": NaN
+   },
+   {
+    "dataset": "reservoir",
+    "role": "input",
+    "key": "SK",
+    "chunk": "2025",
+    "status": "no_data",
+    "detail": NaN
+   },
+   {
+    "dataset": "reservoir",
+    "role": "input",
+    "key": "GB",
+    "chunk": "2025",
+    "status": "no_data",
+    "detail": NaN
+   },
+   {
+    "dataset": "reservoir",
+    "role": "input",
+    "key": "DK_1",
+    "chunk": "2025",
+    "status": "no_data",
+    "detail": NaN
+   },
+   {
+    "dataset": "reservoir",
+    "role": "input",
+    "key": "DK_2",
+    "chunk": "2025",
+    "status": "no_data",
+    "detail": NaN
+   },
+   {
+    "dataset": "ntc_dayahead",
+    "role": "input",
+    "key": "DE_LU__DK_2",
+    "chunk": "2025-01",
+    "status": "no_data",
+    "detail": NaN
+   },
+   {
+    "dataset": "ntc_dayahead",
+    "role": "input",
+    "key": "DE_LU__DK_2",
+    "chunk": "2025-02",
+    "status": "no_data",
+    "detail": NaN
+   },
+   {
+    "dataset": "ntc_dayahead",
+    "role": "input",
+    "key": "DE_LU__DK_2",
+    "chunk": "2025-03",
+    "status": "no_data",
+    "detail": NaN
+   },
+   {
+    "dataset": "ntc_dayahead",
+    "role": "input",
+    "key": "DE_LU__DK_2",
+    "chunk": "2025-04",
+    "status": "no_data",
+    "detail": NaN
+   },
+   {
+    "dataset": "ntc_dayahead",
+    "role": "input",
+    "key": "DE_LU__DK_2",
+    "chunk": "2025-05",
+    "status": "no_data",
+    "detail": NaN
+   },
+   {
+    "dataset": "ntc_dayahead",
+    "role": "input",
+    "key": "DE_LU__DK_2",
+    "chunk": "2025-06",
+    "status": "no_data",
+    "detail": NaN
+   },
+   {
+    "dataset": "ntc_dayahead",
+    "role": "input",
+    "key": "DE_LU__DK_2",
+    "chunk": "2025-07",
+    "status": "no_data",
+    "detail": NaN
+   },
+   {
+    "dataset": "ntc_dayahead",
+    "role": "input",
+    "key": "DE_LU__DK_2",
+    "chunk": "2025-08",
+    "status": "no_data",
+    "detail": NaN
+   },
+   {
+    "dataset": "ntc_dayahead",
+    "role": "input",
+    "key": "DE_LU__DK_2",
+    "chunk": "2025-09",
+    "status": "no_data",
+    "detail": NaN
+   },
+   {
+    "dataset": "ntc_dayahead",
+    "role": "input",
+    "key": "DE_LU__DK_2",
+    "chunk": "2025-10",
+    "status": "no_data",
+    "detail": NaN
+   },
+   {
+    "dataset": "ntc_dayahead",
+    "role": "input",
+    "key": "DE_LU__DK_2",
+    "chunk": "2025-11",
+    "status": "no_data",
+    "detail": NaN
+   },
+   {
+    "dataset": "ntc_dayahead",
+    "role": "input",
+    "key": "DE_LU__DK_2",
+    "chunk": "2025-12",
+    "status": "no_data",
+    "detail": NaN
+   },
+   {
+    "dataset": "ntc_dayahead",
+    "role": "input",
+    "key": "DE_LU__NO_2",
+    "chunk": "2025-01",
+    "status": "no_data",
+    "detail": NaN
+   },
+   {
+    "dataset": "ntc_dayahead",
+    "role": "input",
+    "key": "DE_LU__NO_2",
+    "chunk": "2025-02",
+    "status": "no_data",
+    "detail": NaN
+   },
+   {
+    "dataset": "ntc_dayahead",
+    "role": "input",
+    "key": "DE_LU__NO_2",
+    "chunk": "2025-03",
+    "status": "no_data",
+    "detail": NaN
+   },
+   {
+    "dataset": "ntc_dayahead",
+    "role": "input",
+    "key": "DE_LU__NO_2",
+    "chunk": "2025-04",
+    "status": "no_data",
+    "detail": NaN
+   },
+   {
+    "dataset": "ntc_dayahead",
+    "role": "input",
+    "key": "DE_LU__NO_2",
+    "chunk": "2025-05",
+    "status": "no_data",
+    "detail": NaN
+   },
+   {
+    "dataset": "ntc_dayahead",
+    "role": "input",
+    "key": "DE_LU__NO_2",
+    "chunk": "2025-06",
+    "status": "no_data",
+    "detail": NaN
+   },
+   {
+    "dataset": "ntc_dayahead",
+    "role": "input",
+    "key": "DE_LU__NO_2",
+    "chunk": "2025-07",
+    "status": "no_data",
+    "detail": NaN
+   },
+   {
+    "dataset": "ntc_dayahead",
+    "role": "input",
+    "key": "DE_LU__NO_2",
+    "chunk": "2025-08",
+    "status": "no_data",
+    "detail": NaN
+   },
+   {
+    "dataset": "ntc_dayahead",
+    "role": "input",
+    "key": "DE_LU__NO_2",
+    "chunk": "2025-09",
+    "status": "no_data",
+    "detail": NaN
+   },
+   {
+    "dataset": "ntc_dayahead",
+    "role": "input",
+    "key": "DE_LU__NO_2",
+    "chunk": "2025-10",
+    "status": "no_data",
+    "detail": NaN
+   },
+   {
+    "dataset": "ntc_dayahead",
+    "role": "input",
+    "key": "DE_LU__NO_2",
+    "chunk": "2025-11",
+    "status": "no_data",
+    "detail": NaN
+   },
+   {
+    "dataset": "ntc_dayahead",
+    "role": "input",
+    "key": "DE_LU__NO_2",
+    "chunk": "2025-12",
+    "status": "no_data",
+    "detail": NaN
+   },
+   {
+    "dataset": "ntc_dayahead",
+    "role": "input",
+    "key": "DE_LU__SE_4",
+    "chunk": "2025-01",
+    "status": "no_data",
+    "detail": NaN
+   },
+   {
+    "dataset": "ntc_dayahead",
+    "role": "input",
+    "key": "DE_LU__SE_4",
+    "chunk": "2025-02",
+    "status": "no_data",
+    "detail": NaN
+   },
+   {
+    "dataset": "ntc_dayahead",
+    "role": "input",
+    "key": "DE_LU__SE_4",
+    "chunk": "2025-03",
+    "status": "no_data",
+    "detail": NaN
+   },
+   {
+    "dataset": "ntc_dayahead",
+    "role": "input",
+    "key": "DE_LU__SE_4",
+    "chunk": "2025-04",
+    "status": "no_data",
+    "detail": NaN
+   },
+   {
+    "dataset": "ntc_dayahead",
+    "role": "input",
+    "key": "DE_LU__SE_4",
+    "chunk": "2025-05",
+    "status": "no_data",
+    "detail": NaN
+   },
+   {
+    "dataset": "ntc_dayahead",
+    "role": "input",
+    "key": "DE_LU__SE_4",
+    "chunk": "2025-06",
+    "status": "no_data",
+    "detail": NaN
+   },
+   {
+    "dataset": "ntc_dayahead",
+    "role": "input",
+    "key": "DE_LU__SE_4",
+    "chunk": "2025-07",
+    "status": "no_data",
+    "detail": NaN
+   },
+   {
+    "dataset": "ntc_dayahead",
+    "role": "input",
+    "key": "DE_LU__SE_4",
+    "chunk": "2025-08",
+    "status": "no_data",
+    "detail": NaN
+   },
+   {
+    "dataset": "ntc_dayahead",
+    "role": "input",
+    "key": "DE_LU__SE_4",
+    "chunk": "2025-09",
+    "status": "no_data",
+    "detail": NaN
+   },
+   {
+    "dataset": "ntc_dayahead",
+    "role": "input",
+    "key": "DE_LU__SE_4",
+    "chunk": "2025-10",
+    "status": "no_data",
+    "detail": NaN
+   },
+   {
+    "dataset": "ntc_dayahead",
+    "role": "input",
+    "key": "DE_LU__SE_4",
+    "chunk": "2025-11",
+    "status": "no_data",
+    "detail": NaN
+   },
+   {
+    "dataset": "ntc_dayahead",
+    "role": "input",
+    "key": "DE_LU__SE_4",
+    "chunk": "2025-12",
+    "status": "no_data",
+    "detail": NaN
+   },
+   {
+    "dataset": "ntc_dayahead",
+    "role": "input",
+    "key": "DK_1__DK_2",
+    "chunk": "2025-01",
+    "status": "no_data",
+    "detail": NaN
+   },
+   {
+    "dataset": "ntc_dayahead",
+    "role": "input",
+    "key": "DK_1__DK_2",
+    "chunk": "2025-02",
+    "status": "no_data",
+    "detail": NaN
+   },
+   {
+    "dataset": "ntc_dayahead",
+    "role": "input",
+    "key": "DK_1__DK_2",
+    "chunk": "2025-03",
+    "status": "no_data",
+    "detail": NaN
+   },
+   {
+    "dataset": "ntc_dayahead",
+    "role": "input",
+    "key": "DK_1__DK_2",
+    "chunk": "2025-04",
+    "status": "no_data",
+    "detail": NaN
+   },
+   {
+    "dataset": "ntc_dayahead",
+    "role": "input",
+    "key": "DK_1__DK_2",
+    "chunk": "2025-05",
+    "status": "no_data",
+    "detail": NaN
+   },
+   {
+    "dataset": "ntc_dayahead",
+    "role": "input",
+    "key": "DK_1__DK_2",
+    "chunk": "2025-06",
+    "status": "no_data",
+    "detail": NaN
+   },
+   {
+    "dataset": "ntc_dayahead",
+    "role": "input",
+    "key": "DK_1__DK_2",
+    "chunk": "2025-07",
+    "status": "no_data",
+    "detail": NaN
+   },
+   {
+    "dataset": "ntc_dayahead",
+    "role": "input",
+    "key": "DK_1__DK_2",
+    "chunk": "2025-08",
+    "status": "no_data",
+    "detail": NaN
+   },
+   {
+    "dataset": "ntc_dayahead",
+    "role": "input",
+    "key": "DK_1__DK_2",
+    "chunk": "2025-09",
+    "status": "no_data",
+    "detail": NaN
+   },
+   {
+    "dataset": "ntc_dayahead",
+    "role": "input",
+    "key": "DK_1__DK_2",
+    "chunk": "2025-10",
+    "status": "no_data",
+    "detail": NaN
+   },
+   {
+    "dataset": "ntc_dayahead",
+    "role": "input",
+    "key": "DK_1__DK_2",
+    "chunk": "2025-11",
+    "status": "no_data",
+    "detail": NaN
+   },
+   {
+    "dataset": "ntc_dayahead",
+    "role": "input",
+    "key": "DK_1__DK_2",
+    "chunk": "2025-12",
+    "status": "no_data",
+    "detail": NaN
+   },
+   {
+    "dataset": "ntc_dayahead",
+    "role": "input",
+    "key": "DK_1__NO_2",
+    "chunk": "2025-01",
+    "status": "no_data",
+    "detail": NaN
+   },
+   {
+    "dataset": "ntc_dayahead",
+    "role": "input",
+    "key": "DK_1__NO_2",
+    "chunk": "2025-02",
+    "status": "no_data",
+    "detail": NaN
+   },
+   {
+    "dataset": "ntc_dayahead",
+    "role": "input",
+    "key": "DK_1__NO_2",
+    "chunk": "2025-03",
+    "status": "no_data",
+    "detail": NaN
+   },
+   {
+    "dataset": "ntc_dayahead",
+    "role": "input",
+    "key": "DK_1__NO_2",
+    "chunk": "2025-04",
+    "status": "no_data",
+    "detail": NaN
+   },
+   {
+    "dataset": "ntc_dayahead",
+    "role": "input",
+    "key": "DK_1__NO_2",
+    "chunk": "2025-05",
+    "status": "no_data",
+    "detail": NaN
+   },
+   {
+    "dataset": "ntc_dayahead",
+    "role": "input",
+    "key": "DK_1__NO_2",
+    "chunk": "2025-06",
+    "status": "no_data",
+    "detail": NaN
+   },
+   {
+    "dataset": "ntc_dayahead",
+    "role": "input",
+    "key": "DK_1__NO_2",
+    "chunk": "2025-07",
+    "status": "no_data",
+    "detail": NaN
+   },
+   {
+    "dataset": "ntc_dayahead",
+    "role": "input",
+    "key": "DK_1__NO_2",
+    "chunk": "2025-08",
+    "status": "no_data",
+    "detail": NaN
+   },
+   {
+    "dataset": "ntc_dayahead",
+    "role": "input",
+    "key": "DK_1__NO_2",
+    "chunk": "2025-09",
+    "status": "no_data",
+    "detail": NaN
+   },
+   {
+    "dataset": "ntc_dayahead",
+    "role": "input",
+    "key": "DK_1__NO_2",
+    "chunk": "2025-10",
+    "status": "no_data",
+    "detail": NaN
+   },
+   {
+    "dataset": "ntc_dayahead",
+    "role": "input",
+    "key": "DK_1__NO_2",
+    "chunk": "2025-11",
+    "status": "no_data",
+    "detail": NaN
+   },
+   {
+    "dataset": "ntc_dayahead",
+    "role": "input",
+    "key": "DK_1__NO_2",
+    "chunk": "2025-12",
+    "status": "no_data",
+    "detail": NaN
+   },
+   {
+    "dataset": "ntc_dayahead",
+    "role": "input",
+    "key": "DK_2__DE_LU",
+    "chunk": "2025-01",
+    "status": "no_data",
+    "detail": NaN
+   },
+   {
+    "dataset": "ntc_dayahead",
+    "role": "input",
+    "key": "DK_2__DE_LU",
+    "chunk": "2025-02",
+    "status": "no_data",
+    "detail": NaN
+   },
+   {
+    "dataset": "ntc_dayahead",
+    "role": "input",
+    "key": "DK_2__DE_LU",
+    "chunk": "2025-03",
+    "status": "no_data",
+    "detail": NaN
+   },
+   {
+    "dataset": "ntc_dayahead",
+    "role": "input",
+    "key": "DK_2__DE_LU",
+    "chunk": "2025-04",
+    "status": "no_data",
+    "detail": NaN
+   },
+   {
+    "dataset": "ntc_dayahead",
+    "role": "input",
+    "key": "DK_2__DE_LU",
+    "chunk": "2025-05",
+    "status": "no_data",
+    "detail": NaN
+   },
+   {
+    "dataset": "ntc_dayahead",
+    "role": "input",
+    "key": "DK_2__DE_LU",
+    "chunk": "2025-06",
+    "status": "no_data",
+    "detail": NaN
+   },
+   {
+    "dataset": "ntc_dayahead",
+    "role": "input",
+    "key": "DK_2__DE_LU",
+    "chunk": "2025-07",
+    "status": "no_data",
+    "detail": NaN
+   },
+   {
+    "dataset": "ntc_dayahead",
+    "role": "input",
+    "key": "DK_2__DE_LU",
+    "chunk": "2025-08",
+    "status": "no_data",
+    "detail": NaN
+   },
+   {
+    "dataset": "ntc_dayahead",
+    "role": "input",
+    "key": "DK_2__DE_LU",
+    "chunk": "2025-09",
+    "status": "no_data",
+    "detail": NaN
+   },
+   {
+    "dataset": "ntc_dayahead",
+    "role": "input",
+    "key": "DK_2__DE_LU",
+    "chunk": "2025-10",
+    "status": "no_data",
+    "detail": NaN
+   },
+   {
+    "dataset": "ntc_dayahead",
+    "role": "input",
+    "key": "DK_2__DE_LU",
+    "chunk": "2025-11",
+    "status": "no_data",
+    "detail": NaN
+   },
+   {
+    "dataset": "ntc_dayahead",
+    "role": "input",
+    "key": "DK_2__DE_LU",
+    "chunk": "2025-12",
+    "status": "no_data",
+    "detail": NaN
+   },
+   {
+    "dataset": "ntc_dayahead",
+    "role": "input",
+    "key": "DK_2__DK_1",
+    "chunk": "2025-01",
+    "status": "no_data",
+    "detail": NaN
+   },
+   {
+    "dataset": "ntc_dayahead",
+    "role": "input",
+    "key": "DK_2__DK_1",
+    "chunk": "2025-02",
+    "status": "no_data",
+    "detail": NaN
+   },
+   {
+    "dataset": "ntc_dayahead",
+    "role": "input",
+    "key": "DK_2__DK_1",
+    "chunk": "2025-03",
+    "status": "no_data",
+    "detail": NaN
+   },
+   {
+    "dataset": "ntc_dayahead",
+    "role": "input",
+    "key": "DK_2__DK_1",
+    "chunk": "2025-04",
+    "status": "no_data",
+    "detail": NaN
+   },
+   {
+    "dataset": "ntc_dayahead",
+    "role": "input",
+    "key": "DK_2__DK_1",
+    "chunk": "2025-05",
+    "status": "no_data",
+    "detail": NaN
+   },
+   {
+    "dataset": "ntc_dayahead",
+    "role": "input",
+    "key": "DK_2__DK_1",
+    "chunk": "2025-06",
+    "status": "no_data",
+    "detail": NaN
+   },
+   {
+    "dataset": "ntc_dayahead",
+    "role": "input",
+    "key": "DK_2__DK_1",
+    "chunk": "2025-07",
+    "status": "no_data",
+    "detail": NaN
+   },
+   {
+    "dataset": "ntc_dayahead",
+    "role": "input",
+    "key": "DK_2__DK_1",
+    "chunk": "2025-08",
+    "status": "no_data",
+    "detail": NaN
+   },
+   {
+    "dataset": "ntc_dayahead",
+    "role": "input",
+    "key": "DK_2__DK_1",
+    "chunk": "2025-09",
+    "status": "no_data",
+    "detail": NaN
+   },
+   {
+    "dataset": "ntc_dayahead",
+    "role": "input",
+    "key": "DK_2__DK_1",
+    "chunk": "2025-10",
+    "status": "no_data",
+    "detail": NaN
+   },
+   {
+    "dataset": "ntc_dayahead",
+    "role": "input",
+    "key": "DK_2__DK_1",
+    "chunk": "2025-11",
+    "status": "no_data",
+    "detail": NaN
+   },
+   {
+    "dataset": "ntc_dayahead",
+    "role": "input",
+    "key": "DK_2__DK_1",
+    "chunk": "2025-12",
+    "status": "no_data",
+    "detail": NaN
+   },
+   {
+    "dataset": "ntc_dayahead",
+    "role": "input",
+    "key": "DK_2__SE_4",
+    "chunk": "2025-01",
+    "status": "no_data",
+    "detail": NaN
+   },
+   {
+    "dataset": "ntc_dayahead",
+    "role": "input",
+    "key": "DK_2__SE_4",
+    "chunk": "2025-02",
+    "status": "no_data",
+    "detail": NaN
+   },
+   {
+    "dataset": "ntc_dayahead",
+    "role": "input",
+    "key": "DK_2__SE_4",
+    "chunk": "2025-03",
+    "status": "no_data",
+    "detail": NaN
+   },
+   {
+    "dataset": "ntc_dayahead",
+    "role": "input",
+    "key": "DK_2__SE_4",
+    "chunk": "2025-04",
+    "status": "no_data",
+    "detail": NaN
+   },
+   {
+    "dataset": "ntc_dayahead",
+    "role": "input",
+    "key": "DK_2__SE_4",
+    "chunk": "2025-05",
+    "status": "no_data",
+    "detail": NaN
+   },
+   {
+    "dataset": "ntc_dayahead",
+    "role": "input",
+    "key": "DK_2__SE_4",
+    "chunk": "2025-06",
+    "status": "no_data",
+    "detail": NaN
+   },
+   {
+    "dataset": "ntc_dayahead",
+    "role": "input",
+    "key": "DK_2__SE_4",
+    "chunk": "2025-07",
+    "status": "no_data",
+    "detail": NaN
+   },
+   {
+    "dataset": "ntc_dayahead",
+    "role": "input",
+    "key": "DK_2__SE_4",
+    "chunk": "2025-08",
+    "status": "no_data",
+    "detail": NaN
+   },
+   {
+    "dataset": "ntc_dayahead",
+    "role": "input",
+    "key": "DK_2__SE_4",
+    "chunk": "2025-09",
+    "status": "no_data",
+    "detail": NaN
+   },
+   {
+    "dataset": "ntc_dayahead",
+    "role": "input",
+    "key": "DK_2__SE_4",
+    "chunk": "2025-10",
+    "status": "no_data",
+    "detail": NaN
+   },
+   {
+    "dataset": "ntc_dayahead",
+    "role": "input",
+    "key": "DK_2__SE_4",
+    "chunk": "2025-11",
+    "status": "no_data",
+    "detail": NaN
+   },
+   {
+    "dataset": "ntc_dayahead",
+    "role": "input",
+    "key": "DK_2__SE_4",
+    "chunk": "2025-12",
+    "status": "no_data",
+    "detail": NaN
+   },
+   {
+    "dataset": "ntc_dayahead",
+    "role": "input",
+    "key": "GB__NO_2",
+    "chunk": "2025-01",
+    "status": "no_data",
+    "detail": NaN
+   },
+   {
+    "dataset": "ntc_dayahead",
+    "role": "input",
+    "key": "GB__NO_2",
+    "chunk": "2025-02",
+    "status": "no_data",
+    "detail": NaN
+   },
+   {
+    "dataset": "ntc_dayahead",
+    "role": "input",
+    "key": "GB__NO_2",
+    "chunk": "2025-03",
+    "status": "no_data",
+    "detail": NaN
+   },
+   {
+    "dataset": "ntc_dayahead",
+    "role": "input",
+    "key": "GB__NO_2",
+    "chunk": "2025-04",
+    "status": "no_data",
+    "detail": NaN
+   },
+   {
+    "dataset": "ntc_dayahead",
+    "role": "input",
+    "key": "GB__NO_2",
+    "chunk": "2025-05",
+    "status": "no_data",
+    "detail": NaN
+   },
+   {
+    "dataset": "ntc_dayahead",
+    "role": "input",
+    "key": "GB__NO_2",
+    "chunk": "2025-06",
+    "status": "no_data",
+    "detail": NaN
+   },
+   {
+    "dataset": "ntc_dayahead",
+    "role": "input",
+    "key": "GB__NO_2",
+    "chunk": "2025-07",
+    "status": "no_data",
+    "detail": NaN
+   },
+   {
+    "dataset": "ntc_dayahead",
+    "role": "input",
+    "key": "GB__NO_2",
+    "chunk": "2025-08",
+    "status": "no_data",
+    "detail": NaN
+   },
+   {
+    "dataset": "ntc_dayahead",
+    "role": "input",
+    "key": "GB__NO_2",
+    "chunk": "2025-09",
+    "status": "no_data",
+    "detail": NaN
+   },
+   {
+    "dataset": "ntc_dayahead",
+    "role": "input",
+    "key": "GB__NO_2",
+    "chunk": "2025-10",
+    "status": "no_data",
+    "detail": NaN
+   },
+   {
+    "dataset": "ntc_dayahead",
+    "role": "input",
+    "key": "GB__NO_2",
+    "chunk": "2025-11",
+    "status": "no_data",
+    "detail": NaN
+   },
+   {
+    "dataset": "ntc_dayahead",
+    "role": "input",
+    "key": "GB__NO_2",
+    "chunk": "2025-12",
+    "status": "no_data",
+    "detail": NaN
+   },
+   {
+    "dataset": "ntc_dayahead",
+    "role": "input",
+    "key": "IT_CNOR__IT_SARD",
+    "chunk": "2025-01",
+    "status": "no_data",
+    "detail": NaN
+   },
+   {
+    "dataset": "ntc_dayahead",
+    "role": "input",
+    "key": "IT_CNOR__IT_SARD",
+    "chunk": "2025-02",
+    "status": "no_data",
+    "detail": NaN
+   },
+   {
+    "dataset": "ntc_dayahead",
+    "role": "input",
+    "key": "IT_CNOR__IT_SARD",
+    "chunk": "2025-03",
+    "status": "no_data",
+    "detail": NaN
+   },
+   {
+    "dataset": "ntc_dayahead",
+    "role": "input",
+    "key": "IT_CNOR__IT_SARD",
+    "chunk": "2025-04",
+    "status": "no_data",
+    "detail": NaN
+   },
+   {
+    "dataset": "ntc_dayahead",
+    "role": "input",
+    "key": "IT_CNOR__IT_SARD",
+    "chunk": "2025-05",
+    "status": "no_data",
+    "detail": NaN
+   },
+   {
+    "dataset": "ntc_dayahead",
+    "role": "input",
+    "key": "IT_CNOR__IT_SARD",
+    "chunk": "2025-06",
+    "status": "no_data",
+    "detail": NaN
+   },
+   {
+    "dataset": "ntc_dayahead",
+    "role": "input",
+    "key": "IT_CNOR__IT_SARD",
+    "chunk": "2025-07",
+    "status": "no_data",
+    "detail": NaN
+   },
+   {
+    "dataset": "ntc_dayahead",
+    "role": "input",
+    "key": "IT_CNOR__IT_SARD",
+    "chunk": "2025-08",
+    "status": "no_data",
+    "detail": NaN
+   },
+   {
+    "dataset": "ntc_dayahead",
+    "role": "input",
+    "key": "IT_CNOR__IT_SARD",
+    "chunk": "2025-09",
+    "status": "no_data",
+    "detail": NaN
+   },
+   {
+    "dataset": "ntc_dayahead",
+    "role": "input",
+    "key": "IT_CNOR__IT_SARD",
+    "chunk": "2025-10",
+    "status": "no_data",
+    "detail": NaN
+   },
+   {
+    "dataset": "ntc_dayahead",
+    "role": "input",
+    "key": "IT_CNOR__IT_SARD",
+    "chunk": "2025-11",
+    "status": "no_data",
+    "detail": NaN
+   },
+   {
+    "dataset": "ntc_dayahead",
+    "role": "input",
+    "key": "IT_CNOR__IT_SARD",
+    "chunk": "2025-12",
+    "status": "no_data",
+    "detail": NaN
+   },
+   {
+    "dataset": "ntc_dayahead",
+    "role": "input",
+    "key": "IT_SARD__IT_CNOR",
+    "chunk": "2025-01",
+    "status": "no_data",
+    "detail": NaN
+   },
+   {
+    "dataset": "ntc_dayahead",
+    "role": "input",
+    "key": "IT_SARD__IT_CNOR",
+    "chunk": "2025-02",
+    "status": "no_data",
+    "detail": NaN
+   },
+   {
+    "dataset": "ntc_dayahead",
+    "role": "input",
+    "key": "IT_SARD__IT_CNOR",
+    "chunk": "2025-03",
+    "status": "no_data",
+    "detail": NaN
+   },
+   {
+    "dataset": "ntc_dayahead",
+    "role": "input",
+    "key": "IT_SARD__IT_CNOR",
+    "chunk": "2025-04",
+    "status": "no_data",
+    "detail": NaN
+   },
+   {
+    "dataset": "ntc_dayahead",
+    "role": "input",
+    "key": "IT_SARD__IT_CNOR",
+    "chunk": "2025-05",
+    "status": "no_data",
+    "detail": NaN
+   },
+   {
+    "dataset": "ntc_dayahead",
+    "role": "input",
+    "key": "IT_SARD__IT_CNOR",
+    "chunk": "2025-06",
+    "status": "no_data",
+    "detail": NaN
+   },
+   {
+    "dataset": "ntc_dayahead",
+    "role": "input",
+    "key": "IT_SARD__IT_CNOR",
+    "chunk": "2025-07",
+    "status": "no_data",
+    "detail": NaN
+   },
+   {
+    "dataset": "ntc_dayahead",
+    "role": "input",
+    "key": "IT_SARD__IT_CNOR",
+    "chunk": "2025-08",
+    "status": "no_data",
+    "detail": NaN
+   },
+   {
+    "dataset": "ntc_dayahead",
+    "role": "input",
+    "key": "IT_SARD__IT_CNOR",
+    "chunk": "2025-09",
+    "status": "no_data",
+    "detail": NaN
+   },
+   {
+    "dataset": "ntc_dayahead",
+    "role": "input",
+    "key": "IT_SARD__IT_CNOR",
+    "chunk": "2025-10",
+    "status": "no_data",
+    "detail": NaN
+   },
+   {
+    "dataset": "ntc_dayahead",
+    "role": "input",
+    "key": "IT_SARD__IT_CNOR",
+    "chunk": "2025-11",
+    "status": "no_data",
+    "detail": NaN
+   },
+   {
+    "dataset": "ntc_dayahead",
+    "role": "input",
+    "key": "IT_SARD__IT_CNOR",
+    "chunk": "2025-12",
+    "status": "no_data",
+    "detail": NaN
+   },
+   {
+    "dataset": "ntc_dayahead",
+    "role": "input",
+    "key": "NO_2__DE_LU",
+    "chunk": "2025-01",
+    "status": "no_data",
+    "detail": NaN
+   },
+   {
+    "dataset": "ntc_dayahead",
+    "role": "input",
+    "key": "NO_2__DE_LU",
+    "chunk": "2025-02",
+    "status": "no_data",
+    "detail": NaN
+   },
+   {
+    "dataset": "ntc_dayahead",
+    "role": "input",
+    "key": "NO_2__DE_LU",
+    "chunk": "2025-03",
+    "status": "no_data",
+    "detail": NaN
+   },
+   {
+    "dataset": "ntc_dayahead",
+    "role": "input",
+    "key": "NO_2__DE_LU",
+    "chunk": "2025-04",
+    "status": "no_data",
+    "detail": NaN
+   },
+   {
+    "dataset": "ntc_dayahead",
+    "role": "input",
+    "key": "NO_2__DE_LU",
+    "chunk": "2025-05",
+    "status": "no_data",
+    "detail": NaN
+   },
+   {
+    "dataset": "ntc_dayahead",
+    "role": "input",
+    "key": "NO_2__DE_LU",
+    "chunk": "2025-06",
+    "status": "no_data",
+    "detail": NaN
+   },
+   {
+    "dataset": "ntc_dayahead",
+    "role": "input",
+    "key": "NO_2__DE_LU",
+    "chunk": "2025-07",
+    "status": "no_data",
+    "detail": NaN
+   },
+   {
+    "dataset": "ntc_dayahead",
+    "role": "input",
+    "key": "NO_2__DE_LU",
+    "chunk": "2025-08",
+    "status": "no_data",
+    "detail": NaN
+   },
+   {
+    "dataset": "ntc_dayahead",
+    "role": "input",
+    "key": "NO_2__DE_LU",
+    "chunk": "2025-09",
+    "status": "no_data",
+    "detail": NaN
+   },
+   {
+    "dataset": "ntc_dayahead",
+    "role": "input",
+    "key": "NO_2__DE_LU",
+    "chunk": "2025-10",
+    "status": "no_data",
+    "detail": NaN
+   },
+   {
+    "dataset": "ntc_dayahead",
+    "role": "input",
+    "key": "NO_2__DE_LU",
+    "chunk": "2025-11",
+    "status": "no_data",
+    "detail": NaN
+   },
+   {
+    "dataset": "ntc_dayahead",
+    "role": "input",
+    "key": "NO_2__DE_LU",
+    "chunk": "2025-12",
+    "status": "no_data",
+    "detail": NaN
+   },
+   {
+    "dataset": "ntc_dayahead",
+    "role": "input",
+    "key": "NO_2__DK_1",
+    "chunk": "2025-01",
+    "status": "no_data",
+    "detail": NaN
+   },
+   {
+    "dataset": "ntc_dayahead",
+    "role": "input",
+    "key": "NO_2__DK_1",
+    "chunk": "2025-02",
+    "status": "no_data",
+    "detail": NaN
+   },
+   {
+    "dataset": "ntc_dayahead",
+    "role": "input",
+    "key": "NO_2__DK_1",
+    "chunk": "2025-03",
+    "status": "no_data",
+    "detail": NaN
+   },
+   {
+    "dataset": "ntc_dayahead",
+    "role": "input",
+    "key": "NO_2__DK_1",
+    "chunk": "2025-04",
+    "status": "no_data",
+    "detail": NaN
+   },
+   {
+    "dataset": "ntc_dayahead",
+    "role": "input",
+    "key": "NO_2__DK_1",
+    "chunk": "2025-05",
+    "status": "no_data",
+    "detail": NaN
+   },
+   {
+    "dataset": "ntc_dayahead",
+    "role": "input",
+    "key": "NO_2__DK_1",
+    "chunk": "2025-06",
+    "status": "no_data",
+    "detail": NaN
+   },
+   {
+    "dataset": "ntc_dayahead",
+    "role": "input",
+    "key": "NO_2__DK_1",
+    "chunk": "2025-07",
+    "status": "no_data",
+    "detail": NaN
+   },
+   {
+    "dataset": "ntc_dayahead",
+    "role": "input",
+    "key": "NO_2__DK_1",
+    "chunk": "2025-08",
+    "status": "no_data",
+    "detail": NaN
+   },
+   {
+    "dataset": "ntc_dayahead",
+    "role": "input",
+    "key": "NO_2__DK_1",
+    "chunk": "2025-09",
+    "status": "no_data",
+    "detail": NaN
+   },
+   {
+    "dataset": "ntc_dayahead",
+    "role": "input",
+    "key": "NO_2__DK_1",
+    "chunk": "2025-10",
+    "status": "no_data",
+    "detail": NaN
+   },
+   {
+    "dataset": "ntc_dayahead",
+    "role": "input",
+    "key": "NO_2__DK_1",
+    "chunk": "2025-11",
+    "status": "no_data",
+    "detail": NaN
+   },
+   {
+    "dataset": "ntc_dayahead",
+    "role": "input",
+    "key": "NO_2__DK_1",
+    "chunk": "2025-12",
+    "status": "no_data",
+    "detail": NaN
+   },
+   {
+    "dataset": "ntc_dayahead",
+    "role": "input",
+    "key": "NO_2__GB",
+    "chunk": "2025-01",
+    "status": "no_data",
+    "detail": NaN
+   },
+   {
+    "dataset": "ntc_dayahead",
+    "role": "input",
+    "key": "NO_2__GB",
+    "chunk": "2025-02",
+    "status": "no_data",
+    "detail": NaN
+   },
+   {
+    "dataset": "ntc_dayahead",
+    "role": "input",
+    "key": "NO_2__GB",
+    "chunk": "2025-03",
+    "status": "no_data",
+    "detail": NaN
+   },
+   {
+    "dataset": "ntc_dayahead",
+    "role": "input",
+    "key": "NO_2__GB",
+    "chunk": "2025-04",
+    "status": "no_data",
+    "detail": NaN
+   },
+   {
+    "dataset": "ntc_dayahead",
+    "role": "input",
+    "key": "NO_2__GB",
+    "chunk": "2025-05",
+    "status": "no_data",
+    "detail": NaN
+   },
+   {
+    "dataset": "ntc_dayahead",
+    "role": "input",
+    "key": "NO_2__GB",
+    "chunk": "2025-06",
+    "status": "no_data",
+    "detail": NaN
+   },
+   {
+    "dataset": "ntc_dayahead",
+    "role": "input",
+    "key": "NO_2__GB",
+    "chunk": "2025-07",
+    "status": "no_data",
+    "detail": NaN
+   },
+   {
+    "dataset": "ntc_dayahead",
+    "role": "input",
+    "key": "NO_2__GB",
+    "chunk": "2025-08",
+    "status": "no_data",
+    "detail": NaN
+   },
+   {
+    "dataset": "ntc_dayahead",
+    "role": "input",
+    "key": "NO_2__GB",
+    "chunk": "2025-09",
+    "status": "no_data",
+    "detail": NaN
+   },
+   {
+    "dataset": "ntc_dayahead",
+    "role": "input",
+    "key": "NO_2__GB",
+    "chunk": "2025-10",
+    "status": "no_data",
+    "detail": NaN
+   },
+   {
+    "dataset": "ntc_dayahead",
+    "role": "input",
+    "key": "NO_2__GB",
+    "chunk": "2025-11",
+    "status": "no_data",
+    "detail": NaN
+   },
+   {
+    "dataset": "ntc_dayahead",
+    "role": "input",
+    "key": "NO_2__GB",
+    "chunk": "2025-12",
+    "status": "no_data",
+    "detail": NaN
+   },
+   {
+    "dataset": "ntc_dayahead",
+    "role": "input",
+    "key": "PL__SE_4",
+    "chunk": "2025-01",
+    "status": "no_data",
+    "detail": NaN
+   },
+   {
+    "dataset": "ntc_dayahead",
+    "role": "input",
+    "key": "PL__SE_4",
+    "chunk": "2025-02",
+    "status": "no_data",
+    "detail": NaN
+   },
+   {
+    "dataset": "ntc_dayahead",
+    "role": "input",
+    "key": "PL__SE_4",
+    "chunk": "2025-03",
+    "status": "no_data",
+    "detail": NaN
+   },
+   {
+    "dataset": "ntc_dayahead",
+    "role": "input",
+    "key": "PL__SE_4",
+    "chunk": "2025-04",
+    "status": "no_data",
+    "detail": NaN
+   },
+   {
+    "dataset": "ntc_dayahead",
+    "role": "input",
+    "key": "PL__SE_4",
+    "chunk": "2025-05",
+    "status": "no_data",
+    "detail": NaN
+   },
+   {
+    "dataset": "ntc_dayahead",
+    "role": "input",
+    "key": "PL__SE_4",
+    "chunk": "2025-06",
+    "status": "no_data",
+    "detail": NaN
+   },
+   {
+    "dataset": "ntc_dayahead",
+    "role": "input",
+    "key": "PL__SE_4",
+    "chunk": "2025-07",
+    "status": "no_data",
+    "detail": NaN
+   },
+   {
+    "dataset": "ntc_dayahead",
+    "role": "input",
+    "key": "PL__SE_4",
+    "chunk": "2025-08",
+    "status": "no_data",
+    "detail": NaN
+   },
+   {
+    "dataset": "ntc_dayahead",
+    "role": "input",
+    "key": "PL__SE_4",
+    "chunk": "2025-09",
+    "status": "no_data",
+    "detail": NaN
+   },
+   {
+    "dataset": "ntc_dayahead",
+    "role": "input",
+    "key": "PL__SE_4",
+    "chunk": "2025-10",
+    "status": "no_data",
+    "detail": NaN
+   },
+   {
+    "dataset": "ntc_dayahead",
+    "role": "input",
+    "key": "PL__SE_4",
+    "chunk": "2025-11",
+    "status": "no_data",
+    "detail": NaN
+   },
+   {
+    "dataset": "ntc_dayahead",
+    "role": "input",
+    "key": "PL__SE_4",
+    "chunk": "2025-12",
+    "status": "no_data",
+    "detail": NaN
+   },
+   {
+    "dataset": "ntc_dayahead",
+    "role": "input",
+    "key": "SE_4__DE_LU",
+    "chunk": "2025-01",
+    "status": "no_data",
+    "detail": NaN
+   },
+   {
+    "dataset": "ntc_dayahead",
+    "role": "input",
+    "key": "SE_4__DE_LU",
+    "chunk": "2025-02",
+    "status": "no_data",
+    "detail": NaN
+   },
+   {
+    "dataset": "ntc_dayahead",
+    "role": "input",
+    "key": "SE_4__DE_LU",
+    "chunk": "2025-03",
+    "status": "no_data",
+    "detail": NaN
+   },
+   {
+    "dataset": "ntc_dayahead",
+    "role": "input",
+    "key": "SE_4__DE_LU",
+    "chunk": "2025-04",
+    "status": "no_data",
+    "detail": NaN
+   },
+   {
+    "dataset": "ntc_dayahead",
+    "role": "input",
+    "key": "SE_4__DE_LU",
+    "chunk": "2025-05",
+    "status": "no_data",
+    "detail": NaN
+   },
+   {
+    "dataset": "ntc_dayahead",
+    "role": "input",
+    "key": "SE_4__DE_LU",
+    "chunk": "2025-06",
+    "status": "no_data",
+    "detail": NaN
+   },
+   {
+    "dataset": "ntc_dayahead",
+    "role": "input",
+    "key": "SE_4__DE_LU",
+    "chunk": "2025-07",
+    "status": "no_data",
+    "detail": NaN
+   },
+   {
+    "dataset": "ntc_dayahead",
+    "role": "input",
+    "key": "SE_4__DE_LU",
+    "chunk": "2025-08",
+    "status": "no_data",
+    "detail": NaN
+   },
+   {
+    "dataset": "ntc_dayahead",
+    "role": "input",
+    "key": "SE_4__DE_LU",
+    "chunk": "2025-09",
+    "status": "no_data",
+    "detail": NaN
+   },
+   {
+    "dataset": "ntc_dayahead",
+    "role": "input",
+    "key": "SE_4__DE_LU",
+    "chunk": "2025-10",
+    "status": "no_data",
+    "detail": NaN
+   },
+   {
+    "dataset": "ntc_dayahead",
+    "role": "input",
+    "key": "SE_4__DE_LU",
+    "chunk": "2025-11",
+    "status": "no_data",
+    "detail": NaN
+   },
+   {
+    "dataset": "ntc_dayahead",
+    "role": "input",
+    "key": "SE_4__DE_LU",
+    "chunk": "2025-12",
+    "status": "no_data",
+    "detail": NaN
+   },
+   {
+    "dataset": "ntc_dayahead",
+    "role": "input",
+    "key": "SE_4__DK_2",
+    "chunk": "2025-01",
+    "status": "no_data",
+    "detail": NaN
+   },
+   {
+    "dataset": "ntc_dayahead",
+    "role": "input",
+    "key": "SE_4__DK_2",
+    "chunk": "2025-02",
+    "status": "no_data",
+    "detail": NaN
+   },
+   {
+    "dataset": "ntc_dayahead",
+    "role": "input",
+    "key": "SE_4__DK_2",
+    "chunk": "2025-03",
+    "status": "no_data",
+    "detail": NaN
+   },
+   {
+    "dataset": "ntc_dayahead",
+    "role": "input",
+    "key": "SE_4__DK_2",
+    "chunk": "2025-04",
+    "status": "no_data",
+    "detail": NaN
+   },
+   {
+    "dataset": "ntc_dayahead",
+    "role": "input",
+    "key": "SE_4__DK_2",
+    "chunk": "2025-05",
+    "status": "no_data",
+    "detail": NaN
+   },
+   {
+    "dataset": "ntc_dayahead",
+    "role": "input",
+    "key": "SE_4__DK_2",
+    "chunk": "2025-06",
+    "status": "no_data",
+    "detail": NaN
+   },
+   {
+    "dataset": "ntc_dayahead",
+    "role": "input",
+    "key": "SE_4__DK_2",
+    "chunk": "2025-07",
+    "status": "no_data",
+    "detail": NaN
+   },
+   {
+    "dataset": "ntc_dayahead",
+    "role": "input",
+    "key": "SE_4__DK_2",
+    "chunk": "2025-08",
+    "status": "no_data",
+    "detail": NaN
+   },
+   {
+    "dataset": "ntc_dayahead",
+    "role": "input",
+    "key": "SE_4__DK_2",
+    "chunk": "2025-09",
+    "status": "no_data",
+    "detail": NaN
+   },
+   {
+    "dataset": "ntc_dayahead",
+    "role": "input",
+    "key": "SE_4__DK_2",
+    "chunk": "2025-10",
+    "status": "no_data",
+    "detail": NaN
+   },
+   {
+    "dataset": "ntc_dayahead",
+    "role": "input",
+    "key": "SE_4__DK_2",
+    "chunk": "2025-11",
+    "status": "no_data",
+    "detail": NaN
+   },
+   {
+    "dataset": "ntc_dayahead",
+    "role": "input",
+    "key": "SE_4__DK_2",
+    "chunk": "2025-12",
+    "status": "no_data",
+    "detail": NaN
+   },
+   {
+    "dataset": "ntc_dayahead",
+    "role": "input",
+    "key": "SE_4__PL",
+    "chunk": "2025-01",
+    "status": "no_data",
+    "detail": NaN
+   },
+   {
+    "dataset": "ntc_dayahead",
+    "role": "input",
+    "key": "SE_4__PL",
+    "chunk": "2025-02",
+    "status": "no_data",
+    "detail": NaN
+   },
+   {
+    "dataset": "ntc_dayahead",
+    "role": "input",
+    "key": "SE_4__PL",
+    "chunk": "2025-03",
+    "status": "no_data",
+    "detail": NaN
+   },
+   {
+    "dataset": "ntc_dayahead",
+    "role": "input",
+    "key": "SE_4__PL",
+    "chunk": "2025-04",
+    "status": "no_data",
+    "detail": NaN
+   },
+   {
+    "dataset": "ntc_dayahead",
+    "role": "input",
+    "key": "SE_4__PL",
+    "chunk": "2025-05",
+    "status": "no_data",
+    "detail": NaN
+   },
+   {
+    "dataset": "ntc_dayahead",
+    "role": "input",
+    "key": "SE_4__PL",
+    "chunk": "2025-06",
+    "status": "no_data",
+    "detail": NaN
+   },
+   {
+    "dataset": "ntc_dayahead",
+    "role": "input",
+    "key": "SE_4__PL",
+    "chunk": "2025-07",
+    "status": "no_data",
+    "detail": NaN
+   },
+   {
+    "dataset": "ntc_dayahead",
+    "role": "input",
+    "key": "SE_4__PL",
+    "chunk": "2025-08",
+    "status": "no_data",
+    "detail": NaN
+   },
+   {
+    "dataset": "ntc_dayahead",
+    "role": "input",
+    "key": "SE_4__PL",
+    "chunk": "2025-09",
+    "status": "no_data",
+    "detail": NaN
+   },
+   {
+    "dataset": "ntc_dayahead",
+    "role": "input",
+    "key": "SE_4__PL",
+    "chunk": "2025-10",
+    "status": "no_data",
+    "detail": NaN
+   },
+   {
+    "dataset": "ntc_dayahead",
+    "role": "input",
+    "key": "SE_4__PL",
+    "chunk": "2025-11",
+    "status": "no_data",
+    "detail": NaN
+   },
+   {
+    "dataset": "ntc_dayahead",
+    "role": "input",
+    "key": "SE_4__PL",
+    "chunk": "2025-12",
+    "status": "no_data",
+    "detail": NaN
+   },
+   {
+    "dataset": "offered_capacity",
+    "role": "input",
+    "key": "AT__CH",
+    "chunk": "2025-01",
+    "status": "no_data",
+    "detail": NaN
+   },
+   {
+    "dataset": "offered_capacity",
+    "role": "input",
+    "key": "AT__CH",
+    "chunk": "2025-02",
+    "status": "no_data",
+    "detail": NaN
+   },
+   {
+    "dataset": "offered_capacity",
+    "role": "input",
+    "key": "AT__CH",
+    "chunk": "2025-03",
+    "status": "no_data",
+    "detail": NaN
+   },
+   {
+    "dataset": "offered_capacity",
+    "role": "input",
+    "key": "AT__CH",
+    "chunk": "2025-04",
+    "status": "no_data",
+    "detail": NaN
+   },
+   {
+    "dataset": "offered_capacity",
+    "role": "input",
+    "key": "AT__CH",
+    "chunk": "2025-05",
+    "status": "no_data",
+    "detail": NaN
+   },
+   {
+    "dataset": "offered_capacity",
+    "role": "input",
+    "key": "AT__CH",
+    "chunk": "2025-06",
+    "status": "no_data",
+    "detail": NaN
+   },
+   {
+    "dataset": "offered_capacity",
+    "role": "input",
+    "key": "AT__CH",
+    "chunk": "2025-07",
+    "status": "no_data",
+    "detail": NaN
+   },
+   {
+    "dataset": "offered_capacity",
+    "role": "input",
+    "key": "AT__CH",
+    "chunk": "2025-08",
+    "status": "no_data",
+    "detail": NaN
+   },
+   {
+    "dataset": "offered_capacity",
+    "role": "input",
+    "key": "AT__CH",
+    "chunk": "2025-09",
+    "status": "no_data",
+    "detail": NaN
+   },
+   {
+    "dataset": "offered_capacity",
+    "role": "input",
+    "key": "AT__CH",
+    "chunk": "2025-10",
+    "status": "no_data",
+    "detail": NaN
+   },
+   {
+    "dataset": "offered_capacity",
+    "role": "input",
+    "key": "AT__CH",
+    "chunk": "2025-11",
+    "status": "no_data",
+    "detail": NaN
+   },
+   {
+    "dataset": "offered_capacity",
+    "role": "input",
+    "key": "AT__CH",
+    "chunk": "2025-12",
+    "status": "no_data",
+    "detail": NaN
+   },
+   {
+    "dataset": "offered_capacity",
+    "role": "input",
+    "key": "AT__IT_NORD",
+    "chunk": "2025-01",
+    "status": "no_data",
+    "detail": NaN
+   },
+   {
+    "dataset": "offered_capacity",
+    "role": "input",
+    "key": "AT__IT_NORD",
+    "chunk": "2025-02",
+    "status": "no_data",
+    "detail": NaN
+   },
+   {
+    "dataset": "offered_capacity",
+    "role": "input",
+    "key": "AT__IT_NORD",
+    "chunk": "2025-03",
+    "status": "no_data",
+    "detail": NaN
+   },
+   {
+    "dataset": "offered_capacity",
+    "role": "input",
+    "key": "AT__IT_NORD",
+    "chunk": "2025-04",
+    "status": "no_data",
+    "detail": NaN
+   },
+   {
+    "dataset": "offered_capacity",
+    "role": "input",
+    "key": "AT__IT_NORD",
+    "chunk": "2025-05",
+    "status": "no_data",
+    "detail": NaN
+   },
+   {
+    "dataset": "offered_capacity",
+    "role": "input",
+    "key": "AT__IT_NORD",
+    "chunk": "2025-06",
+    "status": "no_data",
+    "detail": NaN
+   },
+   {
+    "dataset": "offered_capacity",
+    "role": "input",
+    "key": "AT__IT_NORD",
+    "chunk": "2025-07",
+    "status": "no_data",
+    "detail": NaN
+   },
+   {
+    "dataset": "offered_capacity",
+    "role": "input",
+    "key": "AT__IT_NORD",
+    "chunk": "2025-08",
+    "status": "no_data",
+    "detail": NaN
+   },
+   {
+    "dataset": "offered_capacity",
+    "role": "input",
+    "key": "AT__IT_NORD",
+    "chunk": "2025-09",
+    "status": "no_data",
+    "detail": NaN
+   },
+   {
+    "dataset": "offered_capacity",
+    "role": "input",
+    "key": "AT__IT_NORD",
+    "chunk": "2025-10",
+    "status": "no_data",
+    "detail": NaN
+   },
+   {
+    "dataset": "offered_capacity",
+    "role": "input",
+    "key": "AT__IT_NORD",
+    "chunk": "2025-11",
+    "status": "no_data",
+    "detail": NaN
+   },
+   {
+    "dataset": "offered_capacity",
+    "role": "input",
+    "key": "AT__IT_NORD",
+    "chunk": "2025-12",
+    "status": "no_data",
+    "detail": NaN
+   },
+   {
+    "dataset": "offered_capacity",
+    "role": "input",
+    "key": "BE__GB",
+    "chunk": "2025-01",
+    "status": "no_data",
+    "detail": NaN
+   },
+   {
+    "dataset": "offered_capacity",
+    "role": "input",
+    "key": "BE__GB",
+    "chunk": "2025-02",
+    "status": "no_data",
+    "detail": NaN
+   },
+   {
+    "dataset": "offered_capacity",
+    "role": "input",
+    "key": "BE__GB",
+    "chunk": "2025-03",
+    "status": "no_data",
+    "detail": NaN
+   },
+   {
+    "dataset": "offered_capacity",
+    "role": "input",
+    "key": "BE__GB",
+    "chunk": "2025-04",
+    "status": "no_data",
+    "detail": NaN
+   },
+   {
+    "dataset": "offered_capacity",
+    "role": "input",
+    "key": "BE__GB",
+    "chunk": "2025-05",
+    "status": "no_data",
+    "detail": NaN
+   },
+   {
+    "dataset": "offered_capacity",
+    "role": "input",
+    "key": "BE__GB",
+    "chunk": "2025-06",
+    "status": "no_data",
+    "detail": NaN
+   },
+   {
+    "dataset": "offered_capacity",
+    "role": "input",
+    "key": "BE__GB",
+    "chunk": "2025-07",
+    "status": "no_data",
+    "detail": NaN
+   },
+   {
+    "dataset": "offered_capacity",
+    "role": "input",
+    "key": "BE__GB",
+    "chunk": "2025-08",
+    "status": "no_data",
+    "detail": NaN
+   },
+   {
+    "dataset": "offered_capacity",
+    "role": "input",
+    "key": "BE__GB",
+    "chunk": "2025-09",
+    "status": "no_data",
+    "detail": NaN
+   },
+   {
+    "dataset": "offered_capacity",
+    "role": "input",
+    "key": "BE__GB",
+    "chunk": "2025-10",
+    "status": "no_data",
+    "detail": NaN
+   },
+   {
+    "dataset": "offered_capacity",
+    "role": "input",
+    "key": "BE__GB",
+    "chunk": "2025-11",
+    "status": "no_data",
+    "detail": NaN
+   },
+   {
+    "dataset": "offered_capacity",
+    "role": "input",
+    "key": "BE__GB",
+    "chunk": "2025-12",
+    "status": "no_data",
+    "detail": NaN
+   },
+   {
+    "dataset": "offered_capacity",
+    "role": "input",
+    "key": "CH__AT",
+    "chunk": "2025-01",
+    "status": "no_data",
+    "detail": NaN
+   },
+   {
+    "dataset": "offered_capacity",
+    "role": "input",
+    "key": "CH__AT",
+    "chunk": "2025-02",
+    "status": "no_data",
+    "detail": NaN
+   },
+   {
+    "dataset": "offered_capacity",
+    "role": "input",
+    "key": "CH__AT",
+    "chunk": "2025-03",
+    "status": "no_data",
+    "detail": NaN
+   },
+   {
+    "dataset": "offered_capacity",
+    "role": "input",
+    "key": "CH__AT",
+    "chunk": "2025-04",
+    "status": "no_data",
+    "detail": NaN
+   },
+   {
+    "dataset": "offered_capacity",
+    "role": "input",
+    "key": "CH__AT",
+    "chunk": "2025-05",
+    "status": "no_data",
+    "detail": NaN
+   },
+   {
+    "dataset": "offered_capacity",
+    "role": "input",
+    "key": "CH__AT",
+    "chunk": "2025-06",
+    "status": "no_data",
+    "detail": NaN
+   },
+   {
+    "dataset": "offered_capacity",
+    "role": "input",
+    "key": "CH__AT",
+    "chunk": "2025-07",
+    "status": "no_data",
+    "detail": NaN
+   },
+   {
+    "dataset": "offered_capacity",
+    "role": "input",
+    "key": "CH__AT",
+    "chunk": "2025-08",
+    "status": "no_data",
+    "detail": NaN
+   },
+   {
+    "dataset": "offered_capacity",
+    "role": "input",
+    "key": "CH__AT",
+    "chunk": "2025-09",
+    "status": "no_data",
+    "detail": NaN
+   },
+   {
+    "dataset": "offered_capacity",
+    "role": "input",
+    "key": "CH__AT",
+    "chunk": "2025-10",
+    "status": "no_data",
+    "detail": NaN
+   },
+   {
+    "dataset": "offered_capacity",
+    "role": "input",
+    "key": "CH__AT",
+    "chunk": "2025-11",
+    "status": "no_data",
+    "detail": NaN
+   },
+   {
+    "dataset": "offered_capacity",
+    "role": "input",
+    "key": "CH__AT",
+    "chunk": "2025-12",
+    "status": "no_data",
+    "detail": NaN
+   },
+   {
+    "dataset": "offered_capacity",
+    "role": "input",
+    "key": "CH__DE_LU",
+    "chunk": "2025-01",
+    "status": "no_data",
+    "detail": NaN
+   },
+   {
+    "dataset": "offered_capacity",
+    "role": "input",
+    "key": "CH__DE_LU",
+    "chunk": "2025-02",
+    "status": "no_data",
+    "detail": NaN
+   },
+   {
+    "dataset": "offered_capacity",
+    "role": "input",
+    "key": "CH__DE_LU",
+    "chunk": "2025-03",
+    "status": "no_data",
+    "detail": NaN
+   },
+   {
+    "dataset": "offered_capacity",
+    "role": "input",
+    "key": "CH__DE_LU",
+    "chunk": "2025-04",
+    "status": "no_data",
+    "detail": NaN
+   },
+   {
+    "dataset": "offered_capacity",
+    "role": "input",
+    "key": "CH__DE_LU",
+    "chunk": "2025-05",
+    "status": "no_data",
+    "detail": NaN
+   },
+   {
+    "dataset": "offered_capacity",
+    "role": "input",
+    "key": "CH__DE_LU",
+    "chunk": "2025-06",
+    "status": "no_data",
+    "detail": NaN
+   },
+   {
+    "dataset": "offered_capacity",
+    "role": "input",
+    "key": "CH__DE_LU",
+    "chunk": "2025-07",
+    "status": "no_data",
+    "detail": NaN
+   },
+   {
+    "dataset": "offered_capacity",
+    "role": "input",
+    "key": "CH__DE_LU",
+    "chunk": "2025-08",
+    "status": "no_data",
+    "detail": NaN
+   },
+   {
+    "dataset": "offered_capacity",
+    "role": "input",
+    "key": "CH__DE_LU",
+    "chunk": "2025-09",
+    "status": "no_data",
+    "detail": NaN
+   },
+   {
+    "dataset": "offered_capacity",
+    "role": "input",
+    "key": "CH__DE_LU",
+    "chunk": "2025-10",
+    "status": "no_data",
+    "detail": NaN
+   },
+   {
+    "dataset": "offered_capacity",
+    "role": "input",
+    "key": "CH__DE_LU",
+    "chunk": "2025-11",
+    "status": "no_data",
+    "detail": NaN
+   },
+   {
+    "dataset": "offered_capacity",
+    "role": "input",
+    "key": "CH__DE_LU",
+    "chunk": "2025-12",
+    "status": "no_data",
+    "detail": NaN
+   },
+   {
+    "dataset": "offered_capacity",
+    "role": "input",
+    "key": "CH__FR",
+    "chunk": "2025-01",
+    "status": "no_data",
+    "detail": NaN
+   },
+   {
+    "dataset": "offered_capacity",
+    "role": "input",
+    "key": "CH__FR",
+    "chunk": "2025-02",
+    "status": "no_data",
+    "detail": NaN
+   },
+   {
+    "dataset": "offered_capacity",
+    "role": "input",
+    "key": "CH__FR",
+    "chunk": "2025-03",
+    "status": "no_data",
+    "detail": NaN
+   },
+   {
+    "dataset": "offered_capacity",
+    "role": "input",
+    "key": "CH__FR",
+    "chunk": "2025-04",
+    "status": "no_data",
+    "detail": NaN
+   },
+   {
+    "dataset": "offered_capacity",
+    "role": "input",
+    "key": "CH__FR",
+    "chunk": "2025-05",
+    "status": "no_data",
+    "detail": NaN
+   },
+   {
+    "dataset": "offered_capacity",
+    "role": "input",
+    "key": "CH__FR",
+    "chunk": "2025-06",
+    "status": "no_data",
+    "detail": NaN
+   },
+   {
+    "dataset": "offered_capacity",
+    "role": "input",
+    "key": "CH__FR",
+    "chunk": "2025-07",
+    "status": "no_data",
+    "detail": NaN
+   },
+   {
+    "dataset": "offered_capacity",
+    "role": "input",
+    "key": "CH__FR",
+    "chunk": "2025-08",
+    "status": "no_data",
+    "detail": NaN
+   },
+   {
+    "dataset": "offered_capacity",
+    "role": "input",
+    "key": "CH__FR",
+    "chunk": "2025-09",
+    "status": "no_data",
+    "detail": NaN
+   },
+   {
+    "dataset": "offered_capacity",
+    "role": "input",
+    "key": "CH__FR",
+    "chunk": "2025-10",
+    "status": "no_data",
+    "detail": NaN
+   },
+   {
+    "dataset": "offered_capacity",
+    "role": "input",
+    "key": "CH__FR",
+    "chunk": "2025-11",
+    "status": "no_data",
+    "detail": NaN
+   },
+   {
+    "dataset": "offered_capacity",
+    "role": "input",
+    "key": "CH__FR",
+    "chunk": "2025-12",
+    "status": "no_data",
+    "detail": NaN
+   },
+   {
+    "dataset": "offered_capacity",
+    "role": "input",
+    "key": "CH__IT_NORD",
+    "chunk": "2025-01",
+    "status": "no_data",
+    "detail": NaN
+   },
+   {
+    "dataset": "offered_capacity",
+    "role": "input",
+    "key": "CH__IT_NORD",
+    "chunk": "2025-02",
+    "status": "no_data",
+    "detail": NaN
+   },
+   {
+    "dataset": "offered_capacity",
+    "role": "input",
+    "key": "CH__IT_NORD",
+    "chunk": "2025-03",
+    "status": "no_data",
+    "detail": NaN
+   },
+   {
+    "dataset": "offered_capacity",
+    "role": "input",
+    "key": "CH__IT_NORD",
+    "chunk": "2025-04",
+    "status": "no_data",
+    "detail": NaN
+   },
+   {
+    "dataset": "offered_capacity",
+    "role": "input",
+    "key": "CH__IT_NORD",
+    "chunk": "2025-05",
+    "status": "no_data",
+    "detail": NaN
+   },
+   {
+    "dataset": "offered_capacity",
+    "role": "input",
+    "key": "CH__IT_NORD",
+    "chunk": "2025-06",
+    "status": "no_data",
+    "detail": NaN
+   },
+   {
+    "dataset": "offered_capacity",
+    "role": "input",
+    "key": "CH__IT_NORD",
+    "chunk": "2025-07",
+    "status": "no_data",
+    "detail": NaN
+   },
+   {
+    "dataset": "offered_capacity",
+    "role": "input",
+    "key": "CH__IT_NORD",
+    "chunk": "2025-08",
+    "status": "no_data",
+    "detail": NaN
+   },
+   {
+    "dataset": "offered_capacity",
+    "role": "input",
+    "key": "CH__IT_NORD",
+    "chunk": "2025-09",
+    "status": "no_data",
+    "detail": NaN
+   },
+   {
+    "dataset": "offered_capacity",
+    "role": "input",
+    "key": "CH__IT_NORD",
+    "chunk": "2025-10",
+    "status": "no_data",
+    "detail": NaN
+   },
+   {
+    "dataset": "offered_capacity",
+    "role": "input",
+    "key": "CH__IT_NORD",
+    "chunk": "2025-11",
+    "status": "no_data",
+    "detail": NaN
+   },
+   {
+    "dataset": "offered_capacity",
+    "role": "input",
+    "key": "CH__IT_NORD",
+    "chunk": "2025-12",
+    "status": "no_data",
+    "detail": NaN
+   },
+   {
+    "dataset": "offered_capacity",
+    "role": "input",
+    "key": "DE_LU__CH",
+    "chunk": "2025-01",
+    "status": "no_data",
+    "detail": NaN
+   },
+   {
+    "dataset": "offered_capacity",
+    "role": "input",
+    "key": "DE_LU__CH",
+    "chunk": "2025-02",
+    "status": "no_data",
+    "detail": NaN
+   },
+   {
+    "dataset": "offered_capacity",
+    "role": "input",
+    "key": "DE_LU__CH",
+    "chunk": "2025-03",
+    "status": "no_data",
+    "detail": NaN
+   },
+   {
+    "dataset": "offered_capacity",
+    "role": "input",
+    "key": "DE_LU__CH",
+    "chunk": "2025-04",
+    "status": "no_data",
+    "detail": NaN
+   },
+   {
+    "dataset": "offered_capacity",
+    "role": "input",
+    "key": "DE_LU__CH",
+    "chunk": "2025-05",
+    "status": "no_data",
+    "detail": NaN
+   },
+   {
+    "dataset": "offered_capacity",
+    "role": "input",
+    "key": "DE_LU__CH",
+    "chunk": "2025-06",
+    "status": "no_data",
+    "detail": NaN
+   },
+   {
+    "dataset": "offered_capacity",
+    "role": "input",
+    "key": "DE_LU__CH",
+    "chunk": "2025-07",
+    "status": "no_data",
+    "detail": NaN
+   },
+   {
+    "dataset": "offered_capacity",
+    "role": "input",
+    "key": "DE_LU__CH",
+    "chunk": "2025-08",
+    "status": "no_data",
+    "detail": NaN
+   },
+   {
+    "dataset": "offered_capacity",
+    "role": "input",
+    "key": "DE_LU__CH",
+    "chunk": "2025-09",
+    "status": "no_data",
+    "detail": NaN
+   },
+   {
+    "dataset": "offered_capacity",
+    "role": "input",
+    "key": "DE_LU__CH",
+    "chunk": "2025-10",
+    "status": "no_data",
+    "detail": NaN
+   },
+   {
+    "dataset": "offered_capacity",
+    "role": "input",
+    "key": "DE_LU__CH",
+    "chunk": "2025-11",
+    "status": "no_data",
+    "detail": NaN
+   },
+   {
+    "dataset": "offered_capacity",
+    "role": "input",
+    "key": "DE_LU__CH",
+    "chunk": "2025-12",
+    "status": "no_data",
+    "detail": NaN
+   },
+   {
+    "dataset": "offered_capacity",
+    "role": "input",
+    "key": "DE_LU__DK_2",
+    "chunk": "2025-01",
+    "status": "no_data",
+    "detail": NaN
+   },
+   {
+    "dataset": "offered_capacity",
+    "role": "input",
+    "key": "DE_LU__DK_2",
+    "chunk": "2025-02",
+    "status": "no_data",
+    "detail": NaN
+   },
+   {
+    "dataset": "offered_capacity",
+    "role": "input",
+    "key": "DE_LU__DK_2",
+    "chunk": "2025-03",
+    "status": "no_data",
+    "detail": NaN
+   },
+   {
+    "dataset": "offered_capacity",
+    "role": "input",
+    "key": "DE_LU__DK_2",
+    "chunk": "2025-04",
+    "status": "no_data",
+    "detail": NaN
+   },
+   {
+    "dataset": "offered_capacity",
+    "role": "input",
+    "key": "DE_LU__DK_2",
+    "chunk": "2025-05",
+    "status": "no_data",
+    "detail": NaN
+   },
+   {
+    "dataset": "offered_capacity",
+    "role": "input",
+    "key": "DE_LU__DK_2",
+    "chunk": "2025-06",
+    "status": "no_data",
+    "detail": NaN
+   },
+   {
+    "dataset": "offered_capacity",
+    "role": "input",
+    "key": "DE_LU__DK_2",
+    "chunk": "2025-07",
+    "status": "no_data",
+    "detail": NaN
+   },
+   {
+    "dataset": "offered_capacity",
+    "role": "input",
+    "key": "DE_LU__DK_2",
+    "chunk": "2025-08",
+    "status": "no_data",
+    "detail": NaN
+   },
+   {
+    "dataset": "offered_capacity",
+    "role": "input",
+    "key": "DE_LU__DK_2",
+    "chunk": "2025-09",
+    "status": "no_data",
+    "detail": NaN
+   },
+   {
+    "dataset": "offered_capacity",
+    "role": "input",
+    "key": "DE_LU__DK_2",
+    "chunk": "2025-10",
+    "status": "no_data",
+    "detail": NaN
+   },
+   {
+    "dataset": "offered_capacity",
+    "role": "input",
+    "key": "DE_LU__DK_2",
+    "chunk": "2025-11",
+    "status": "no_data",
+    "detail": NaN
+   },
+   {
+    "dataset": "offered_capacity",
+    "role": "input",
+    "key": "DE_LU__DK_2",
+    "chunk": "2025-12",
+    "status": "no_data",
+    "detail": NaN
+   },
+   {
+    "dataset": "offered_capacity",
+    "role": "input",
+    "key": "DE_LU__SE_4",
+    "chunk": "2025-01",
+    "status": "no_data",
+    "detail": NaN
+   },
+   {
+    "dataset": "offered_capacity",
+    "role": "input",
+    "key": "DE_LU__SE_4",
+    "chunk": "2025-02",
+    "status": "no_data",
+    "detail": NaN
+   },
+   {
+    "dataset": "offered_capacity",
+    "role": "input",
+    "key": "DE_LU__SE_4",
+    "chunk": "2025-03",
+    "status": "no_data",
+    "detail": NaN
+   },
+   {
+    "dataset": "offered_capacity",
+    "role": "input",
+    "key": "DE_LU__SE_4",
+    "chunk": "2025-04",
+    "status": "no_data",
+    "detail": NaN
+   },
+   {
+    "dataset": "offered_capacity",
+    "role": "input",
+    "key": "DE_LU__SE_4",
+    "chunk": "2025-05",
+    "status": "no_data",
+    "detail": NaN
+   },
+   {
+    "dataset": "offered_capacity",
+    "role": "input",
+    "key": "DE_LU__SE_4",
+    "chunk": "2025-06",
+    "status": "no_data",
+    "detail": NaN
+   },
+   {
+    "dataset": "offered_capacity",
+    "role": "input",
+    "key": "DE_LU__SE_4",
+    "chunk": "2025-07",
+    "status": "no_data",
+    "detail": NaN
+   },
+   {
+    "dataset": "offered_capacity",
+    "role": "input",
+    "key": "DE_LU__SE_4",
+    "chunk": "2025-08",
+    "status": "no_data",
+    "detail": NaN
+   },
+   {
+    "dataset": "offered_capacity",
+    "role": "input",
+    "key": "DE_LU__SE_4",
+    "chunk": "2025-09",
+    "status": "no_data",
+    "detail": NaN
+   },
+   {
+    "dataset": "offered_capacity",
+    "role": "input",
+    "key": "DE_LU__SE_4",
+    "chunk": "2025-10",
+    "status": "no_data",
+    "detail": NaN
+   },
+   {
+    "dataset": "offered_capacity",
+    "role": "input",
+    "key": "DE_LU__SE_4",
+    "chunk": "2025-11",
+    "status": "no_data",
+    "detail": NaN
+   },
+   {
+    "dataset": "offered_capacity",
+    "role": "input",
+    "key": "DE_LU__SE_4",
+    "chunk": "2025-12",
+    "status": "no_data",
+    "detail": NaN
+   },
+   {
+    "dataset": "offered_capacity",
+    "role": "input",
+    "key": "DK_1__DK_2",
+    "chunk": "2025-01",
+    "status": "no_data",
+    "detail": NaN
+   },
+   {
+    "dataset": "offered_capacity",
+    "role": "input",
+    "key": "DK_1__DK_2",
+    "chunk": "2025-02",
+    "status": "no_data",
+    "detail": NaN
+   },
+   {
+    "dataset": "offered_capacity",
+    "role": "input",
+    "key": "DK_1__DK_2",
+    "chunk": "2025-03",
+    "status": "no_data",
+    "detail": NaN
+   },
+   {
+    "dataset": "offered_capacity",
+    "role": "input",
+    "key": "DK_1__DK_2",
+    "chunk": "2025-04",
+    "status": "no_data",
+    "detail": NaN
+   },
+   {
+    "dataset": "offered_capacity",
+    "role": "input",
+    "key": "DK_1__DK_2",
+    "chunk": "2025-05",
+    "status": "no_data",
+    "detail": NaN
+   },
+   {
+    "dataset": "offered_capacity",
+    "role": "input",
+    "key": "DK_1__DK_2",
+    "chunk": "2025-06",
+    "status": "no_data",
+    "detail": NaN
+   },
+   {
+    "dataset": "offered_capacity",
+    "role": "input",
+    "key": "DK_1__DK_2",
+    "chunk": "2025-07",
+    "status": "no_data",
+    "detail": NaN
+   },
+   {
+    "dataset": "offered_capacity",
+    "role": "input",
+    "key": "DK_1__DK_2",
+    "chunk": "2025-08",
+    "status": "no_data",
+    "detail": NaN
+   },
+   {
+    "dataset": "offered_capacity",
+    "role": "input",
+    "key": "DK_1__DK_2",
+    "chunk": "2025-09",
+    "status": "no_data",
+    "detail": NaN
+   },
+   {
+    "dataset": "offered_capacity",
+    "role": "input",
+    "key": "DK_1__DK_2",
+    "chunk": "2025-10",
+    "status": "no_data",
+    "detail": NaN
+   },
+   {
+    "dataset": "offered_capacity",
+    "role": "input",
+    "key": "DK_1__DK_2",
+    "chunk": "2025-11",
+    "status": "no_data",
+    "detail": NaN
+   },
+   {
+    "dataset": "offered_capacity",
+    "role": "input",
+    "key": "DK_1__DK_2",
+    "chunk": "2025-12",
+    "status": "no_data",
+    "detail": NaN
+   },
+   {
+    "dataset": "offered_capacity",
+    "role": "input",
+    "key": "DK_1__GB",
+    "chunk": "2025-01",
+    "status": "no_data",
+    "detail": NaN
+   },
+   {
+    "dataset": "offered_capacity",
+    "role": "input",
+    "key": "DK_1__GB",
+    "chunk": "2025-02",
+    "status": "no_data",
+    "detail": NaN
+   },
+   {
+    "dataset": "offered_capacity",
+    "role": "input",
+    "key": "DK_1__GB",
+    "chunk": "2025-03",
+    "status": "no_data",
+    "detail": NaN
+   },
+   {
+    "dataset": "offered_capacity",
+    "role": "input",
+    "key": "DK_1__GB",
+    "chunk": "2025-04",
+    "status": "no_data",
+    "detail": NaN
+   },
+   {
+    "dataset": "offered_capacity",
+    "role": "input",
+    "key": "DK_1__GB",
+    "chunk": "2025-05",
+    "status": "no_data",
+    "detail": NaN
+   },
+   {
+    "dataset": "offered_capacity",
+    "role": "input",
+    "key": "DK_1__GB",
+    "chunk": "2025-06",
+    "status": "no_data",
+    "detail": NaN
+   },
+   {
+    "dataset": "offered_capacity",
+    "role": "input",
+    "key": "DK_1__GB",
+    "chunk": "2025-07",
+    "status": "no_data",
+    "detail": NaN
+   },
+   {
+    "dataset": "offered_capacity",
+    "role": "input",
+    "key": "DK_1__GB",
+    "chunk": "2025-08",
+    "status": "no_data",
+    "detail": NaN
+   },
+   {
+    "dataset": "offered_capacity",
+    "role": "input",
+    "key": "DK_1__GB",
+    "chunk": "2025-09",
+    "status": "no_data",
+    "detail": NaN
+   },
+   {
+    "dataset": "offered_capacity",
+    "role": "input",
+    "key": "DK_1__GB",
+    "chunk": "2025-10",
+    "status": "no_data",
+    "detail": NaN
+   },
+   {
+    "dataset": "offered_capacity",
+    "role": "input",
+    "key": "DK_1__GB",
+    "chunk": "2025-11",
+    "status": "no_data",
+    "detail": NaN
+   },
+   {
+    "dataset": "offered_capacity",
+    "role": "input",
+    "key": "DK_1__GB",
+    "chunk": "2025-12",
+    "status": "no_data",
+    "detail": NaN
+   },
+   {
+    "dataset": "offered_capacity",
+    "role": "input",
+    "key": "DK_1__NO_2",
+    "chunk": "2025-01",
+    "status": "no_data",
+    "detail": NaN
+   },
+   {
+    "dataset": "offered_capacity",
+    "role": "input",
+    "key": "DK_1__NO_2",
+    "chunk": "2025-02",
+    "status": "no_data",
+    "detail": NaN
+   },
+   {
+    "dataset": "offered_capacity",
+    "role": "input",
+    "key": "DK_1__NO_2",
+    "chunk": "2025-03",
+    "status": "no_data",
+    "detail": NaN
+   },
+   {
+    "dataset": "offered_capacity",
+    "role": "input",
+    "key": "DK_1__NO_2",
+    "chunk": "2025-04",
+    "status": "no_data",
+    "detail": NaN
+   },
+   {
+    "dataset": "offered_capacity",
+    "role": "input",
+    "key": "DK_1__NO_2",
+    "chunk": "2025-05",
+    "status": "no_data",
+    "detail": NaN
+   },
+   {
+    "dataset": "offered_capacity",
+    "role": "input",
+    "key": "DK_1__NO_2",
+    "chunk": "2025-06",
+    "status": "no_data",
+    "detail": NaN
+   },
+   {
+    "dataset": "offered_capacity",
+    "role": "input",
+    "key": "DK_1__NO_2",
+    "chunk": "2025-07",
+    "status": "no_data",
+    "detail": NaN
+   },
+   {
+    "dataset": "offered_capacity",
+    "role": "input",
+    "key": "DK_1__NO_2",
+    "chunk": "2025-08",
+    "status": "no_data",
+    "detail": NaN
+   },
+   {
+    "dataset": "offered_capacity",
+    "role": "input",
+    "key": "DK_1__NO_2",
+    "chunk": "2025-09",
+    "status": "no_data",
+    "detail": NaN
+   },
+   {
+    "dataset": "offered_capacity",
+    "role": "input",
+    "key": "DK_1__NO_2",
+    "chunk": "2025-10",
+    "status": "no_data",
+    "detail": NaN
+   },
+   {
+    "dataset": "offered_capacity",
+    "role": "input",
+    "key": "DK_1__NO_2",
+    "chunk": "2025-11",
+    "status": "no_data",
+    "detail": NaN
+   },
+   {
+    "dataset": "offered_capacity",
+    "role": "input",
+    "key": "DK_1__NO_2",
+    "chunk": "2025-12",
+    "status": "no_data",
+    "detail": NaN
+   },
+   {
+    "dataset": "offered_capacity",
+    "role": "input",
+    "key": "DK_2__DE_LU",
+    "chunk": "2025-01",
+    "status": "no_data",
+    "detail": NaN
+   },
+   {
+    "dataset": "offered_capacity",
+    "role": "input",
+    "key": "DK_2__DE_LU",
+    "chunk": "2025-02",
+    "status": "no_data",
+    "detail": NaN
+   },
+   {
+    "dataset": "offered_capacity",
+    "role": "input",
+    "key": "DK_2__DE_LU",
+    "chunk": "2025-03",
+    "status": "no_data",
+    "detail": NaN
+   },
+   {
+    "dataset": "offered_capacity",
+    "role": "input",
+    "key": "DK_2__DE_LU",
+    "chunk": "2025-04",
+    "status": "no_data",
+    "detail": NaN
+   },
+   {
+    "dataset": "offered_capacity",
+    "role": "input",
+    "key": "DK_2__DE_LU",
+    "chunk": "2025-05",
+    "status": "no_data",
+    "detail": NaN
+   },
+   {
+    "dataset": "offered_capacity",
+    "role": "input",
+    "key": "DK_2__DE_LU",
+    "chunk": "2025-06",
+    "status": "no_data",
+    "detail": NaN
+   },
+   {
+    "dataset": "offered_capacity",
+    "role": "input",
+    "key": "DK_2__DE_LU",
+    "chunk": "2025-07",
+    "status": "no_data",
+    "detail": NaN
+   },
+   {
+    "dataset": "offered_capacity",
+    "role": "input",
+    "key": "DK_2__DE_LU",
+    "chunk": "2025-08",
+    "status": "no_data",
+    "detail": NaN
+   },
+   {
+    "dataset": "offered_capacity",
+    "role": "input",
+    "key": "DK_2__DE_LU",
+    "chunk": "2025-09",
+    "status": "no_data",
+    "detail": NaN
+   },
+   {
+    "dataset": "offered_capacity",
+    "role": "input",
+    "key": "DK_2__DE_LU",
+    "chunk": "2025-10",
+    "status": "no_data",
+    "detail": NaN
+   },
+   {
+    "dataset": "offered_capacity",
+    "role": "input",
+    "key": "DK_2__DE_LU",
+    "chunk": "2025-11",
+    "status": "no_data",
+    "detail": NaN
+   },
+   {
+    "dataset": "offered_capacity",
+    "role": "input",
+    "key": "DK_2__DE_LU",
+    "chunk": "2025-12",
+    "status": "no_data",
+    "detail": NaN
+   },
+   {
+    "dataset": "offered_capacity",
+    "role": "input",
+    "key": "DK_2__DK_1",
+    "chunk": "2025-01",
+    "status": "no_data",
+    "detail": NaN
+   },
+   {
+    "dataset": "offered_capacity",
+    "role": "input",
+    "key": "DK_2__DK_1",
+    "chunk": "2025-02",
+    "status": "no_data",
+    "detail": NaN
+   },
+   {
+    "dataset": "offered_capacity",
+    "role": "input",
+    "key": "DK_2__DK_1",
+    "chunk": "2025-03",
+    "status": "no_data",
+    "detail": NaN
+   },
+   {
+    "dataset": "offered_capacity",
+    "role": "input",
+    "key": "DK_2__DK_1",
+    "chunk": "2025-04",
+    "status": "no_data",
+    "detail": NaN
+   },
+   {
+    "dataset": "offered_capacity",
+    "role": "input",
+    "key": "DK_2__DK_1",
+    "chunk": "2025-05",
+    "status": "no_data",
+    "detail": NaN
+   },
+   {
+    "dataset": "offered_capacity",
+    "role": "input",
+    "key": "DK_2__DK_1",
+    "chunk": "2025-06",
+    "status": "no_data",
+    "detail": NaN
+   },
+   {
+    "dataset": "offered_capacity",
+    "role": "input",
+    "key": "DK_2__DK_1",
+    "chunk": "2025-07",
+    "status": "no_data",
+    "detail": NaN
+   },
+   {
+    "dataset": "offered_capacity",
+    "role": "input",
+    "key": "DK_2__DK_1",
+    "chunk": "2025-08",
+    "status": "no_data",
+    "detail": NaN
+   },
+   {
+    "dataset": "offered_capacity",
+    "role": "input",
+    "key": "DK_2__DK_1",
+    "chunk": "2025-09",
+    "status": "no_data",
+    "detail": NaN
+   },
+   {
+    "dataset": "offered_capacity",
+    "role": "input",
+    "key": "DK_2__DK_1",
+    "chunk": "2025-10",
+    "status": "no_data",
+    "detail": NaN
+   },
+   {
+    "dataset": "offered_capacity",
+    "role": "input",
+    "key": "DK_2__DK_1",
+    "chunk": "2025-11",
+    "status": "no_data",
+    "detail": NaN
+   },
+   {
+    "dataset": "offered_capacity",
+    "role": "input",
+    "key": "DK_2__DK_1",
+    "chunk": "2025-12",
+    "status": "no_data",
+    "detail": NaN
+   },
+   {
+    "dataset": "offered_capacity",
+    "role": "input",
+    "key": "DK_2__SE_4",
+    "chunk": "2025-01",
+    "status": "no_data",
+    "detail": NaN
+   },
+   {
+    "dataset": "offered_capacity",
+    "role": "input",
+    "key": "DK_2__SE_4",
+    "chunk": "2025-02",
+    "status": "no_data",
+    "detail": NaN
+   },
+   {
+    "dataset": "offered_capacity",
+    "role": "input",
+    "key": "DK_2__SE_4",
+    "chunk": "2025-03",
+    "status": "no_data",
+    "detail": NaN
+   },
+   {
+    "dataset": "offered_capacity",
+    "role": "input",
+    "key": "DK_2__SE_4",
+    "chunk": "2025-04",
+    "status": "no_data",
+    "detail": NaN
+   },
+   {
+    "dataset": "offered_capacity",
+    "role": "input",
+    "key": "DK_2__SE_4",
+    "chunk": "2025-05",
+    "status": "no_data",
+    "detail": NaN
+   },
+   {
+    "dataset": "offered_capacity",
+    "role": "input",
+    "key": "DK_2__SE_4",
+    "chunk": "2025-06",
+    "status": "no_data",
+    "detail": NaN
+   },
+   {
+    "dataset": "offered_capacity",
+    "role": "input",
+    "key": "DK_2__SE_4",
+    "chunk": "2025-07",
+    "status": "no_data",
+    "detail": NaN
+   },
+   {
+    "dataset": "offered_capacity",
+    "role": "input",
+    "key": "DK_2__SE_4",
+    "chunk": "2025-08",
+    "status": "no_data",
+    "detail": NaN
+   },
+   {
+    "dataset": "offered_capacity",
+    "role": "input",
+    "key": "DK_2__SE_4",
+    "chunk": "2025-09",
+    "status": "no_data",
+    "detail": NaN
+   },
+   {
+    "dataset": "offered_capacity",
+    "role": "input",
+    "key": "DK_2__SE_4",
+    "chunk": "2025-10",
+    "status": "no_data",
+    "detail": NaN
+   },
+   {
+    "dataset": "offered_capacity",
+    "role": "input",
+    "key": "DK_2__SE_4",
+    "chunk": "2025-11",
+    "status": "no_data",
+    "detail": NaN
+   },
+   {
+    "dataset": "offered_capacity",
+    "role": "input",
+    "key": "DK_2__SE_4",
+    "chunk": "2025-12",
+    "status": "no_data",
+    "detail": NaN
+   },
+   {
+    "dataset": "offered_capacity",
+    "role": "input",
+    "key": "FR__CH",
+    "chunk": "2025-01",
+    "status": "no_data",
+    "detail": NaN
+   },
+   {
+    "dataset": "offered_capacity",
+    "role": "input",
+    "key": "FR__CH",
+    "chunk": "2025-02",
+    "status": "no_data",
+    "detail": NaN
+   },
+   {
+    "dataset": "offered_capacity",
+    "role": "input",
+    "key": "FR__CH",
+    "chunk": "2025-03",
+    "status": "no_data",
+    "detail": NaN
+   },
+   {
+    "dataset": "offered_capacity",
+    "role": "input",
+    "key": "FR__CH",
+    "chunk": "2025-04",
+    "status": "no_data",
+    "detail": NaN
+   },
+   {
+    "dataset": "offered_capacity",
+    "role": "input",
+    "key": "FR__CH",
+    "chunk": "2025-05",
+    "status": "no_data",
+    "detail": NaN
+   },
+   {
+    "dataset": "offered_capacity",
+    "role": "input",
+    "key": "FR__CH",
+    "chunk": "2025-06",
+    "status": "no_data",
+    "detail": NaN
+   },
+   {
+    "dataset": "offered_capacity",
+    "role": "input",
+    "key": "FR__CH",
+    "chunk": "2025-07",
+    "status": "no_data",
+    "detail": NaN
+   },
+   {
+    "dataset": "offered_capacity",
+    "role": "input",
+    "key": "FR__CH",
+    "chunk": "2025-08",
+    "status": "no_data",
+    "detail": NaN
+   },
+   {
+    "dataset": "offered_capacity",
+    "role": "input",
+    "key": "FR__CH",
+    "chunk": "2025-09",
+    "status": "no_data",
+    "detail": NaN
+   },
+   {
+    "dataset": "offered_capacity",
+    "role": "input",
+    "key": "FR__CH",
+    "chunk": "2025-10",
+    "status": "no_data",
+    "detail": NaN
+   },
+   {
+    "dataset": "offered_capacity",
+    "role": "input",
+    "key": "FR__CH",
+    "chunk": "2025-11",
+    "status": "no_data",
+    "detail": NaN
+   },
+   {
+    "dataset": "offered_capacity",
+    "role": "input",
+    "key": "FR__CH",
+    "chunk": "2025-12",
+    "status": "no_data",
+    "detail": NaN
+   },
+   {
+    "dataset": "offered_capacity",
+    "role": "input",
+    "key": "FR__GB",
+    "chunk": "2025-01",
+    "status": "no_data",
+    "detail": NaN
+   },
+   {
+    "dataset": "offered_capacity",
+    "role": "input",
+    "key": "FR__GB",
+    "chunk": "2025-02",
+    "status": "no_data",
+    "detail": NaN
+   },
+   {
+    "dataset": "offered_capacity",
+    "role": "input",
+    "key": "FR__GB",
+    "chunk": "2025-03",
+    "status": "no_data",
+    "detail": NaN
+   },
+   {
+    "dataset": "offered_capacity",
+    "role": "input",
+    "key": "FR__GB",
+    "chunk": "2025-04",
+    "status": "no_data",
+    "detail": NaN
+   },
+   {
+    "dataset": "offered_capacity",
+    "role": "input",
+    "key": "FR__GB",
+    "chunk": "2025-05",
+    "status": "no_data",
+    "detail": NaN
+   },
+   {
+    "dataset": "offered_capacity",
+    "role": "input",
+    "key": "FR__GB",
+    "chunk": "2025-06",
+    "status": "no_data",
+    "detail": NaN
+   },
+   {
+    "dataset": "offered_capacity",
+    "role": "input",
+    "key": "FR__GB",
+    "chunk": "2025-07",
+    "status": "no_data",
+    "detail": NaN
+   },
+   {
+    "dataset": "offered_capacity",
+    "role": "input",
+    "key": "FR__GB",
+    "chunk": "2025-08",
+    "status": "no_data",
+    "detail": NaN
+   },
+   {
+    "dataset": "offered_capacity",
+    "role": "input",
+    "key": "FR__GB",
+    "chunk": "2025-09",
+    "status": "no_data",
+    "detail": NaN
+   },
+   {
+    "dataset": "offered_capacity",
+    "role": "input",
+    "key": "FR__GB",
+    "chunk": "2025-10",
+    "status": "no_data",
+    "detail": NaN
+   },
+   {
+    "dataset": "offered_capacity",
+    "role": "input",
+    "key": "FR__GB",
+    "chunk": "2025-11",
+    "status": "no_data",
+    "detail": NaN
+   },
+   {
+    "dataset": "offered_capacity",
+    "role": "input",
+    "key": "FR__GB",
+    "chunk": "2025-12",
+    "status": "no_data",
+    "detail": NaN
+   },
+   {
+    "dataset": "offered_capacity",
+    "role": "input",
+    "key": "FR__IT_NORD",
+    "chunk": "2025-01",
+    "status": "no_data",
+    "detail": NaN
+   },
+   {
+    "dataset": "offered_capacity",
+    "role": "input",
+    "key": "FR__IT_NORD",
+    "chunk": "2025-02",
+    "status": "no_data",
+    "detail": NaN
+   },
+   {
+    "dataset": "offered_capacity",
+    "role": "input",
+    "key": "FR__IT_NORD",
+    "chunk": "2025-03",
+    "status": "no_data",
+    "detail": NaN
+   },
+   {
+    "dataset": "offered_capacity",
+    "role": "input",
+    "key": "FR__IT_NORD",
+    "chunk": "2025-04",
+    "status": "no_data",
+    "detail": NaN
+   },
+   {
+    "dataset": "offered_capacity",
+    "role": "input",
+    "key": "FR__IT_NORD",
+    "chunk": "2025-05",
+    "status": "no_data",
+    "detail": NaN
+   },
+   {
+    "dataset": "offered_capacity",
+    "role": "input",
+    "key": "FR__IT_NORD",
+    "chunk": "2025-06",
+    "status": "no_data",
+    "detail": NaN
+   },
+   {
+    "dataset": "offered_capacity",
+    "role": "input",
+    "key": "FR__IT_NORD",
+    "chunk": "2025-07",
+    "status": "no_data",
+    "detail": NaN
+   },
+   {
+    "dataset": "offered_capacity",
+    "role": "input",
+    "key": "FR__IT_NORD",
+    "chunk": "2025-08",
+    "status": "no_data",
+    "detail": NaN
+   },
+   {
+    "dataset": "offered_capacity",
+    "role": "input",
+    "key": "FR__IT_NORD",
+    "chunk": "2025-09",
+    "status": "no_data",
+    "detail": NaN
+   },
+   {
+    "dataset": "offered_capacity",
+    "role": "input",
+    "key": "FR__IT_NORD",
+    "chunk": "2025-10",
+    "status": "no_data",
+    "detail": NaN
+   },
+   {
+    "dataset": "offered_capacity",
+    "role": "input",
+    "key": "FR__IT_NORD",
+    "chunk": "2025-11",
+    "status": "no_data",
+    "detail": NaN
+   },
+   {
+    "dataset": "offered_capacity",
+    "role": "input",
+    "key": "FR__IT_NORD",
+    "chunk": "2025-12",
+    "status": "no_data",
+    "detail": NaN
+   },
+   {
+    "dataset": "offered_capacity",
+    "role": "input",
+    "key": "GB__BE",
+    "chunk": "2025-01",
+    "status": "no_data",
+    "detail": NaN
+   },
+   {
+    "dataset": "offered_capacity",
+    "role": "input",
+    "key": "GB__BE",
+    "chunk": "2025-02",
+    "status": "no_data",
+    "detail": NaN
+   },
+   {
+    "dataset": "offered_capacity",
+    "role": "input",
+    "key": "GB__BE",
+    "chunk": "2025-03",
+    "status": "no_data",
+    "detail": NaN
+   },
+   {
+    "dataset": "offered_capacity",
+    "role": "input",
+    "key": "GB__BE",
+    "chunk": "2025-04",
+    "status": "no_data",
+    "detail": NaN
+   },
+   {
+    "dataset": "offered_capacity",
+    "role": "input",
+    "key": "GB__BE",
+    "chunk": "2025-05",
+    "status": "no_data",
+    "detail": NaN
+   },
+   {
+    "dataset": "offered_capacity",
+    "role": "input",
+    "key": "GB__BE",
+    "chunk": "2025-06",
+    "status": "no_data",
+    "detail": NaN
+   },
+   {
+    "dataset": "offered_capacity",
+    "role": "input",
+    "key": "GB__BE",
+    "chunk": "2025-07",
+    "status": "no_data",
+    "detail": NaN
+   },
+   {
+    "dataset": "offered_capacity",
+    "role": "input",
+    "key": "GB__BE",
+    "chunk": "2025-08",
+    "status": "no_data",
+    "detail": NaN
+   },
+   {
+    "dataset": "offered_capacity",
+    "role": "input",
+    "key": "GB__BE",
+    "chunk": "2025-09",
+    "status": "no_data",
+    "detail": NaN
+   },
+   {
+    "dataset": "offered_capacity",
+    "role": "input",
+    "key": "GB__BE",
+    "chunk": "2025-10",
+    "status": "no_data",
+    "detail": NaN
+   },
+   {
+    "dataset": "offered_capacity",
+    "role": "input",
+    "key": "GB__BE",
+    "chunk": "2025-11",
+    "status": "no_data",
+    "detail": NaN
+   },
+   {
+    "dataset": "offered_capacity",
+    "role": "input",
+    "key": "GB__BE",
+    "chunk": "2025-12",
+    "status": "no_data",
+    "detail": NaN
+   },
+   {
+    "dataset": "offered_capacity",
+    "role": "input",
+    "key": "GB__DK_1",
+    "chunk": "2025-01",
+    "status": "no_data",
+    "detail": NaN
+   },
+   {
+    "dataset": "offered_capacity",
+    "role": "input",
+    "key": "GB__DK_1",
+    "chunk": "2025-02",
+    "status": "no_data",
+    "detail": NaN
+   },
+   {
+    "dataset": "offered_capacity",
+    "role": "input",
+    "key": "GB__DK_1",
+    "chunk": "2025-03",
+    "status": "no_data",
+    "detail": NaN
+   },
+   {
+    "dataset": "offered_capacity",
+    "role": "input",
+    "key": "GB__DK_1",
+    "chunk": "2025-04",
+    "status": "no_data",
+    "detail": NaN
+   },
+   {
+    "dataset": "offered_capacity",
+    "role": "input",
+    "key": "GB__DK_1",
+    "chunk": "2025-05",
+    "status": "no_data",
+    "detail": NaN
+   },
+   {
+    "dataset": "offered_capacity",
+    "role": "input",
+    "key": "GB__DK_1",
+    "chunk": "2025-06",
+    "status": "no_data",
+    "detail": NaN
+   },
+   {
+    "dataset": "offered_capacity",
+    "role": "input",
+    "key": "GB__DK_1",
+    "chunk": "2025-07",
+    "status": "no_data",
+    "detail": NaN
+   },
+   {
+    "dataset": "offered_capacity",
+    "role": "input",
+    "key": "GB__DK_1",
+    "chunk": "2025-08",
+    "status": "no_data",
+    "detail": NaN
+   },
+   {
+    "dataset": "offered_capacity",
+    "role": "input",
+    "key": "GB__DK_1",
+    "chunk": "2025-09",
+    "status": "no_data",
+    "detail": NaN
+   },
+   {
+    "dataset": "offered_capacity",
+    "role": "input",
+    "key": "GB__DK_1",
+    "chunk": "2025-10",
+    "status": "no_data",
+    "detail": NaN
+   },
+   {
+    "dataset": "offered_capacity",
+    "role": "input",
+    "key": "GB__DK_1",
+    "chunk": "2025-11",
+    "status": "no_data",
+    "detail": NaN
+   },
+   {
+    "dataset": "offered_capacity",
+    "role": "input",
+    "key": "GB__DK_1",
+    "chunk": "2025-12",
+    "status": "no_data",
+    "detail": NaN
+   },
+   {
+    "dataset": "offered_capacity",
+    "role": "input",
+    "key": "GB__FR",
+    "chunk": "2025-01",
+    "status": "no_data",
+    "detail": NaN
+   },
+   {
+    "dataset": "offered_capacity",
+    "role": "input",
+    "key": "GB__FR",
+    "chunk": "2025-02",
+    "status": "no_data",
+    "detail": NaN
+   },
+   {
+    "dataset": "offered_capacity",
+    "role": "input",
+    "key": "GB__FR",
+    "chunk": "2025-03",
+    "status": "no_data",
+    "detail": NaN
+   },
+   {
+    "dataset": "offered_capacity",
+    "role": "input",
+    "key": "GB__FR",
+    "chunk": "2025-04",
+    "status": "no_data",
+    "detail": NaN
+   },
+   {
+    "dataset": "offered_capacity",
+    "role": "input",
+    "key": "GB__FR",
+    "chunk": "2025-05",
+    "status": "no_data",
+    "detail": NaN
+   },
+   {
+    "dataset": "offered_capacity",
+    "role": "input",
+    "key": "GB__FR",
+    "chunk": "2025-06",
+    "status": "no_data",
+    "detail": NaN
+   },
+   {
+    "dataset": "offered_capacity",
+    "role": "input",
+    "key": "GB__FR",
+    "chunk": "2025-07",
+    "status": "no_data",
+    "detail": NaN
+   },
+   {
+    "dataset": "offered_capacity",
+    "role": "input",
+    "key": "GB__FR",
+    "chunk": "2025-08",
+    "status": "no_data",
+    "detail": NaN
+   },
+   {
+    "dataset": "offered_capacity",
+    "role": "input",
+    "key": "GB__FR",
+    "chunk": "2025-09",
+    "status": "no_data",
+    "detail": NaN
+   },
+   {
+    "dataset": "offered_capacity",
+    "role": "input",
+    "key": "GB__FR",
+    "chunk": "2025-10",
+    "status": "no_data",
+    "detail": NaN
+   },
+   {
+    "dataset": "offered_capacity",
+    "role": "input",
+    "key": "GB__FR",
+    "chunk": "2025-11",
+    "status": "no_data",
+    "detail": NaN
+   },
+   {
+    "dataset": "offered_capacity",
+    "role": "input",
+    "key": "GB__FR",
+    "chunk": "2025-12",
+    "status": "no_data",
+    "detail": NaN
+   },
+   {
+    "dataset": "offered_capacity",
+    "role": "input",
+    "key": "GB__NL",
+    "chunk": "2025-01",
+    "status": "no_data",
+    "detail": NaN
+   },
+   {
+    "dataset": "offered_capacity",
+    "role": "input",
+    "key": "GB__NL",
+    "chunk": "2025-02",
+    "status": "no_data",
+    "detail": NaN
+   },
+   {
+    "dataset": "offered_capacity",
+    "role": "input",
+    "key": "GB__NL",
+    "chunk": "2025-03",
+    "status": "no_data",
+    "detail": NaN
+   },
+   {
+    "dataset": "offered_capacity",
+    "role": "input",
+    "key": "GB__NL",
+    "chunk": "2025-04",
+    "status": "no_data",
+    "detail": NaN
+   },
+   {
+    "dataset": "offered_capacity",
+    "role": "input",
+    "key": "GB__NL",
+    "chunk": "2025-05",
+    "status": "no_data",
+    "detail": NaN
+   },
+   {
+    "dataset": "offered_capacity",
+    "role": "input",
+    "key": "GB__NL",
+    "chunk": "2025-06",
+    "status": "no_data",
+    "detail": NaN
+   },
+   {
+    "dataset": "offered_capacity",
+    "role": "input",
+    "key": "GB__NL",
+    "chunk": "2025-07",
+    "status": "no_data",
+    "detail": NaN
+   },
+   {
+    "dataset": "offered_capacity",
+    "role": "input",
+    "key": "GB__NL",
+    "chunk": "2025-08",
+    "status": "no_data",
+    "detail": NaN
+   },
+   {
+    "dataset": "offered_capacity",
+    "role": "input",
+    "key": "GB__NL",
+    "chunk": "2025-09",
+    "status": "no_data",
+    "detail": NaN
+   },
+   {
+    "dataset": "offered_capacity",
+    "role": "input",
+    "key": "GB__NL",
+    "chunk": "2025-10",
+    "status": "no_data",
+    "detail": NaN
+   },
+   {
+    "dataset": "offered_capacity",
+    "role": "input",
+    "key": "GB__NL",
+    "chunk": "2025-11",
+    "status": "no_data",
+    "detail": NaN
+   },
+   {
+    "dataset": "offered_capacity",
+    "role": "input",
+    "key": "GB__NL",
+    "chunk": "2025-12",
+    "status": "no_data",
+    "detail": NaN
+   },
+   {
+    "dataset": "offered_capacity",
+    "role": "input",
+    "key": "IT_CALA__IT_SICI",
+    "chunk": "2025-01",
+    "status": "no_data",
+    "detail": NaN
+   },
+   {
+    "dataset": "offered_capacity",
+    "role": "input",
+    "key": "IT_CALA__IT_SICI",
+    "chunk": "2025-02",
+    "status": "no_data",
+    "detail": NaN
+   },
+   {
+    "dataset": "offered_capacity",
+    "role": "input",
+    "key": "IT_CALA__IT_SICI",
+    "chunk": "2025-03",
+    "status": "no_data",
+    "detail": NaN
+   },
+   {
+    "dataset": "offered_capacity",
+    "role": "input",
+    "key": "IT_CALA__IT_SICI",
+    "chunk": "2025-04",
+    "status": "no_data",
+    "detail": NaN
+   },
+   {
+    "dataset": "offered_capacity",
+    "role": "input",
+    "key": "IT_CALA__IT_SICI",
+    "chunk": "2025-05",
+    "status": "no_data",
+    "detail": NaN
+   },
+   {
+    "dataset": "offered_capacity",
+    "role": "input",
+    "key": "IT_CALA__IT_SICI",
+    "chunk": "2025-06",
+    "status": "no_data",
+    "detail": NaN
+   },
+   {
+    "dataset": "offered_capacity",
+    "role": "input",
+    "key": "IT_CALA__IT_SICI",
+    "chunk": "2025-07",
+    "status": "no_data",
+    "detail": NaN
+   },
+   {
+    "dataset": "offered_capacity",
+    "role": "input",
+    "key": "IT_CALA__IT_SUD",
+    "chunk": "2025-01",
+    "status": "no_data",
+    "detail": NaN
+   },
+   {
+    "dataset": "offered_capacity",
+    "role": "input",
+    "key": "IT_CALA__IT_SUD",
+    "chunk": "2025-02",
+    "status": "no_data",
+    "detail": NaN
+   },
+   {
+    "dataset": "offered_capacity",
+    "role": "input",
+    "key": "IT_CALA__IT_SUD",
+    "chunk": "2025-03",
+    "status": "no_data",
+    "detail": NaN
+   },
+   {
+    "dataset": "offered_capacity",
+    "role": "input",
+    "key": "IT_CALA__IT_SUD",
+    "chunk": "2025-04",
+    "status": "no_data",
+    "detail": NaN
+   },
+   {
+    "dataset": "offered_capacity",
+    "role": "input",
+    "key": "IT_CALA__IT_SUD",
+    "chunk": "2025-05",
+    "status": "no_data",
+    "detail": NaN
+   },
+   {
+    "dataset": "offered_capacity",
+    "role": "input",
+    "key": "IT_CALA__IT_SUD",
+    "chunk": "2025-06",
+    "status": "no_data",
+    "detail": NaN
+   },
+   {
+    "dataset": "offered_capacity",
+    "role": "input",
+    "key": "IT_CALA__IT_SUD",
+    "chunk": "2025-07",
+    "status": "no_data",
+    "detail": NaN
+   },
+   {
+    "dataset": "offered_capacity",
+    "role": "input",
+    "key": "IT_CNOR__IT_CSUD",
+    "chunk": "2025-01",
+    "status": "no_data",
+    "detail": NaN
+   },
+   {
+    "dataset": "offered_capacity",
+    "role": "input",
+    "key": "IT_CNOR__IT_CSUD",
+    "chunk": "2025-02",
+    "status": "no_data",
+    "detail": NaN
+   },
+   {
+    "dataset": "offered_capacity",
+    "role": "input",
+    "key": "IT_CNOR__IT_CSUD",
+    "chunk": "2025-03",
+    "status": "no_data",
+    "detail": NaN
+   },
+   {
+    "dataset": "offered_capacity",
+    "role": "input",
+    "key": "IT_CNOR__IT_CSUD",
+    "chunk": "2025-04",
+    "status": "no_data",
+    "detail": NaN
+   },
+   {
+    "dataset": "offered_capacity",
+    "role": "input",
+    "key": "IT_CNOR__IT_CSUD",
+    "chunk": "2025-05",
+    "status": "no_data",
+    "detail": NaN
+   },
+   {
+    "dataset": "offered_capacity",
+    "role": "input",
+    "key": "IT_CNOR__IT_CSUD",
+    "chunk": "2025-06",
+    "status": "no_data",
+    "detail": NaN
+   },
+   {
+    "dataset": "offered_capacity",
+    "role": "input",
+    "key": "IT_CNOR__IT_CSUD",
+    "chunk": "2025-07",
+    "status": "no_data",
+    "detail": NaN
+   },
+   {
+    "dataset": "offered_capacity",
+    "role": "input",
+    "key": "IT_CNOR__IT_NORD",
+    "chunk": "2025-01",
+    "status": "no_data",
+    "detail": NaN
+   },
+   {
+    "dataset": "offered_capacity",
+    "role": "input",
+    "key": "IT_CNOR__IT_NORD",
+    "chunk": "2025-02",
+    "status": "no_data",
+    "detail": NaN
+   },
+   {
+    "dataset": "offered_capacity",
+    "role": "input",
+    "key": "IT_CNOR__IT_NORD",
+    "chunk": "2025-03",
+    "status": "no_data",
+    "detail": NaN
+   },
+   {
+    "dataset": "offered_capacity",
+    "role": "input",
+    "key": "IT_CNOR__IT_NORD",
+    "chunk": "2025-04",
+    "status": "no_data",
+    "detail": NaN
+   },
+   {
+    "dataset": "offered_capacity",
+    "role": "input",
+    "key": "IT_CNOR__IT_NORD",
+    "chunk": "2025-05",
+    "status": "no_data",
+    "detail": NaN
+   },
+   {
+    "dataset": "offered_capacity",
+    "role": "input",
+    "key": "IT_CNOR__IT_NORD",
+    "chunk": "2025-06",
+    "status": "no_data",
+    "detail": NaN
+   },
+   {
+    "dataset": "offered_capacity",
+    "role": "input",
+    "key": "IT_CNOR__IT_NORD",
+    "chunk": "2025-07",
+    "status": "no_data",
+    "detail": NaN
+   },
+   {
+    "dataset": "offered_capacity",
+    "role": "input",
+    "key": "IT_CNOR__IT_SARD",
+    "chunk": "2025-01",
+    "status": "no_data",
+    "detail": NaN
+   },
+   {
+    "dataset": "offered_capacity",
+    "role": "input",
+    "key": "IT_CNOR__IT_SARD",
+    "chunk": "2025-02",
+    "status": "no_data",
+    "detail": NaN
+   },
+   {
+    "dataset": "offered_capacity",
+    "role": "input",
+    "key": "IT_CNOR__IT_SARD",
+    "chunk": "2025-03",
+    "status": "no_data",
+    "detail": NaN
+   },
+   {
+    "dataset": "offered_capacity",
+    "role": "input",
+    "key": "IT_CNOR__IT_SARD",
+    "chunk": "2025-04",
+    "status": "no_data",
+    "detail": NaN
+   },
+   {
+    "dataset": "offered_capacity",
+    "role": "input",
+    "key": "IT_CNOR__IT_SARD",
+    "chunk": "2025-05",
+    "status": "no_data",
+    "detail": NaN
+   },
+   {
+    "dataset": "offered_capacity",
+    "role": "input",
+    "key": "IT_CNOR__IT_SARD",
+    "chunk": "2025-06",
+    "status": "no_data",
+    "detail": NaN
+   },
+   {
+    "dataset": "offered_capacity",
+    "role": "input",
+    "key": "IT_CNOR__IT_SARD",
+    "chunk": "2025-07",
+    "status": "no_data",
+    "detail": NaN
+   },
+   {
+    "dataset": "offered_capacity",
+    "role": "input",
+    "key": "IT_CNOR__IT_SARD",
+    "chunk": "2025-08",
+    "status": "no_data",
+    "detail": NaN
+   },
+   {
+    "dataset": "offered_capacity",
+    "role": "input",
+    "key": "IT_CNOR__IT_SARD",
+    "chunk": "2025-09",
+    "status": "no_data",
+    "detail": NaN
+   },
+   {
+    "dataset": "offered_capacity",
+    "role": "input",
+    "key": "IT_CNOR__IT_SARD",
+    "chunk": "2025-10",
+    "status": "no_data",
+    "detail": NaN
+   },
+   {
+    "dataset": "offered_capacity",
+    "role": "input",
+    "key": "IT_CNOR__IT_SARD",
+    "chunk": "2025-11",
+    "status": "no_data",
+    "detail": NaN
+   },
+   {
+    "dataset": "offered_capacity",
+    "role": "input",
+    "key": "IT_CNOR__IT_SARD",
+    "chunk": "2025-12",
+    "status": "no_data",
+    "detail": NaN
+   },
+   {
+    "dataset": "offered_capacity",
+    "role": "input",
+    "key": "IT_CSUD__IT_CNOR",
+    "chunk": "2025-01",
+    "status": "no_data",
+    "detail": NaN
+   },
+   {
+    "dataset": "offered_capacity",
+    "role": "input",
+    "key": "IT_CSUD__IT_CNOR",
+    "chunk": "2025-02",
+    "status": "no_data",
+    "detail": NaN
+   },
+   {
+    "dataset": "offered_capacity",
+    "role": "input",
+    "key": "IT_CSUD__IT_CNOR",
+    "chunk": "2025-03",
+    "status": "no_data",
+    "detail": NaN
+   },
+   {
+    "dataset": "offered_capacity",
+    "role": "input",
+    "key": "IT_CSUD__IT_CNOR",
+    "chunk": "2025-04",
+    "status": "no_data",
+    "detail": NaN
+   },
+   {
+    "dataset": "offered_capacity",
+    "role": "input",
+    "key": "IT_CSUD__IT_CNOR",
+    "chunk": "2025-05",
+    "status": "no_data",
+    "detail": NaN
+   },
+   {
+    "dataset": "offered_capacity",
+    "role": "input",
+    "key": "IT_CSUD__IT_CNOR",
+    "chunk": "2025-06",
+    "status": "no_data",
+    "detail": NaN
+   },
+   {
+    "dataset": "offered_capacity",
+    "role": "input",
+    "key": "IT_CSUD__IT_CNOR",
+    "chunk": "2025-07",
+    "status": "no_data",
+    "detail": NaN
+   },
+   {
+    "dataset": "offered_capacity",
+    "role": "input",
+    "key": "IT_CSUD__IT_SARD",
+    "chunk": "2025-01",
+    "status": "no_data",
+    "detail": NaN
+   },
+   {
+    "dataset": "offered_capacity",
+    "role": "input",
+    "key": "IT_CSUD__IT_SARD",
+    "chunk": "2025-02",
+    "status": "no_data",
+    "detail": NaN
+   },
+   {
+    "dataset": "offered_capacity",
+    "role": "input",
+    "key": "IT_CSUD__IT_SARD",
+    "chunk": "2025-03",
+    "status": "no_data",
+    "detail": NaN
+   },
+   {
+    "dataset": "offered_capacity",
+    "role": "input",
+    "key": "IT_CSUD__IT_SARD",
+    "chunk": "2025-04",
+    "status": "no_data",
+    "detail": NaN
+   },
+   {
+    "dataset": "offered_capacity",
+    "role": "input",
+    "key": "IT_CSUD__IT_SARD",
+    "chunk": "2025-05",
+    "status": "no_data",
+    "detail": NaN
+   },
+   {
+    "dataset": "offered_capacity",
+    "role": "input",
+    "key": "IT_CSUD__IT_SARD",
+    "chunk": "2025-06",
+    "status": "no_data",
+    "detail": NaN
+   },
+   {
+    "dataset": "offered_capacity",
+    "role": "input",
+    "key": "IT_CSUD__IT_SARD",
+    "chunk": "2025-07",
+    "status": "no_data",
+    "detail": NaN
+   },
+   {
+    "dataset": "offered_capacity",
+    "role": "input",
+    "key": "IT_CSUD__IT_SUD",
+    "chunk": "2025-01",
+    "status": "no_data",
+    "detail": NaN
+   },
+   {
+    "dataset": "offered_capacity",
+    "role": "input",
+    "key": "IT_CSUD__IT_SUD",
+    "chunk": "2025-02",
+    "status": "no_data",
+    "detail": NaN
+   },
+   {
+    "dataset": "offered_capacity",
+    "role": "input",
+    "key": "IT_CSUD__IT_SUD",
+    "chunk": "2025-03",
+    "status": "no_data",
+    "detail": NaN
+   },
+   {
+    "dataset": "offered_capacity",
+    "role": "input",
+    "key": "IT_CSUD__IT_SUD",
+    "chunk": "2025-04",
+    "status": "no_data",
+    "detail": NaN
+   },
+   {
+    "dataset": "offered_capacity",
+    "role": "input",
+    "key": "IT_CSUD__IT_SUD",
+    "chunk": "2025-05",
+    "status": "no_data",
+    "detail": NaN
+   },
+   {
+    "dataset": "offered_capacity",
+    "role": "input",
+    "key": "IT_CSUD__IT_SUD",
+    "chunk": "2025-06",
+    "status": "no_data",
+    "detail": NaN
+   },
+   {
+    "dataset": "offered_capacity",
+    "role": "input",
+    "key": "IT_CSUD__IT_SUD",
+    "chunk": "2025-07",
+    "status": "no_data",
+    "detail": NaN
+   },
+   {
+    "dataset": "offered_capacity",
+    "role": "input",
+    "key": "IT_NORD__AT",
+    "chunk": "2025-01",
+    "status": "no_data",
+    "detail": NaN
+   },
+   {
+    "dataset": "offered_capacity",
+    "role": "input",
+    "key": "IT_NORD__AT",
+    "chunk": "2025-02",
+    "status": "no_data",
+    "detail": NaN
+   },
+   {
+    "dataset": "offered_capacity",
+    "role": "input",
+    "key": "IT_NORD__AT",
+    "chunk": "2025-03",
+    "status": "no_data",
+    "detail": NaN
+   },
+   {
+    "dataset": "offered_capacity",
+    "role": "input",
+    "key": "IT_NORD__AT",
+    "chunk": "2025-04",
+    "status": "no_data",
+    "detail": NaN
+   },
+   {
+    "dataset": "offered_capacity",
+    "role": "input",
+    "key": "IT_NORD__AT",
+    "chunk": "2025-05",
+    "status": "no_data",
+    "detail": NaN
+   },
+   {
+    "dataset": "offered_capacity",
+    "role": "input",
+    "key": "IT_NORD__AT",
+    "chunk": "2025-06",
+    "status": "no_data",
+    "detail": NaN
+   },
+   {
+    "dataset": "offered_capacity",
+    "role": "input",
+    "key": "IT_NORD__AT",
+    "chunk": "2025-07",
+    "status": "no_data",
+    "detail": NaN
+   },
+   {
+    "dataset": "offered_capacity",
+    "role": "input",
+    "key": "IT_NORD__AT",
+    "chunk": "2025-08",
+    "status": "no_data",
+    "detail": NaN
+   },
+   {
+    "dataset": "offered_capacity",
+    "role": "input",
+    "key": "IT_NORD__AT",
+    "chunk": "2025-09",
+    "status": "no_data",
+    "detail": NaN
+   },
+   {
+    "dataset": "offered_capacity",
+    "role": "input",
+    "key": "IT_NORD__AT",
+    "chunk": "2025-10",
+    "status": "no_data",
+    "detail": NaN
+   },
+   {
+    "dataset": "offered_capacity",
+    "role": "input",
+    "key": "IT_NORD__AT",
+    "chunk": "2025-11",
+    "status": "no_data",
+    "detail": NaN
+   },
+   {
+    "dataset": "offered_capacity",
+    "role": "input",
+    "key": "IT_NORD__AT",
+    "chunk": "2025-12",
+    "status": "no_data",
+    "detail": NaN
+   },
+   {
+    "dataset": "offered_capacity",
+    "role": "input",
+    "key": "IT_NORD__CH",
+    "chunk": "2025-01",
+    "status": "no_data",
+    "detail": NaN
+   },
+   {
+    "dataset": "offered_capacity",
+    "role": "input",
+    "key": "IT_NORD__CH",
+    "chunk": "2025-02",
+    "status": "no_data",
+    "detail": NaN
+   },
+   {
+    "dataset": "offered_capacity",
+    "role": "input",
+    "key": "IT_NORD__CH",
+    "chunk": "2025-03",
+    "status": "no_data",
+    "detail": NaN
+   },
+   {
+    "dataset": "offered_capacity",
+    "role": "input",
+    "key": "IT_NORD__CH",
+    "chunk": "2025-04",
+    "status": "no_data",
+    "detail": NaN
+   },
+   {
+    "dataset": "offered_capacity",
+    "role": "input",
+    "key": "IT_NORD__CH",
+    "chunk": "2025-05",
+    "status": "no_data",
+    "detail": NaN
+   },
+   {
+    "dataset": "offered_capacity",
+    "role": "input",
+    "key": "IT_NORD__CH",
+    "chunk": "2025-06",
+    "status": "no_data",
+    "detail": NaN
+   },
+   {
+    "dataset": "offered_capacity",
+    "role": "input",
+    "key": "IT_NORD__CH",
+    "chunk": "2025-07",
+    "status": "no_data",
+    "detail": NaN
+   },
+   {
+    "dataset": "offered_capacity",
+    "role": "input",
+    "key": "IT_NORD__CH",
+    "chunk": "2025-08",
+    "status": "no_data",
+    "detail": NaN
+   },
+   {
+    "dataset": "offered_capacity",
+    "role": "input",
+    "key": "IT_NORD__CH",
+    "chunk": "2025-09",
+    "status": "no_data",
+    "detail": NaN
+   },
+   {
+    "dataset": "offered_capacity",
+    "role": "input",
+    "key": "IT_NORD__CH",
+    "chunk": "2025-10",
+    "status": "no_data",
+    "detail": NaN
+   },
+   {
+    "dataset": "offered_capacity",
+    "role": "input",
+    "key": "IT_NORD__CH",
+    "chunk": "2025-11",
+    "status": "no_data",
+    "detail": NaN
+   },
+   {
+    "dataset": "offered_capacity",
+    "role": "input",
+    "key": "IT_NORD__CH",
+    "chunk": "2025-12",
+    "status": "no_data",
+    "detail": NaN
+   },
+   {
+    "dataset": "offered_capacity",
+    "role": "input",
+    "key": "IT_NORD__FR",
+    "chunk": "2025-01",
+    "status": "no_data",
+    "detail": NaN
+   },
+   {
+    "dataset": "offered_capacity",
+    "role": "input",
+    "key": "IT_NORD__FR",
+    "chunk": "2025-02",
+    "status": "no_data",
+    "detail": NaN
+   },
+   {
+    "dataset": "offered_capacity",
+    "role": "input",
+    "key": "IT_NORD__FR",
+    "chunk": "2025-03",
+    "status": "no_data",
+    "detail": NaN
+   },
+   {
+    "dataset": "offered_capacity",
+    "role": "input",
+    "key": "IT_NORD__FR",
+    "chunk": "2025-04",
+    "status": "no_data",
+    "detail": NaN
+   },
+   {
+    "dataset": "offered_capacity",
+    "role": "input",
+    "key": "IT_NORD__FR",
+    "chunk": "2025-05",
+    "status": "no_data",
+    "detail": NaN
+   },
+   {
+    "dataset": "offered_capacity",
+    "role": "input",
+    "key": "IT_NORD__FR",
+    "chunk": "2025-06",
+    "status": "no_data",
+    "detail": NaN
+   },
+   {
+    "dataset": "offered_capacity",
+    "role": "input",
+    "key": "IT_NORD__FR",
+    "chunk": "2025-07",
+    "status": "no_data",
+    "detail": NaN
+   },
+   {
+    "dataset": "offered_capacity",
+    "role": "input",
+    "key": "IT_NORD__FR",
+    "chunk": "2025-08",
+    "status": "no_data",
+    "detail": NaN
+   },
+   {
+    "dataset": "offered_capacity",
+    "role": "input",
+    "key": "IT_NORD__FR",
+    "chunk": "2025-09",
+    "status": "no_data",
+    "detail": NaN
+   },
+   {
+    "dataset": "offered_capacity",
+    "role": "input",
+    "key": "IT_NORD__FR",
+    "chunk": "2025-10",
+    "status": "no_data",
+    "detail": NaN
+   },
+   {
+    "dataset": "offered_capacity",
+    "role": "input",
+    "key": "IT_NORD__FR",
+    "chunk": "2025-11",
+    "status": "no_data",
+    "detail": NaN
+   },
+   {
+    "dataset": "offered_capacity",
+    "role": "input",
+    "key": "IT_NORD__FR",
+    "chunk": "2025-12",
+    "status": "no_data",
+    "detail": NaN
+   },
+   {
+    "dataset": "offered_capacity",
+    "role": "input",
+    "key": "IT_NORD__IT_CNOR",
+    "chunk": "2025-01",
+    "status": "no_data",
+    "detail": NaN
+   },
+   {
+    "dataset": "offered_capacity",
+    "role": "input",
+    "key": "IT_NORD__IT_CNOR",
+    "chunk": "2025-02",
+    "status": "no_data",
+    "detail": NaN
+   },
+   {
+    "dataset": "offered_capacity",
+    "role": "input",
+    "key": "IT_NORD__IT_CNOR",
+    "chunk": "2025-03",
+    "status": "no_data",
+    "detail": NaN
+   },
+   {
+    "dataset": "offered_capacity",
+    "role": "input",
+    "key": "IT_NORD__IT_CNOR",
+    "chunk": "2025-04",
+    "status": "no_data",
+    "detail": NaN
+   },
+   {
+    "dataset": "offered_capacity",
+    "role": "input",
+    "key": "IT_NORD__IT_CNOR",
+    "chunk": "2025-05",
+    "status": "no_data",
+    "detail": NaN
+   },
+   {
+    "dataset": "offered_capacity",
+    "role": "input",
+    "key": "IT_NORD__IT_CNOR",
+    "chunk": "2025-06",
+    "status": "no_data",
+    "detail": NaN
+   },
+   {
+    "dataset": "offered_capacity",
+    "role": "input",
+    "key": "IT_NORD__IT_CNOR",
+    "chunk": "2025-07",
+    "status": "no_data",
+    "detail": NaN
+   },
+   {
+    "dataset": "offered_capacity",
+    "role": "input",
+    "key": "IT_NORD__SI",
+    "chunk": "2025-01",
+    "status": "no_data",
+    "detail": NaN
+   },
+   {
+    "dataset": "offered_capacity",
+    "role": "input",
+    "key": "IT_NORD__SI",
+    "chunk": "2025-02",
+    "status": "no_data",
+    "detail": NaN
+   },
+   {
+    "dataset": "offered_capacity",
+    "role": "input",
+    "key": "IT_NORD__SI",
+    "chunk": "2025-03",
+    "status": "no_data",
+    "detail": NaN
+   },
+   {
+    "dataset": "offered_capacity",
+    "role": "input",
+    "key": "IT_NORD__SI",
+    "chunk": "2025-04",
+    "status": "no_data",
+    "detail": NaN
+   },
+   {
+    "dataset": "offered_capacity",
+    "role": "input",
+    "key": "IT_NORD__SI",
+    "chunk": "2025-05",
+    "status": "no_data",
+    "detail": NaN
+   },
+   {
+    "dataset": "offered_capacity",
+    "role": "input",
+    "key": "IT_NORD__SI",
+    "chunk": "2025-06",
+    "status": "no_data",
+    "detail": NaN
+   },
+   {
+    "dataset": "offered_capacity",
+    "role": "input",
+    "key": "IT_NORD__SI",
+    "chunk": "2025-07",
+    "status": "no_data",
+    "detail": NaN
+   },
+   {
+    "dataset": "offered_capacity",
+    "role": "input",
+    "key": "IT_NORD__SI",
+    "chunk": "2025-08",
+    "status": "no_data",
+    "detail": NaN
+   },
+   {
+    "dataset": "offered_capacity",
+    "role": "input",
+    "key": "IT_NORD__SI",
+    "chunk": "2025-09",
+    "status": "no_data",
+    "detail": NaN
+   },
+   {
+    "dataset": "offered_capacity",
+    "role": "input",
+    "key": "IT_NORD__SI",
+    "chunk": "2025-10",
+    "status": "no_data",
+    "detail": NaN
+   },
+   {
+    "dataset": "offered_capacity",
+    "role": "input",
+    "key": "IT_NORD__SI",
+    "chunk": "2025-11",
+    "status": "no_data",
+    "detail": NaN
+   },
+   {
+    "dataset": "offered_capacity",
+    "role": "input",
+    "key": "IT_NORD__SI",
+    "chunk": "2025-12",
+    "status": "no_data",
+    "detail": NaN
+   },
+   {
+    "dataset": "offered_capacity",
+    "role": "input",
+    "key": "IT_SARD__IT_CNOR",
+    "chunk": "2025-01",
+    "status": "no_data",
+    "detail": NaN
+   },
+   {
+    "dataset": "offered_capacity",
+    "role": "input",
+    "key": "IT_SARD__IT_CNOR",
+    "chunk": "2025-02",
+    "status": "no_data",
+    "detail": NaN
+   },
+   {
+    "dataset": "offered_capacity",
+    "role": "input",
+    "key": "IT_SARD__IT_CNOR",
+    "chunk": "2025-03",
+    "status": "no_data",
+    "detail": NaN
+   },
+   {
+    "dataset": "offered_capacity",
+    "role": "input",
+    "key": "IT_SARD__IT_CNOR",
+    "chunk": "2025-04",
+    "status": "no_data",
+    "detail": NaN
+   },
+   {
+    "dataset": "offered_capacity",
+    "role": "input",
+    "key": "IT_SARD__IT_CNOR",
+    "chunk": "2025-05",
+    "status": "no_data",
+    "detail": NaN
+   },
+   {
+    "dataset": "offered_capacity",
+    "role": "input",
+    "key": "IT_SARD__IT_CNOR",
+    "chunk": "2025-06",
+    "status": "no_data",
+    "detail": NaN
+   },
+   {
+    "dataset": "offered_capacity",
+    "role": "input",
+    "key": "IT_SARD__IT_CNOR",
+    "chunk": "2025-07",
+    "status": "no_data",
+    "detail": NaN
+   },
+   {
+    "dataset": "offered_capacity",
+    "role": "input",
+    "key": "IT_SARD__IT_CNOR",
+    "chunk": "2025-08",
+    "status": "no_data",
+    "detail": NaN
+   },
+   {
+    "dataset": "offered_capacity",
+    "role": "input",
+    "key": "IT_SARD__IT_CNOR",
+    "chunk": "2025-09",
+    "status": "no_data",
+    "detail": NaN
+   },
+   {
+    "dataset": "offered_capacity",
+    "role": "input",
+    "key": "IT_SARD__IT_CNOR",
+    "chunk": "2025-10",
+    "status": "no_data",
+    "detail": NaN
+   },
+   {
+    "dataset": "offered_capacity",
+    "role": "input",
+    "key": "IT_SARD__IT_CNOR",
+    "chunk": "2025-11",
+    "status": "no_data",
+    "detail": NaN
+   },
+   {
+    "dataset": "offered_capacity",
+    "role": "input",
+    "key": "IT_SARD__IT_CNOR",
+    "chunk": "2025-12",
+    "status": "no_data",
+    "detail": NaN
+   },
+   {
+    "dataset": "offered_capacity",
+    "role": "input",
+    "key": "IT_SARD__IT_CSUD",
+    "chunk": "2025-01",
+    "status": "no_data",
+    "detail": NaN
+   },
+   {
+    "dataset": "offered_capacity",
+    "role": "input",
+    "key": "IT_SARD__IT_CSUD",
+    "chunk": "2025-02",
+    "status": "no_data",
+    "detail": NaN
+   },
+   {
+    "dataset": "offered_capacity",
+    "role": "input",
+    "key": "IT_SARD__IT_CSUD",
+    "chunk": "2025-03",
+    "status": "no_data",
+    "detail": NaN
+   },
+   {
+    "dataset": "offered_capacity",
+    "role": "input",
+    "key": "IT_SARD__IT_CSUD",
+    "chunk": "2025-04",
+    "status": "no_data",
+    "detail": NaN
+   },
+   {
+    "dataset": "offered_capacity",
+    "role": "input",
+    "key": "IT_SARD__IT_CSUD",
+    "chunk": "2025-05",
+    "status": "no_data",
+    "detail": NaN
+   },
+   {
+    "dataset": "offered_capacity",
+    "role": "input",
+    "key": "IT_SARD__IT_CSUD",
+    "chunk": "2025-06",
+    "status": "no_data",
+    "detail": NaN
+   },
+   {
+    "dataset": "offered_capacity",
+    "role": "input",
+    "key": "IT_SARD__IT_CSUD",
+    "chunk": "2025-07",
+    "status": "no_data",
+    "detail": NaN
+   },
+   {
+    "dataset": "offered_capacity",
+    "role": "input",
+    "key": "IT_SICI__IT_CALA",
+    "chunk": "2025-01",
+    "status": "no_data",
+    "detail": NaN
+   },
+   {
+    "dataset": "offered_capacity",
+    "role": "input",
+    "key": "IT_SICI__IT_CALA",
+    "chunk": "2025-02",
+    "status": "no_data",
+    "detail": NaN
+   },
+   {
+    "dataset": "offered_capacity",
+    "role": "input",
+    "key": "IT_SICI__IT_CALA",
+    "chunk": "2025-03",
+    "status": "no_data",
+    "detail": NaN
+   },
+   {
+    "dataset": "offered_capacity",
+    "role": "input",
+    "key": "IT_SICI__IT_CALA",
+    "chunk": "2025-04",
+    "status": "no_data",
+    "detail": NaN
+   },
+   {
+    "dataset": "offered_capacity",
+    "role": "input",
+    "key": "IT_SICI__IT_CALA",
+    "chunk": "2025-05",
+    "status": "no_data",
+    "detail": NaN
+   },
+   {
+    "dataset": "offered_capacity",
+    "role": "input",
+    "key": "IT_SICI__IT_CALA",
+    "chunk": "2025-06",
+    "status": "no_data",
+    "detail": NaN
+   },
+   {
+    "dataset": "offered_capacity",
+    "role": "input",
+    "key": "IT_SICI__IT_CALA",
+    "chunk": "2025-07",
+    "status": "no_data",
+    "detail": NaN
+   },
+   {
+    "dataset": "offered_capacity",
+    "role": "input",
+    "key": "IT_SUD__IT_CALA",
+    "chunk": "2025-01",
+    "status": "no_data",
+    "detail": NaN
+   },
+   {
+    "dataset": "offered_capacity",
+    "role": "input",
+    "key": "IT_SUD__IT_CALA",
+    "chunk": "2025-02",
+    "status": "no_data",
+    "detail": NaN
+   },
+   {
+    "dataset": "offered_capacity",
+    "role": "input",
+    "key": "IT_SUD__IT_CALA",
+    "chunk": "2025-03",
+    "status": "no_data",
+    "detail": NaN
+   },
+   {
+    "dataset": "offered_capacity",
+    "role": "input",
+    "key": "IT_SUD__IT_CALA",
+    "chunk": "2025-04",
+    "status": "no_data",
+    "detail": NaN
+   },
+   {
+    "dataset": "offered_capacity",
+    "role": "input",
+    "key": "IT_SUD__IT_CALA",
+    "chunk": "2025-05",
+    "status": "no_data",
+    "detail": NaN
+   },
+   {
+    "dataset": "offered_capacity",
+    "role": "input",
+    "key": "IT_SUD__IT_CALA",
+    "chunk": "2025-06",
+    "status": "no_data",
+    "detail": NaN
+   },
+   {
+    "dataset": "offered_capacity",
+    "role": "input",
+    "key": "IT_SUD__IT_CALA",
+    "chunk": "2025-07",
+    "status": "no_data",
+    "detail": NaN
+   },
+   {
+    "dataset": "offered_capacity",
+    "role": "input",
+    "key": "IT_SUD__IT_CSUD",
+    "chunk": "2025-01",
+    "status": "no_data",
+    "detail": NaN
+   },
+   {
+    "dataset": "offered_capacity",
+    "role": "input",
+    "key": "IT_SUD__IT_CSUD",
+    "chunk": "2025-02",
+    "status": "no_data",
+    "detail": NaN
+   },
+   {
+    "dataset": "offered_capacity",
+    "role": "input",
+    "key": "IT_SUD__IT_CSUD",
+    "chunk": "2025-03",
+    "status": "no_data",
+    "detail": NaN
+   },
+   {
+    "dataset": "offered_capacity",
+    "role": "input",
+    "key": "IT_SUD__IT_CSUD",
+    "chunk": "2025-04",
+    "status": "no_data",
+    "detail": NaN
+   },
+   {
+    "dataset": "offered_capacity",
+    "role": "input",
+    "key": "IT_SUD__IT_CSUD",
+    "chunk": "2025-05",
+    "status": "no_data",
+    "detail": NaN
+   },
+   {
+    "dataset": "offered_capacity",
+    "role": "input",
+    "key": "IT_SUD__IT_CSUD",
+    "chunk": "2025-06",
+    "status": "no_data",
+    "detail": NaN
+   },
+   {
+    "dataset": "offered_capacity",
+    "role": "input",
+    "key": "IT_SUD__IT_CSUD",
+    "chunk": "2025-07",
+    "status": "no_data",
+    "detail": NaN
+   },
+   {
+    "dataset": "offered_capacity",
+    "role": "input",
+    "key": "NL__GB",
+    "chunk": "2025-01",
+    "status": "no_data",
+    "detail": NaN
+   },
+   {
+    "dataset": "offered_capacity",
+    "role": "input",
+    "key": "NL__GB",
+    "chunk": "2025-02",
+    "status": "no_data",
+    "detail": NaN
+   },
+   {
+    "dataset": "offered_capacity",
+    "role": "input",
+    "key": "NL__GB",
+    "chunk": "2025-03",
+    "status": "no_data",
+    "detail": NaN
+   },
+   {
+    "dataset": "offered_capacity",
+    "role": "input",
+    "key": "NL__GB",
+    "chunk": "2025-04",
+    "status": "no_data",
+    "detail": NaN
+   },
+   {
+    "dataset": "offered_capacity",
+    "role": "input",
+    "key": "NL__GB",
+    "chunk": "2025-05",
+    "status": "no_data",
+    "detail": NaN
+   },
+   {
+    "dataset": "offered_capacity",
+    "role": "input",
+    "key": "NL__GB",
+    "chunk": "2025-06",
+    "status": "no_data",
+    "detail": NaN
+   },
+   {
+    "dataset": "offered_capacity",
+    "role": "input",
+    "key": "NL__GB",
+    "chunk": "2025-07",
+    "status": "no_data",
+    "detail": NaN
+   },
+   {
+    "dataset": "offered_capacity",
+    "role": "input",
+    "key": "NL__GB",
+    "chunk": "2025-08",
+    "status": "no_data",
+    "detail": NaN
+   },
+   {
+    "dataset": "offered_capacity",
+    "role": "input",
+    "key": "NL__GB",
+    "chunk": "2025-09",
+    "status": "no_data",
+    "detail": NaN
+   },
+   {
+    "dataset": "offered_capacity",
+    "role": "input",
+    "key": "NL__GB",
+    "chunk": "2025-10",
+    "status": "no_data",
+    "detail": NaN
+   },
+   {
+    "dataset": "offered_capacity",
+    "role": "input",
+    "key": "NL__GB",
+    "chunk": "2025-11",
+    "status": "no_data",
+    "detail": NaN
+   },
+   {
+    "dataset": "offered_capacity",
+    "role": "input",
+    "key": "NL__GB",
+    "chunk": "2025-12",
+    "status": "no_data",
+    "detail": NaN
+   },
+   {
+    "dataset": "offered_capacity",
+    "role": "input",
+    "key": "NO_2__DK_1",
+    "chunk": "2025-01",
+    "status": "no_data",
+    "detail": NaN
+   },
+   {
+    "dataset": "offered_capacity",
+    "role": "input",
+    "key": "NO_2__DK_1",
+    "chunk": "2025-02",
+    "status": "no_data",
+    "detail": NaN
+   },
+   {
+    "dataset": "offered_capacity",
+    "role": "input",
+    "key": "NO_2__DK_1",
+    "chunk": "2025-03",
+    "status": "no_data",
+    "detail": NaN
+   },
+   {
+    "dataset": "offered_capacity",
+    "role": "input",
+    "key": "NO_2__DK_1",
+    "chunk": "2025-04",
+    "status": "no_data",
+    "detail": NaN
+   },
+   {
+    "dataset": "offered_capacity",
+    "role": "input",
+    "key": "NO_2__DK_1",
+    "chunk": "2025-05",
+    "status": "no_data",
+    "detail": NaN
+   },
+   {
+    "dataset": "offered_capacity",
+    "role": "input",
+    "key": "NO_2__DK_1",
+    "chunk": "2025-06",
+    "status": "no_data",
+    "detail": NaN
+   },
+   {
+    "dataset": "offered_capacity",
+    "role": "input",
+    "key": "NO_2__DK_1",
+    "chunk": "2025-07",
+    "status": "no_data",
+    "detail": NaN
+   },
+   {
+    "dataset": "offered_capacity",
+    "role": "input",
+    "key": "NO_2__DK_1",
+    "chunk": "2025-08",
+    "status": "no_data",
+    "detail": NaN
+   },
+   {
+    "dataset": "offered_capacity",
+    "role": "input",
+    "key": "NO_2__DK_1",
+    "chunk": "2025-09",
+    "status": "no_data",
+    "detail": NaN
+   },
+   {
+    "dataset": "offered_capacity",
+    "role": "input",
+    "key": "NO_2__DK_1",
+    "chunk": "2025-10",
+    "status": "no_data",
+    "detail": NaN
+   },
+   {
+    "dataset": "offered_capacity",
+    "role": "input",
+    "key": "NO_2__DK_1",
+    "chunk": "2025-11",
+    "status": "no_data",
+    "detail": NaN
+   },
+   {
+    "dataset": "offered_capacity",
+    "role": "input",
+    "key": "NO_2__DK_1",
+    "chunk": "2025-12",
+    "status": "no_data",
+    "detail": NaN
+   },
+   {
+    "dataset": "offered_capacity",
+    "role": "input",
+    "key": "SE_4__DE_LU",
+    "chunk": "2025-01",
+    "status": "no_data",
+    "detail": NaN
+   },
+   {
+    "dataset": "offered_capacity",
+    "role": "input",
+    "key": "SE_4__DE_LU",
+    "chunk": "2025-02",
+    "status": "no_data",
+    "detail": NaN
+   },
+   {
+    "dataset": "offered_capacity",
+    "role": "input",
+    "key": "SE_4__DE_LU",
+    "chunk": "2025-03",
+    "status": "no_data",
+    "detail": NaN
+   },
+   {
+    "dataset": "offered_capacity",
+    "role": "input",
+    "key": "SE_4__DE_LU",
+    "chunk": "2025-04",
+    "status": "no_data",
+    "detail": NaN
+   },
+   {
+    "dataset": "offered_capacity",
+    "role": "input",
+    "key": "SE_4__DE_LU",
+    "chunk": "2025-05",
+    "status": "no_data",
+    "detail": NaN
+   },
+   {
+    "dataset": "offered_capacity",
+    "role": "input",
+    "key": "SE_4__DE_LU",
+    "chunk": "2025-06",
+    "status": "no_data",
+    "detail": NaN
+   },
+   {
+    "dataset": "offered_capacity",
+    "role": "input",
+    "key": "SE_4__DE_LU",
+    "chunk": "2025-07",
+    "status": "no_data",
+    "detail": NaN
+   },
+   {
+    "dataset": "offered_capacity",
+    "role": "input",
+    "key": "SE_4__DE_LU",
+    "chunk": "2025-08",
+    "status": "no_data",
+    "detail": NaN
+   },
+   {
+    "dataset": "offered_capacity",
+    "role": "input",
+    "key": "SE_4__DE_LU",
+    "chunk": "2025-09",
+    "status": "no_data",
+    "detail": NaN
+   },
+   {
+    "dataset": "offered_capacity",
+    "role": "input",
+    "key": "SE_4__DE_LU",
+    "chunk": "2025-10",
+    "status": "no_data",
+    "detail": NaN
+   },
+   {
+    "dataset": "offered_capacity",
+    "role": "input",
+    "key": "SE_4__DE_LU",
+    "chunk": "2025-11",
+    "status": "no_data",
+    "detail": NaN
+   },
+   {
+    "dataset": "offered_capacity",
+    "role": "input",
+    "key": "SE_4__DE_LU",
+    "chunk": "2025-12",
+    "status": "no_data",
+    "detail": NaN
+   },
+   {
+    "dataset": "offered_capacity",
+    "role": "input",
+    "key": "SE_4__DK_2",
+    "chunk": "2025-01",
+    "status": "no_data",
+    "detail": NaN
+   },
+   {
+    "dataset": "offered_capacity",
+    "role": "input",
+    "key": "SE_4__DK_2",
+    "chunk": "2025-02",
+    "status": "no_data",
+    "detail": NaN
+   },
+   {
+    "dataset": "offered_capacity",
+    "role": "input",
+    "key": "SE_4__DK_2",
+    "chunk": "2025-03",
+    "status": "no_data",
+    "detail": NaN
+   },
+   {
+    "dataset": "offered_capacity",
+    "role": "input",
+    "key": "SE_4__DK_2",
+    "chunk": "2025-04",
+    "status": "no_data",
+    "detail": NaN
+   },
+   {
+    "dataset": "offered_capacity",
+    "role": "input",
+    "key": "SE_4__DK_2",
+    "chunk": "2025-05",
+    "status": "no_data",
+    "detail": NaN
+   },
+   {
+    "dataset": "offered_capacity",
+    "role": "input",
+    "key": "SE_4__DK_2",
+    "chunk": "2025-06",
+    "status": "no_data",
+    "detail": NaN
+   },
+   {
+    "dataset": "offered_capacity",
+    "role": "input",
+    "key": "SE_4__DK_2",
+    "chunk": "2025-07",
+    "status": "no_data",
+    "detail": NaN
+   },
+   {
+    "dataset": "offered_capacity",
+    "role": "input",
+    "key": "SE_4__DK_2",
+    "chunk": "2025-08",
+    "status": "no_data",
+    "detail": NaN
+   },
+   {
+    "dataset": "offered_capacity",
+    "role": "input",
+    "key": "SE_4__DK_2",
+    "chunk": "2025-09",
+    "status": "no_data",
+    "detail": NaN
+   },
+   {
+    "dataset": "offered_capacity",
+    "role": "input",
+    "key": "SE_4__DK_2",
+    "chunk": "2025-10",
+    "status": "no_data",
+    "detail": NaN
+   },
+   {
+    "dataset": "offered_capacity",
+    "role": "input",
+    "key": "SE_4__DK_2",
+    "chunk": "2025-11",
+    "status": "no_data",
+    "detail": NaN
+   },
+   {
+    "dataset": "offered_capacity",
+    "role": "input",
+    "key": "SE_4__DK_2",
+    "chunk": "2025-12",
+    "status": "no_data",
+    "detail": NaN
+   },
+   {
+    "dataset": "offered_capacity",
+    "role": "input",
+    "key": "SI__IT_NORD",
+    "chunk": "2025-01",
+    "status": "no_data",
+    "detail": NaN
+   },
+   {
+    "dataset": "offered_capacity",
+    "role": "input",
+    "key": "SI__IT_NORD",
+    "chunk": "2025-02",
+    "status": "no_data",
+    "detail": NaN
+   },
+   {
+    "dataset": "offered_capacity",
+    "role": "input",
+    "key": "SI__IT_NORD",
+    "chunk": "2025-03",
+    "status": "no_data",
+    "detail": NaN
+   },
+   {
+    "dataset": "offered_capacity",
+    "role": "input",
+    "key": "SI__IT_NORD",
+    "chunk": "2025-04",
+    "status": "no_data",
+    "detail": NaN
+   },
+   {
+    "dataset": "offered_capacity",
+    "role": "input",
+    "key": "SI__IT_NORD",
+    "chunk": "2025-05",
+    "status": "no_data",
+    "detail": NaN
+   },
+   {
+    "dataset": "offered_capacity",
+    "role": "input",
+    "key": "SI__IT_NORD",
+    "chunk": "2025-06",
+    "status": "no_data",
+    "detail": NaN
+   },
+   {
+    "dataset": "offered_capacity",
+    "role": "input",
+    "key": "SI__IT_NORD",
+    "chunk": "2025-07",
+    "status": "no_data",
+    "detail": NaN
+   },
+   {
+    "dataset": "offered_capacity",
+    "role": "input",
+    "key": "SI__IT_NORD",
+    "chunk": "2025-08",
+    "status": "no_data",
+    "detail": NaN
+   },
+   {
+    "dataset": "offered_capacity",
+    "role": "input",
+    "key": "SI__IT_NORD",
+    "chunk": "2025-09",
+    "status": "no_data",
+    "detail": NaN
+   },
+   {
+    "dataset": "offered_capacity",
+    "role": "input",
+    "key": "SI__IT_NORD",
+    "chunk": "2025-10",
+    "status": "no_data",
+    "detail": NaN
+   },
+   {
+    "dataset": "offered_capacity",
+    "role": "input",
+    "key": "SI__IT_NORD",
+    "chunk": "2025-11",
+    "status": "no_data",
+    "detail": NaN
+   },
+   {
+    "dataset": "offered_capacity",
+    "role": "input",
+    "key": "SI__IT_NORD",
+    "chunk": "2025-12",
+    "status": "no_data",
+    "detail": NaN
+   },
+   {
+    "dataset": "da_prices",
+    "role": "validation",
+    "key": "GB",
+    "chunk": "2025-01",
+    "status": "no_data",
+    "detail": NaN
+   },
+   {
+    "dataset": "da_prices",
+    "role": "validation",
+    "key": "GB",
+    "chunk": "2025-02",
+    "status": "no_data",
+    "detail": NaN
+   },
+   {
+    "dataset": "da_prices",
+    "role": "validation",
+    "key": "GB",
+    "chunk": "2025-03",
+    "status": "no_data",
+    "detail": NaN
+   },
+   {
+    "dataset": "da_prices",
+    "role": "validation",
+    "key": "GB",
+    "chunk": "2025-04",
+    "status": "no_data",
+    "detail": NaN
+   },
+   {
+    "dataset": "da_prices",
+    "role": "validation",
+    "key": "GB",
+    "chunk": "2025-05",
+    "status": "no_data",
+    "detail": NaN
+   },
+   {
+    "dataset": "da_prices",
+    "role": "validation",
+    "key": "GB",
+    "chunk": "2025-06",
+    "status": "no_data",
+    "detail": NaN
+   },
+   {
+    "dataset": "da_prices",
+    "role": "validation",
+    "key": "GB",
+    "chunk": "2025-07",
+    "status": "no_data",
+    "detail": NaN
+   },
+   {
+    "dataset": "da_prices",
+    "role": "validation",
+    "key": "GB",
+    "chunk": "2025-08",
+    "status": "no_data",
+    "detail": NaN
+   },
+   {
+    "dataset": "da_prices",
+    "role": "validation",
+    "key": "GB",
+    "chunk": "2025-09",
+    "status": "no_data",
+    "detail": NaN
+   },
+   {
+    "dataset": "da_prices",
+    "role": "validation",
+    "key": "GB",
+    "chunk": "2025-10",
+    "status": "no_data",
+    "detail": NaN
+   },
+   {
+    "dataset": "da_prices",
+    "role": "validation",
+    "key": "GB",
+    "chunk": "2025-11",
+    "status": "no_data",
+    "detail": NaN
+   },
+   {
+    "dataset": "da_prices",
+    "role": "validation",
+    "key": "GB",
+    "chunk": "2025-12",
+    "status": "no_data",
+    "detail": NaN
+   },
+   {
+    "dataset": "crossborder_flows",
+    "role": "validation",
+    "key": "IT_CNOR__IT_SARD",
+    "chunk": "2025-01",
+    "status": "no_data",
+    "detail": NaN
+   },
+   {
+    "dataset": "crossborder_flows",
+    "role": "validation",
+    "key": "IT_CNOR__IT_SARD",
+    "chunk": "2025-02",
+    "status": "no_data",
+    "detail": NaN
+   },
+   {
+    "dataset": "crossborder_flows",
+    "role": "validation",
+    "key": "IT_CNOR__IT_SARD",
+    "chunk": "2025-03",
+    "status": "no_data",
+    "detail": NaN
+   },
+   {
+    "dataset": "crossborder_flows",
+    "role": "validation",
+    "key": "IT_CNOR__IT_SARD",
+    "chunk": "2025-04",
+    "status": "no_data",
+    "detail": NaN
+   },
+   {
+    "dataset": "crossborder_flows",
+    "role": "validation",
+    "key": "IT_CNOR__IT_SARD",
+    "chunk": "2025-05",
+    "status": "no_data",
+    "detail": NaN
+   },
+   {
+    "dataset": "crossborder_flows",
+    "role": "validation",
+    "key": "IT_CNOR__IT_SARD",
+    "chunk": "2025-06",
+    "status": "no_data",
+    "detail": NaN
+   },
+   {
+    "dataset": "crossborder_flows",
+    "role": "validation",
+    "key": "IT_CNOR__IT_SARD",
+    "chunk": "2025-07",
+    "status": "no_data",
+    "detail": NaN
+   },
+   {
+    "dataset": "crossborder_flows",
+    "role": "validation",
+    "key": "IT_CNOR__IT_SARD",
+    "chunk": "2025-08",
+    "status": "no_data",
+    "detail": NaN
+   },
+   {
+    "dataset": "crossborder_flows",
+    "role": "validation",
+    "key": "IT_CNOR__IT_SARD",
+    "chunk": "2025-09",
+    "status": "no_data",
+    "detail": NaN
+   },
+   {
+    "dataset": "crossborder_flows",
+    "role": "validation",
+    "key": "IT_CNOR__IT_SARD",
+    "chunk": "2025-10",
+    "status": "no_data",
+    "detail": NaN
+   },
+   {
+    "dataset": "crossborder_flows",
+    "role": "validation",
+    "key": "IT_CNOR__IT_SARD",
+    "chunk": "2025-11",
+    "status": "no_data",
+    "detail": NaN
+   },
+   {
+    "dataset": "crossborder_flows",
+    "role": "validation",
+    "key": "IT_CNOR__IT_SARD",
+    "chunk": "2025-12",
+    "status": "no_data",
+    "detail": NaN
+   },
+   {
+    "dataset": "crossborder_flows",
+    "role": "validation",
+    "key": "IT_SARD__IT_CNOR",
+    "chunk": "2025-01",
+    "status": "no_data",
+    "detail": NaN
+   },
+   {
+    "dataset": "crossborder_flows",
+    "role": "validation",
+    "key": "IT_SARD__IT_CNOR",
+    "chunk": "2025-02",
+    "status": "no_data",
+    "detail": NaN
+   },
+   {
+    "dataset": "crossborder_flows",
+    "role": "validation",
+    "key": "IT_SARD__IT_CNOR",
+    "chunk": "2025-03",
+    "status": "no_data",
+    "detail": NaN
+   },
+   {
+    "dataset": "crossborder_flows",
+    "role": "validation",
+    "key": "IT_SARD__IT_CNOR",
+    "chunk": "2025-04",
+    "status": "no_data",
+    "detail": NaN
+   },
+   {
+    "dataset": "crossborder_flows",
+    "role": "validation",
+    "key": "IT_SARD__IT_CNOR",
+    "chunk": "2025-05",
+    "status": "no_data",
+    "detail": NaN
+   },
+   {
+    "dataset": "crossborder_flows",
+    "role": "validation",
+    "key": "IT_SARD__IT_CNOR",
+    "chunk": "2025-06",
+    "status": "no_data",
+    "detail": NaN
+   },
+   {
+    "dataset": "crossborder_flows",
+    "role": "validation",
+    "key": "IT_SARD__IT_CNOR",
+    "chunk": "2025-07",
+    "status": "no_data",
+    "detail": NaN
+   },
+   {
+    "dataset": "crossborder_flows",
+    "role": "validation",
+    "key": "IT_SARD__IT_CNOR",
+    "chunk": "2025-08",
+    "status": "no_data",
+    "detail": NaN
+   },
+   {
+    "dataset": "crossborder_flows",
+    "role": "validation",
+    "key": "IT_SARD__IT_CNOR",
+    "chunk": "2025-09",
+    "status": "no_data",
+    "detail": NaN
+   },
+   {
+    "dataset": "crossborder_flows",
+    "role": "validation",
+    "key": "IT_SARD__IT_CNOR",
+    "chunk": "2025-10",
+    "status": "no_data",
+    "detail": NaN
+   },
+   {
+    "dataset": "crossborder_flows",
+    "role": "validation",
+    "key": "IT_SARD__IT_CNOR",
+    "chunk": "2025-11",
+    "status": "no_data",
+    "detail": NaN
+   },
+   {
+    "dataset": "crossborder_flows",
+    "role": "validation",
+    "key": "IT_SARD__IT_CNOR",
+    "chunk": "2025-12",
+    "status": "no_data",
+    "detail": NaN
+   },
+   {
+    "dataset": "crossborder_flows",
+    "role": "validation",
+    "key": "SK__PL",
+    "chunk": "2025-05",
+    "status": "error",
+    "detail": "HTTPError 599: 599 Server Error: status code 599 for url: https://web-api.tp.entsoe.eu/api?documentType=A11&in_Domain=10YPL-AREA-----S&out_Domain=10YSK-SEPS-----K&securityToken=***&periodStart=202505010000&periodEnd=202506010000"
+   },
+   {
+    "dataset": "scheduled_exchanges_da",
+    "role": "validation",
+    "key": "IT_CNOR__IT_SARD",
+    "chunk": "2025-01",
+    "status": "no_data",
+    "detail": NaN
+   },
+   {
+    "dataset": "scheduled_exchanges_da",
+    "role": "validation",
+    "key": "IT_CNOR__IT_SARD",
+    "chunk": "2025-02",
+    "status": "no_data",
+    "detail": NaN
+   },
+   {
+    "dataset": "scheduled_exchanges_da",
+    "role": "validation",
+    "key": "IT_CNOR__IT_SARD",
+    "chunk": "2025-03",
+    "status": "no_data",
+    "detail": NaN
+   },
+   {
+    "dataset": "scheduled_exchanges_da",
+    "role": "validation",
+    "key": "IT_CNOR__IT_SARD",
+    "chunk": "2025-04",
+    "status": "no_data",
+    "detail": NaN
+   },
+   {
+    "dataset": "scheduled_exchanges_da",
+    "role": "validation",
+    "key": "IT_CNOR__IT_SARD",
+    "chunk": "2025-05",
+    "status": "no_data",
+    "detail": NaN
+   },
+   {
+    "dataset": "scheduled_exchanges_da",
+    "role": "validation",
+    "key": "IT_CNOR__IT_SARD",
+    "chunk": "2025-06",
+    "status": "no_data",
+    "detail": NaN
+   },
+   {
+    "dataset": "scheduled_exchanges_da",
+    "role": "validation",
+    "key": "IT_CNOR__IT_SARD",
+    "chunk": "2025-07",
+    "status": "no_data",
+    "detail": NaN
+   },
+   {
+    "dataset": "scheduled_exchanges_da",
+    "role": "validation",
+    "key": "IT_CNOR__IT_SARD",
+    "chunk": "2025-08",
+    "status": "no_data",
+    "detail": NaN
+   },
+   {
+    "dataset": "scheduled_exchanges_da",
+    "role": "validation",
+    "key": "IT_CNOR__IT_SARD",
+    "chunk": "2025-09",
+    "status": "no_data",
+    "detail": NaN
+   },
+   {
+    "dataset": "scheduled_exchanges_da",
+    "role": "validation",
+    "key": "IT_CNOR__IT_SARD",
+    "chunk": "2025-10",
+    "status": "no_data",
+    "detail": NaN
+   },
+   {
+    "dataset": "scheduled_exchanges_da",
+    "role": "validation",
+    "key": "IT_CNOR__IT_SARD",
+    "chunk": "2025-11",
+    "status": "no_data",
+    "detail": NaN
+   },
+   {
+    "dataset": "scheduled_exchanges_da",
+    "role": "validation",
+    "key": "IT_CNOR__IT_SARD",
+    "chunk": "2025-12",
+    "status": "no_data",
+    "detail": NaN
+   },
+   {
+    "dataset": "scheduled_exchanges_da",
+    "role": "validation",
+    "key": "IT_SARD__IT_CNOR",
+    "chunk": "2025-01",
+    "status": "no_data",
+    "detail": NaN
+   },
+   {
+    "dataset": "scheduled_exchanges_da",
+    "role": "validation",
+    "key": "IT_SARD__IT_CNOR",
+    "chunk": "2025-02",
+    "status": "no_data",
+    "detail": NaN
+   },
+   {
+    "dataset": "scheduled_exchanges_da",
+    "role": "validation",
+    "key": "IT_SARD__IT_CNOR",
+    "chunk": "2025-03",
+    "status": "no_data",
+    "detail": NaN
+   },
+   {
+    "dataset": "scheduled_exchanges_da",
+    "role": "validation",
+    "key": "IT_SARD__IT_CNOR",
+    "chunk": "2025-04",
+    "status": "no_data",
+    "detail": NaN
+   },
+   {
+    "dataset": "scheduled_exchanges_da",
+    "role": "validation",
+    "key": "IT_SARD__IT_CNOR",
+    "chunk": "2025-05",
+    "status": "no_data",
+    "detail": NaN
+   },
+   {
+    "dataset": "scheduled_exchanges_da",
+    "role": "validation",
+    "key": "IT_SARD__IT_CNOR",
+    "chunk": "2025-06",
+    "status": "no_data",
+    "detail": NaN
+   },
+   {
+    "dataset": "scheduled_exchanges_da",
+    "role": "validation",
+    "key": "IT_SARD__IT_CNOR",
+    "chunk": "2025-07",
+    "status": "no_data",
+    "detail": NaN
+   },
+   {
+    "dataset": "scheduled_exchanges_da",
+    "role": "validation",
+    "key": "IT_SARD__IT_CNOR",
+    "chunk": "2025-08",
+    "status": "no_data",
+    "detail": NaN
+   },
+   {
+    "dataset": "scheduled_exchanges_da",
+    "role": "validation",
+    "key": "IT_SARD__IT_CNOR",
+    "chunk": "2025-09",
+    "status": "no_data",
+    "detail": NaN
+   },
+   {
+    "dataset": "scheduled_exchanges_da",
+    "role": "validation",
+    "key": "IT_SARD__IT_CNOR",
+    "chunk": "2025-10",
+    "status": "no_data",
+    "detail": NaN
+   },
+   {
+    "dataset": "scheduled_exchanges_da",
+    "role": "validation",
+    "key": "IT_SARD__IT_CNOR",
+    "chunk": "2025-11",
+    "status": "no_data",
+    "detail": NaN
+   },
+   {
+    "dataset": "scheduled_exchanges_da",
+    "role": "validation",
+    "key": "IT_SARD__IT_CNOR",
+    "chunk": "2025-12",
+    "status": "no_data",
+    "detail": NaN
+   },
+   {
+    "dataset": "net_position_da",
+    "role": "validation",
+    "key": "CH",
+    "chunk": "2025-01",
+    "status": "no_data",
+    "detail": NaN
+   },
+   {
+    "dataset": "net_position_da",
+    "role": "validation",
+    "key": "CH",
+    "chunk": "2025-02",
+    "status": "no_data",
+    "detail": NaN
+   },
+   {
+    "dataset": "net_position_da",
+    "role": "validation",
+    "key": "CH",
+    "chunk": "2025-03",
+    "status": "no_data",
+    "detail": NaN
+   },
+   {
+    "dataset": "net_position_da",
+    "role": "validation",
+    "key": "CH",
+    "chunk": "2025-04",
+    "status": "no_data",
+    "detail": NaN
+   },
+   {
+    "dataset": "net_position_da",
+    "role": "validation",
+    "key": "CH",
+    "chunk": "2025-05",
+    "status": "no_data",
+    "detail": NaN
+   },
+   {
+    "dataset": "net_position_da",
+    "role": "validation",
+    "key": "CH",
+    "chunk": "2025-06",
+    "status": "no_data",
+    "detail": NaN
+   },
+   {
+    "dataset": "net_position_da",
+    "role": "validation",
+    "key": "CH",
+    "chunk": "2025-07",
+    "status": "no_data",
+    "detail": NaN
+   },
+   {
+    "dataset": "net_position_da",
+    "role": "validation",
+    "key": "CH",
+    "chunk": "2025-08",
+    "status": "no_data",
+    "detail": NaN
+   },
+   {
+    "dataset": "net_position_da",
+    "role": "validation",
+    "key": "CH",
+    "chunk": "2025-09",
+    "status": "no_data",
+    "detail": NaN
+   },
+   {
+    "dataset": "net_position_da",
+    "role": "validation",
+    "key": "CH",
+    "chunk": "2025-10",
+    "status": "no_data",
+    "detail": NaN
+   },
+   {
+    "dataset": "net_position_da",
+    "role": "validation",
+    "key": "CH",
+    "chunk": "2025-11",
+    "status": "no_data",
+    "detail": NaN
+   },
+   {
+    "dataset": "net_position_da",
+    "role": "validation",
+    "key": "CH",
+    "chunk": "2025-12",
+    "status": "no_data",
+    "detail": NaN
+   },
+   {
+    "dataset": "net_position_da",
+    "role": "validation",
+    "key": "GB",
+    "chunk": "2025-01",
+    "status": "no_data",
+    "detail": NaN
+   },
+   {
+    "dataset": "net_position_da",
+    "role": "validation",
+    "key": "GB",
+    "chunk": "2025-02",
+    "status": "no_data",
+    "detail": NaN
+   },
+   {
+    "dataset": "net_position_da",
+    "role": "validation",
+    "key": "GB",
+    "chunk": "2025-03",
+    "status": "no_data",
+    "detail": NaN
+   },
+   {
+    "dataset": "net_position_da",
+    "role": "validation",
+    "key": "GB",
+    "chunk": "2025-04",
+    "status": "no_data",
+    "detail": NaN
+   },
+   {
+    "dataset": "net_position_da",
+    "role": "validation",
+    "key": "GB",
+    "chunk": "2025-05",
+    "status": "no_data",
+    "detail": NaN
+   },
+   {
+    "dataset": "net_position_da",
+    "role": "validation",
+    "key": "GB",
+    "chunk": "2025-06",
+    "status": "no_data",
+    "detail": NaN
+   },
+   {
+    "dataset": "net_position_da",
+    "role": "validation",
+    "key": "GB",
+    "chunk": "2025-07",
+    "status": "no_data",
+    "detail": NaN
+   },
+   {
+    "dataset": "net_position_da",
+    "role": "validation",
+    "key": "GB",
+    "chunk": "2025-08",
+    "status": "no_data",
+    "detail": NaN
+   },
+   {
+    "dataset": "net_position_da",
+    "role": "validation",
+    "key": "GB",
+    "chunk": "2025-09",
+    "status": "no_data",
+    "detail": NaN
+   },
+   {
+    "dataset": "net_position_da",
+    "role": "validation",
+    "key": "GB",
+    "chunk": "2025-10",
+    "status": "no_data",
+    "detail": NaN
+   },
+   {
+    "dataset": "net_position_da",
+    "role": "validation",
+    "key": "GB",
+    "chunk": "2025-11",
+    "status": "no_data",
+    "detail": NaN
+   },
+   {
+    "dataset": "net_position_da",
+    "role": "validation",
+    "key": "GB",
+    "chunk": "2025-12",
+    "status": "no_data",
+    "detail": NaN
+   }
+  ]
+ },
+ "resolution_15min": {
+  "chunks": 2547,
+  "by_dataset_first_day": {
+   "boundary_exchanges": "2025-01-01",
+   "crossborder_flows": "2025-01-01",
+   "da_prices": "2025-10-01",
+   "generation": "2025-01-01",
+   "jao_net_position": "2025-10-01",
+   "load": "2025-01-01",
+   "net_position_da": "2025-10-01",
+   "ntc_dayahead": "2025-10-01",
+   "offered_capacity": "2025-02-27",
+   "scheduled_exchanges_da": "2025-01-01"
+  }
+ },
+ "gaps": {
+  "runs": 23430,
+  "by_action_hours": {
+   "flagged_edge": 14,
+   "flagged_long": 519351,
+   "interpolated": 21988
+  }
+ },
+ "checks": {
+  "annual_load": [
+   {
+    "entity": "AT",
+    "entsoe_twh": 59.23939609999999,
+    "missing_hours": 0,
+    "ember_twh": 77.39,
+    "diff_vs_ember": -0.23453422793642598,
+    "national_twh": NaN,
+    "diff_vs_national": NaN,
+    "national_source": NaN,
+    "status": "OUTSIDE \u00b15%"
+   },
+   {
+    "entity": "BE",
+    "entsoe_twh": 80.1948716225,
+    "missing_hours": 0,
+    "ember_twh": 80.28,
+    "diff_vs_ember": -0.0010603933420527678,
+    "national_twh": NaN,
+    "diff_vs_national": NaN,
+    "national_source": NaN,
+    "status": "ok"
+   },
+   {
+    "entity": "CZ",
+    "entsoe_twh": 62.608639020000005,
+    "missing_hours": 0,
+    "ember_twh": 68.07,
+    "diff_vs_ember": -0.08023154076685746,
+    "national_twh": NaN,
+    "diff_vs_national": NaN,
+    "national_source": NaN,
+    "status": "OUTSIDE \u00b15%"
+   },
+   {
+    "entity": "DE_LU",
+    "entsoe_twh": 470.65953275915,
+    "missing_hours": 0,
+    "ember_twh": 526.48,
+    "diff_vs_ember": -0.10602580770561087,
+    "national_twh": NaN,
+    "diff_vs_national": NaN,
+    "national_source": NaN,
+    "status": "OUTSIDE \u00b15%"
+   },
+   {
+    "entity": "FR",
+    "entsoe_twh": 434.6810563733333,
+    "missing_hours": 0,
+    "ember_twh": 476.79,
+    "diff_vs_ember": -0.08831758977047899,
+    "national_twh": NaN,
+    "diff_vs_national": NaN,
+    "national_source": NaN,
+    "status": "OUTSIDE \u00b15%"
+   },
+   {
+    "entity": "HR",
+    "entsoe_twh": 18.2301485,
+    "missing_hours": 0,
+    "ember_twh": 20.02,
+    "diff_vs_ember": -0.08940317182817192,
+    "national_twh": NaN,
+    "diff_vs_national": NaN,
+    "national_source": NaN,
+    "status": "OUTSIDE \u00b15%"
+   },
+   {
+    "entity": "HU",
+    "entsoe_twh": 43.21000596974999,
+    "missing_hours": 0,
+    "ember_twh": 49.24,
+    "diff_vs_ember": -0.12246129224715696,
+    "national_twh": NaN,
+    "diff_vs_national": NaN,
+    "national_source": NaN,
+    "status": "OUTSIDE \u00b15%"
+   },
+   {
+    "entity": "NL",
+    "entsoe_twh": 116.90401598925,
+    "missing_hours": 0,
+    "ember_twh": 121.05,
+    "diff_vs_ember": -0.03425017770136307,
+    "national_twh": NaN,
+    "diff_vs_national": NaN,
+    "national_source": NaN,
+    "status": "ok"
+   },
+   {
+    "entity": "PL",
+    "entsoe_twh": 158.415408389,
+    "missing_hours": 0,
+    "ember_twh": 173.62,
+    "diff_vs_ember": -0.08757396389240879,
+    "national_twh": NaN,
+    "diff_vs_national": NaN,
+    "national_source": NaN,
+    "status": "OUTSIDE \u00b15%"
+   },
+   {
+    "entity": "RO",
+    "entsoe_twh": 53.5599715775,
+    "missing_hours": 0,
+    "ember_twh": 53.6,
+    "diff_vs_ember": -0.0007467989272388342,
+    "national_twh": NaN,
+    "diff_vs_national": NaN,
+    "national_source": NaN,
+    "status": "ok"
+   },
+   {
+    "entity": "SI",
+    "entsoe_twh": 12.533915559999999,
+    "missing_hours": 0,
+    "ember_twh": 14.39,
+    "diff_vs_ember": -0.12898432522585146,
+    "national_twh": NaN,
+    "diff_vs_national": NaN,
+    "national_source": NaN,
+    "status": "OUTSIDE \u00b15%"
+   },
+   {
+    "entity": "SK",
+    "entsoe_twh": 25.8247887,
+    "missing_hours": 0,
+    "ember_twh": 26.74,
+    "diff_vs_ember": -0.034226301421091954,
+    "national_twh": NaN,
+    "diff_vs_national": NaN,
+    "national_source": NaN,
+    "status": "ok"
+   },
+   {
+    "entity": "ES",
+    "entsoe_twh": 237.677523,
+    "missing_hours": 35,
+    "ember_twh": 275.18,
+    "diff_vs_ember": -0.1362834399302275,
+    "national_twh": NaN,
+    "diff_vs_national": NaN,
+    "national_source": NaN,
+    "status": "OUTSIDE \u00b15%"
+   },
+   {
+    "entity": "PT",
+    "entsoe_twh": 53.036714499999995,
+    "missing_hours": 0,
+    "ember_twh": 60.43,
+    "diff_vs_ember": -0.12234462187655148,
+    "national_twh": NaN,
+    "diff_vs_national": NaN,
+    "national_source": NaN,
+    "status": "OUTSIDE \u00b15%"
+   },
+   {
+    "entity": "IT_NORD",
+    "entsoe_twh": 155.54771025,
+    "missing_hours": 0,
+    "ember_twh": NaN,
+    "diff_vs_ember": NaN,
+    "national_twh": NaN,
+    "diff_vs_national": NaN,
+    "national_source": NaN,
+    "status": "no reference"
+   },
+   {
+    "entity": "IT_CNOR",
+    "entsoe_twh": 23.869364,
+    "missing_hours": 0,
+    "ember_twh": NaN,
+    "diff_vs_ember": NaN,
+    "national_twh": NaN,
+    "diff_vs_national": NaN,
+    "national_source": NaN,
+    "status": "no reference"
+   },
+   {
+    "entity": "IT_CSUD",
+    "entsoe_twh": 47.96256625,
+    "missing_hours": 0,
+    "ember_twh": NaN,
+    "diff_vs_ember": NaN,
+    "national_twh": NaN,
+    "diff_vs_national": NaN,
+    "national_source": NaN,
+    "status": "no reference"
+   },
+   {
+    "entity": "IT_SUD",
+    "entsoe_twh": 19.29881875,
+    "missing_hours": 0,
+    "ember_twh": NaN,
+    "diff_vs_ember": NaN,
+    "national_twh": NaN,
+    "diff_vs_national": NaN,
+    "national_source": NaN,
+    "status": "no reference"
+   },
+   {
+    "entity": "IT_CALA",
+    "entsoe_twh": 5.96674825,
+    "missing_hours": 0,
+    "ember_twh": NaN,
+    "diff_vs_ember": NaN,
+    "national_twh": NaN,
+    "diff_vs_national": NaN,
+    "national_source": NaN,
+    "status": "no reference"
+   },
+   {
+    "entity": "IT_SICI",
+    "entsoe_twh": 16.58798325,
+    "missing_hours": 0,
+    "ember_twh": NaN,
+    "diff_vs_ember": NaN,
+    "national_twh": NaN,
+    "diff_vs_national": NaN,
+    "national_source": NaN,
+    "status": "no reference"
+   },
+   {
+    "entity": "IT_SARD",
+    "entsoe_twh": 7.87713725,
+    "missing_hours": 0,
+    "ember_twh": NaN,
+    "diff_vs_ember": NaN,
+    "national_twh": NaN,
+    "diff_vs_national": NaN,
+    "national_source": NaN,
+    "status": "no reference"
+   },
+   {
+    "entity": "CH",
+    "entsoe_twh": 62.07126866953,
+    "missing_hours": 0,
+    "ember_twh": 65.08,
+    "diff_vs_ember": -0.04623127428503382,
+    "national_twh": NaN,
+    "diff_vs_national": NaN,
+    "national_source": NaN,
+    "status": "ok"
+   },
+   {
+    "entity": "GB",
+    "entsoe_twh": NaN,
+    "missing_hours": 8760,
+    "ember_twh": 321.38,
+    "diff_vs_ember": NaN,
+    "national_twh": NaN,
+    "diff_vs_national": NaN,
+    "national_source": NaN,
+    "status": "no reference"
+   },
+   {
+    "entity": "NO_2",
+    "entsoe_twh": 36.3672124375,
+    "missing_hours": 0,
+    "ember_twh": NaN,
+    "diff_vs_ember": NaN,
+    "national_twh": NaN,
+    "diff_vs_national": NaN,
+    "national_source": NaN,
+    "status": "no reference"
+   },
+   {
+    "entity": "DK_1",
+    "entsoe_twh": 23.64940017,
+    "missing_hours": 9,
+    "ember_twh": NaN,
+    "diff_vs_ember": NaN,
+    "national_twh": NaN,
+    "diff_vs_national": NaN,
+    "national_source": NaN,
+    "status": "no reference"
+   },
+   {
+    "entity": "DK_2",
+    "entsoe_twh": 14.783907925,
+    "missing_hours": 9,
+    "ember_twh": NaN,
+    "diff_vs_ember": NaN,
+    "national_twh": NaN,
+    "diff_vs_national": NaN,
+    "national_source": NaN,
+    "status": "no reference"
+   },
+   {
+    "entity": "SE_4",
+    "entsoe_twh": 21.16959775,
+    "missing_hours": 0,
+    "ember_twh": NaN,
+    "diff_vs_ember": NaN,
+    "national_twh": NaN,
+    "diff_vs_national": NaN,
+    "national_source": NaN,
+    "status": "no reference"
+   },
+   {
+    "entity": "LU",
+    "entsoe_twh": 4.843477593750001,
+    "missing_hours": 0,
+    "ember_twh": NaN,
+    "diff_vs_ember": NaN,
+    "national_twh": NaN,
+    "diff_vs_national": NaN,
+    "national_source": NaN,
+    "status": "no reference"
+   },
+   {
+    "entity": "IT (all 7 zones)",
+    "entsoe_twh": 277.110328,
+    "missing_hours": 0,
+    "ember_twh": 311.83,
+    "diff_vs_ember": -0.11134166693390635,
+    "national_twh": NaN,
+    "diff_vs_national": NaN,
+    "national_source": NaN,
+    "status": "OUTSIDE \u00b15%"
+   },
+   {
+    "entity": "DK (DK_1+DK_2)",
+    "entsoe_twh": 38.433308095,
+    "missing_hours": 18,
+    "ember_twh": 41.94,
+    "diff_vs_ember": -0.08361211027658555,
+    "national_twh": NaN,
+    "diff_vs_national": NaN,
+    "national_source": NaN,
+    "status": "OUTSIDE \u00b15%"
+   }
+  ],
+  "installed_capacity": {
+   "tulipa_folder": "/Users/ricardohernandezserna/TNO/TestTulipa_TYNDP2026 copy (1)/TYNDP-26-to-Tulipa/Inputs Base Runs/2030",
+   "tulipa_milestone_year": 2030,
+   "tulipa_techs_not_compared": [
+    "Demand_Side_Response",
+    "E_Demand",
+    "Electrolyser",
+    "Electrolyser_DedicatedRES",
+    "Electrolyser_SharedRES",
+    "HCH4_boiler",
+    "HCH4_heat",
+    "HCH4_heatpump",
+    "HCH4_shed",
+    "HH2_boiler",
+    "HH2_heat",
+    "HH2_heatpump",
+    "HH2_shed",
+    "Hydrogen_CCGT",
+    "Hydrogen_OCGT"
+   ],
+   "entsoe_types_not_compared": [],
+   "note": "Tulipa installed = capacity x initial_units; DE_LU = DE00 + LUG1; Solar = Solar_Photovoltaic + Solar_Rooftop (ENTSO-E solar may exclude rooftop in some zones); Waste counted as other_nonres.",
+   "rows": 223,
+   "flagged_gt_10pct": 174
+  },
+  "hourly_8760": {
+   "tables": 14,
+   "all_ok": true
+  },
+  "cf_gt_1": [
+   {
+    "zone": "FR",
+    "tech": "wind_offshore",
+    "installed_mw": 1028.2,
+    "hours_cf_gt_1": 2174,
+    "max_cf": 1.8010357907021977,
+    "first_hour_utc": "2025-01-01 00:00:00+00:00",
+    "max_generation_mw": 1851.8249999999998
+   },
+   {
+    "zone": "RO",
+    "tech": "solar",
+    "installed_mw": 1588.0,
+    "hours_cf_gt_1": 133,
+    "max_cf": 1.1525503778337531,
+    "first_hour_utc": "2025-03-20 10:00:00+00:00",
+    "max_generation_mw": 1830.25
+   },
+   {
+    "zone": "SI",
+    "tech": "wind_onshore",
+    "installed_mw": 3.25,
+    "hours_cf_gt_1": 195,
+    "max_cf": 1.3015384615384618,
+    "first_hour_utc": "2025-01-16 23:00:00+00:00",
+    "max_generation_mw": 4.23
+   },
+   {
+    "zone": "PT",
+    "tech": "solar",
+    "installed_mw": 2588.6,
+    "hours_cf_gt_1": 522,
+    "max_cf": 1.2736614386154679,
+    "first_hour_utc": "2025-02-23 11:00:00+00:00",
+    "max_generation_mw": 3297.0
+   },
+   {
+    "zone": "DK_1",
+    "tech": "solar",
+    "installed_mw": 2493.56,
+    "hours_cf_gt_1": 36,
+    "max_cf": 1.1035206692439725,
+    "first_hour_utc": "2025-05-05 10:00:00+00:00",
+    "max_generation_mw": 2751.695
+   },
+   {
+    "zone": "DK_1",
+    "tech": "wind_offshore",
+    "installed_mw": 1614.9,
+    "hours_cf_gt_1": 835,
+    "max_cf": 1.1918555328503313,
+    "first_hour_utc": "2025-04-13 03:00:00+00:00",
+    "max_generation_mw": 1924.7275
+   },
+   {
+    "zone": "DK_1",
+    "tech": "wind_onshore",
+    "installed_mw": 2618.64,
+    "hours_cf_gt_1": 514,
+    "max_cf": 1.3348150184828766,
+    "first_hour_utc": "2025-01-01 00:00:00+00:00",
+    "max_generation_mw": 3495.4
+   },
+   {
+    "zone": "DK_2",
+    "tech": "solar",
+    "installed_mw": 734.42,
+    "hours_cf_gt_1": 170,
+    "max_cf": 1.2361795702731408,
+    "first_hour_utc": "2025-04-08 09:00:00+00:00",
+    "max_generation_mw": 907.875
+   },
+   {
+    "zone": "DK_2",
+    "tech": "wind_onshore",
+    "installed_mw": 380.55,
+    "hours_cf_gt_1": 918,
+    "max_cf": 1.5632341348048875,
+    "first_hour_utc": "2025-01-01 00:00:00+00:00",
+    "max_generation_mw": 594.88875
+   }
+  ],
+  "net_position_entsoe_vs_jao": [
+   {
+    "zone": "AT",
+    "hours": 8760,
+    "non_core_borders": 2,
+    "mean_entsoe_mw": -714.8996232876714,
+    "mean_jao_mw": -923.408984018265,
+    "mean_abs_diff_mw": 265.8292237442922,
+    "corr": 0.9936341361082215,
+    "sign_agreement": 0.9579908675799087
+   },
+   {
+    "zone": "BE",
+    "hours": 8760,
+    "non_core_borders": 1,
+    "mean_entsoe_mw": -2013.3010987442922,
+    "mean_jao_mw": -2013.3010987442922,
+    "mean_abs_diff_mw": 0.0,
+    "corr": 1.0,
+    "sign_agreement": 1.0
+   },
+   {
+    "zone": "CZ",
+    "hours": 8760,
+    "non_core_borders": 0,
+    "mean_entsoe_mw": 773.4223972602741,
+    "mean_jao_mw": 773.4223972602741,
+    "mean_abs_diff_mw": 3.974497037927501e-17,
+    "corr": 1.0,
+    "sign_agreement": 1.0
+   },
+   {
+    "zone": "DE_LU",
+    "hours": 8760,
+    "non_core_borders": 5,
+    "mean_entsoe_mw": -2553.894109589041,
+    "mean_jao_mw": 149.35402111872136,
+    "mean_abs_diff_mw": 3515.8756592465757,
+    "corr": 0.8763076676672498,
+    "sign_agreement": 0.7528538812785388
+   },
+   {
+    "zone": "FR",
+    "hours": 8760,
+    "non_core_borders": 4,
+    "mean_entsoe_mw": 5588.8309560502275,
+    "mean_jao_mw": 2511.8800142694063,
+    "mean_abs_diff_mw": 3222.9526883561643,
+    "corr": 0.7382925709142913,
+    "sign_agreement": 0.9294520547945205
+   },
+   {
+    "zone": "HR",
+    "hours": 8760,
+    "non_core_borders": 0,
+    "mean_entsoe_mw": -703.7795804794521,
+    "mean_jao_mw": -703.7795804794521,
+    "mean_abs_diff_mw": 0.0,
+    "corr": 0.9999999999999998,
+    "sign_agreement": 1.0
+   },
+   {
+    "zone": "HU",
+    "hours": 8760,
+    "non_core_borders": 0,
+    "mean_entsoe_mw": -1091.2597916666666,
+    "mean_jao_mw": -1091.2597916666666,
+    "mean_abs_diff_mw": 3.960302405649189e-15,
+    "corr": 1.0,
+    "sign_agreement": 1.0
+   },
+   {
+    "zone": "NL",
+    "hours": 8760,
+    "non_core_borders": 3,
+    "mean_entsoe_mw": 1515.6481934931505,
+    "mean_jao_mw": 1707.2280793378995,
+    "mean_abs_diff_mw": 641.3464554794521,
+    "corr": 0.9432429344074443,
+    "sign_agreement": 0.8888127853881278
+   },
+   {
+    "zone": "PL",
+    "hours": 8760,
+    "non_core_borders": 1,
+    "mean_entsoe_mw": -121.79519977168952,
+    "mean_jao_mw": 309.8673087899544,
+    "mean_abs_diff_mw": 555.7851455479451,
+    "corr": 0.9496010049025942,
+    "sign_agreement": 0.7473744292237443
+   },
+   {
+    "zone": "RO",
+    "hours": 8760,
+    "non_core_borders": 0,
+    "mean_entsoe_mw": -271.2778310502283,
+    "mean_jao_mw": -597.9098658675799,
+    "mean_abs_diff_mw": 887.3798087899544,
+    "corr": 0.5133832536152882,
+    "sign_agreement": 0.7192922374429224
+   },
+   {
+    "zone": "SI",
+    "hours": 8760,
+    "non_core_borders": 1,
+    "mean_entsoe_mw": -226.57645833333333,
+    "mean_jao_mw": -310.66668378995433,
+    "mean_abs_diff_mw": 467.8411558219178,
+    "corr": 0.6403226361471266,
+    "sign_agreement": 0.7060502283105022
+   },
+   {
+    "zone": "SK",
+    "hours": 8760,
+    "non_core_borders": 0,
+    "mean_entsoe_mw": 188.57418378995436,
+    "mean_jao_mw": 188.57418378995436,
+    "mean_abs_diff_mw": 6.002301649115002e-17,
+    "corr": 0.9999999999999999,
+    "sign_agreement": 1.0
+   }
+  ]
+ },
+ "notes": [
+  "unavailability: {'rows_raw': 94602, 'rows_kept': 47124, 'cancelled_or_withdrawn_mrids': 13910, 'rows_no_nominal_power': 22}; unavailable MW = nominal_power - avail_qty, latest revision per mRID, cancelled/withdrawn dropped, overlapping documents of one unit are summed (not capped at nominal).",
+  "CF ES Wind Offshore: no installed capacity -> not computed",
+  "CF IT_NORD Solar: no installed capacity -> not computed",
+  "CF IT_NORD Wind Onshore: no installed capacity -> not computed",
+  "CF IT_CNOR Solar: no installed capacity -> not computed",
+  "CF IT_CNOR Wind Onshore: no installed capacity -> not computed",
+  "CF IT_CSUD Solar: no installed capacity -> not computed",
+  "CF IT_CSUD Wind Onshore: no installed capacity -> not computed",
+  "CF IT_SUD Solar: no installed capacity -> not computed",
+  "CF IT_SUD Wind Offshore: no installed capacity -> not computed",
+  "CF IT_SUD Wind Onshore: no installed capacity -> not computed",
+  "CF IT_CALA Solar: no installed capacity -> not computed",
+  "CF IT_CALA Wind Onshore: no installed capacity -> not computed",
+  "CF IT_SICI Solar: no installed capacity -> not computed",
+  "CF IT_SICI Wind Onshore: no installed capacity -> not computed",
+  "CF IT_SARD Solar: no installed capacity -> not computed",
+  "CF IT_SARD Wind Onshore: no installed capacity -> not computed",
+  "CF CH Solar: no installed capacity -> not computed",
+  "CF CH Wind Onshore: no installed capacity -> not computed",
+  "CF SE_4 Solar: no installed capacity -> not computed",
+  "CF SE_4 Wind Onshore: no installed capacity -> not computed",
+  "load check: Ember reference ember_europe_yearly_full_release_long_format.csv"
+ ]
+}

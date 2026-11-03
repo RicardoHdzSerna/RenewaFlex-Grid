@@ -1,0 +1,10 @@
+corridor,bus_a,bus_b,circuits,units,units_in_series_per_circuit,basis
+Meeden-Diele (NL-DE),MEEDEN_380,DIELE_380,2,PST Meeden PST W; PST Meeden PST Z,1,comment: 'Connected to tie-line 10T-DE-NL-00002T and 10T-DE-NL-00001V'
+"Conneforde-Diele (DE, feeds Meeden-Diele)",DIELE_380,CONNEFORDE_380,2,PST Diele T441; PST Diele T442,1,comment: line 'Conneforde - Diele rot / weiss'
+Gronau-Hengelo (DE-NL),GRONAU_380,HENGELO_380,2,TR Gronau TR 441 E,1,station: Gronau is the terminal of one cross-border corridor; ONE unit for two circuits (taken as acting on both)
+Van Eyck-Maasbracht (BE-NL),VAN EYCK_380,MAASBRACHT_380,2,TR VAN EYCK PST 1; TR VAN EYCK PST 2,1,station: Van Eyck is the terminal of one cross-border corridor
+Zandvliet-Rilland (BE-NL),ZANDVLIET_380,RILLAND_380,2,TR ZANDVLIET PST 2; TR ZANDVLIET PST 3; TR ZANDVLIET PST 4,1,station: Zandvliet is the terminal of one cross-border corridor; THREE units listed for two circuits (one per circuit assumed)
+Vierraden-Krajnik (DE-PL),VIERRADEN_380,KRAJNIK_380,2,PST Vierraden 441; PST Vierraden 442; PST Vierraden 443; PST Vierraden 444,2,station: Vierraden is the terminal of one cross-border corridor; FOUR units for two circuits (two in series per circuit assumed)
+Mikulowa-Hagenwerder (PL-DE),MIKULOWA_380,HAGENWERDER_380,2,PST MIKULOWA-PF1; PST MIKULOWA-PF2; PST MIKULOWA-PF3; PSTMIKULOWA-PF4,2,comment: 'phase shifting transformer (400) on line Mik…'; FOUR units for two circuits (two in series per circuit assumed)
+"Roehrsdorf-Hradec (DE-CZ), German end",ROEHRSDORF_380,HRADEC VYCHOD_380,2,PST Rohrsdorf 441; PST Rohrsdorf 442,1,station: Roehrsdorf is the terminal of one cross-border corridor
+"Hradec-Roehrsdorf (CZ-DE), Czech end",HRADEC VYCHOD_380,ROEHRSDORF_380,2,PST Hradec 1; PST Hradec 2; PST Hradec 3,1,"comment: units 1 and 2 'connected to tieline 10T-CZ-DE-00002U' (circuit V445), unit 3 to 10T-CZ-DE-00003S (circuit V446); THREE units for two circuits (one in series per circuit assumed)"

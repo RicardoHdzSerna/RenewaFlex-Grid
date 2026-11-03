@@ -1,0 +1,39 @@
+# ============================================================================
+# Configuration for ip26_excel_to_csv.py (step 6, run last)
+# Converts every Excel workbook in the final output folder (output_final and its
+# subfolders, one per scenario) to CSV: one CSV per tab. Formula cells, if any, are
+# written as their calculated scalar value, never as the formula text.
+# ============================================================================
+
+paths:
+  input_folder: output_final    # relative to this config file (the workbooks of step 5)
+  recursive: true               # also convert workbooks in subfolders (output_final/<scenario>)
+  output_folder: output_final_csv  # CSVs are written here (next to output_final/), keeping the subfolder structure
+  exclude_folders: []           # subfolders of input_folder that are skipped
+
+# Layout of the CSV files:
+#   folder_per_workbook: output_final_csv/<scenario>/<workbook>/<tab>.csv
+#   flat:                output_final_csv/<scenario>/<workbook>__<tab>.csv
+layout: folder_per_workbook
+
+# Tabs to convert: "all", or a list of tab names (e.g. ["1", "lijnverzwaring", "Parameters"]).
+sheets: all
+
+# How formula results are obtained:
+#   evaluate - computed in Python by this script from the cell values (default). Works on files
+#              written by the pipeline without opening them in Excel (they have no stored results).
+#   cached   - the result stored in the file by Excel/LibreOffice (only if the file was recalculated).
+#   auto     - evaluate; if a formula uses a function the evaluator does not know, take the stored
+#              result, and if there is none, recalculate the file with LibreOffice (if installed).
+engine: auto
+# When the file also has stored results, compare them with the evaluated values and report differences.
+check_against_cached: true
+tolerance: 1.0e-9               # relative tolerance for that check
+
+# CSV format
+csv:
+  delimiter: ","
+  encoding: utf-8               # use utf-8-sig if the CSVs are opened directly in Excel
+  header_newline: " "           # replaces line breaks inside cells of the header row (null = keep them)
+  float_format: null            # e.g. "%.10g"; null = full precision
+  drop_empty_rows: true         # rows without any value are not written

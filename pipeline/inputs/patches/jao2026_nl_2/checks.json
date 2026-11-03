@@ -1,0 +1,153 @@
+{
+ "capacity_convention_k": {
+  "110": {
+   "rows": 20,
+   "k_median": 110.0002,
+   "relative_spread": 1.722771185708877e-06
+  },
+  "220": {
+   "rows": 1367,
+   "k_median": 225.0001,
+   "relative_spread": 2.037990825591796e-05
+  },
+  "380": {
+   "rows": 1832,
+   "k_median": 400.0,
+   "relative_spread": 4.510549268001361e-06
+  },
+  "750": {
+   "rows": 2,
+   "k_median": 750.0002,
+   "relative_spread": 0.0
+  }
+ },
+ "k_used": {
+  "110": 110.0,
+  "220": 225.0,
+  "380": 400.0,
+  "750": 750.0
+ },
+ "maasbracht_dodewaard": {
+  "circuit Z via Boxmeer: X sum ohm": 31.1291,
+  "km sum": 112.439,
+  "x_ohm_per_km": 0.2739,
+  "circuit W (JAO static file): X ohm": 27.28,
+  "km": 99.6,
+  "W current A": 2500.0
+ },
+ "boxmeer_coordinates": {
+  "rd": [
+   190039.1389000006,
+   404088.0614
+  ],
+  "wgs84": [
+   51.62456,
+   5.89321
+  ],
+  "round_trip_m": 0.0
+ },
+ "ip2026_annex4_boxmeer_bottlenecks": {
+  "1253 Boxmeer-Venray 150 kV": [
+   "A-1000833 'Californi\u00eb 150 kV plaatsen lastscheider en OSA' (IBN 2028, p12)",
+   "A-1000834 'Gennep 150 kV plaatsen lastscheider en OSA' (IBN 2026, p13)",
+   "A-1002813 'Boxmeer-Venray 150 kV verzwaren verbinding' (IBN 2029-2030, p19)",
+   "A-1003068 'Boxmeer 380 kV realiseren station' (IBN 2030-2031, p24)",
+   "A-1003179 'Boxmeer 150 kV uitbreiden rail' (IBN 2030-2031, p26)"
+  ],
+  "1438 Boxmeer 380/150 kV-transformatoren": [
+   "A-1000833 'Californi\u00eb 150 kV plaatsen lastscheider en OSA' (IBN 2028, p13)",
+   "A-1000834 'Gennep 150 kV plaatsen lastscheider en OSA' (IBN 2026, p13)",
+   "A-1003068 'Boxmeer 380 kV realiseren station' (IBN 2030-2031, p24)",
+   "A-1003179 'Boxmeer 150 kV uitbreiden rail' (IBN 2030-2031, p26)"
+  ],
+  "1572 Maasbracht-Boxmeer-Dodewaard 380 kV": [
+   "A-1003079 'Maasbracht-Boxmeer-Dodewaard 380 kV verzwaren verbinding' (IBN 2031-2034, p25)"
+  ],
+  "1736 Station Boxmeer 380 kV": [
+   "A-1000833 'Californi\u00eb 150 kV plaatsen lastscheider en OSA' (IBN 2028, p13)",
+   "A-1000834 'Gennep 150 kV plaatsen lastscheider en OSA' (IBN 2026, p13)",
+   "A-1003068 'Boxmeer 380 kV realiseren station' (IBN 2030-2031, p24)",
+   "A-1003179 'Boxmeer 150 kV uitbreiden rail' (IBN 2030-2031, p27)"
+  ],
+  "2034 Maasbracht-Boxmeer 380 kV": [
+   "A-1003079 'Maasbracht-Boxmeer-Dodewaard 380 kV verzwaren verbinding' (IBN 2031-2034, p25)"
+  ],
+  "2067 Boxmeer-Dodewaard 380 kV": [
+   "A-1003079 'Maasbracht-Boxmeer-Dodewaard 380 kV verzwaren verbinding' (IBN 2031-2034, p25)"
+  ]
+ },
+ "borssele_rilland": {
+  "raw rows": {
+   "Borssele-Rilland380 G": {
+    "EIC": "49T000000000057W",
+    "X": 9.63,
+    "B_uS": 175.87,
+    "km": 38.15,
+    "P1": 2826,
+    "P2": 3300
+   },
+   "Borssele-Rilland380 O": {
+    "EIC": "Unknown",
+    "X": 10.03,
+    "B_uS": 181.38,
+    "km": 39.5,
+    "P1": 4000,
+    "P2": 4000
+   },
+   "Borssele-Rilland380 P": {
+    "EIC": "Unknown",
+    "X": 10.02,
+    "B_uS": 182.97,
+    "km": 39.5,
+    "P1": 4000,
+    "P2": 4000
+   },
+   "Borssele-Rilland380 Z": {
+    "EIC": "49T000000000059S",
+    "X": 9.64,
+    "B_uS": 174.28,
+    "km": 38.15,
+    "P1": 2826,
+    "P2": 3300
+   }
+  },
+  "workbook circuits before": [
+   "G",
+   "O",
+   "Z"
+  ],
+  "JAO 2026 FB elements": "G and Z only (49T000000000057W, 49T000000000059S)"
+ },
+ "rows": [
+  {
+   "Line_name": "Maasbracht-Boxmeer380 Z",
+   "From_node": "MAASBRACHT_380",
+   "To_node": "BOXMEER_380",
+   "X": 15.270864145901204,
+   "Length_km": 54.53880052107573,
+   "Currrent_(A)": 2498.0,
+   "Capacity_MW": 1730.665,
+   "x_ohm_per_km": 0.28
+  },
+  {
+   "Line_name": "Boxmeer-Dodewaard380 Z",
+   "From_node": "BOXMEER_380",
+   "To_node": "DODEWAARD_380",
+   "X": 15.858223376,
+   "Length_km": 57.900001526,
+   "Currrent_(A)": 2498.0,
+   "Capacity_MW": 1730.665,
+   "x_ohm_per_km": 0.2739
+  },
+  {
+   "Line_name": "Borssele-Rilland380 P",
+   "From_node": "BORSSELE_380",
+   "To_node": "RILLAND_380",
+   "X": 10.02,
+   "Length_km": 39.5,
+   "Currrent_(A)": 4000.0,
+   "Capacity_MW": 2771.281,
+   "x_ohm_per_km": 0.2537
+  }
+ ]
+}

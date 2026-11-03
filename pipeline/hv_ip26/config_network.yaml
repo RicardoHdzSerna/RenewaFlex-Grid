@@ -1,0 +1,399 @@
+# ============================================================================
+# Configuration for ip26_network_build.py
+# Converts the TenneT IP2026 line projects (IP26_line.xlsx) into network edges
+# in the same format as full_network.csv (edge list with from/to station,
+# R, X, B in ohm and per unit, rating and MVA), one tab per werkzaamheden type.
+# Edit values here; do not edit the Python code.
+# ============================================================================
+
+paths:
+  input_folder: DATA          # data folder inside NewLines_IP26 (relative to this config file, or absolute)
+  output_folder: output
+  input_file: IP26_line.xlsx                       # TenneT IP2026 line export
+  network_file: full_network.csv                   # existing ("old") network, edge list
+  stations_file: stations_tennet_arcgis.csv        # TenneT station list (ArcGIS layer TenneT_Assets_Hoogspanning/5), RD New coordinates
+  endpoints_file: ip26_line_endpoints.csv          # first/last vertex of every path of every IP26 line (ArcGIS layer IP26_line), RD New
+  points_file: IP26_point.xlsx                     # IP2026 point export (all 366 project points, x_coord/y_coord in RD New)
+  output_file: IP26_line_network_edges.xlsx
+
+# "formulas": electrical columns are Excel formulas referencing the Parameters tab (live workbook).
+# "values":   the numbers computed in Python are written instead.
+output_mode: formulas
+
+# ----------------------------------------------------------------------------
+# Per-unit system
+# ----------------------------------------------------------------------------
+system:
+  s_base_mva: 100        # Sbase used in full_network.csv (r_pu = R / (kV^2 / Sbase))
+  # bovengronds_ondergrond -> edge_type
+  edge_type_map:
+    bovengronds: line
+    ondergronds: cable
+  default_edge_type: line      # used when bovengronds_ondergrond is empty
+
+# ----------------------------------------------------------------------------
+# Electrical parameters per voltage level and edge type (one circuit).
+# Defaults = medians of all lines/cables of that voltage and type in
+# full_network.csv (r' = R/length, x' = X/length, b' = B_total/length).
+# max_current_a for NEW connections. For lijnverzwaring rows see
+# 'reinforced_max_current_a' below.
+# ----------------------------------------------------------------------------
+line_types:
+  - {kv: 380, edge_type: line,  r_ohm_per_km: 0.0300, x_ohm_per_km: 0.2800, b_uS_per_km: 4.084,  max_current_a: 4000, source: "r', x', b': median of 101 380 kV lines in full_network.csv. Rating: TenneT IP2026 Net op land §7.4 (new/upgraded domestic 380 kV connections 4,000 A)."}
+  - {kv: 380, edge_type: cable, r_ohm_per_km: 0.0199, x_ohm_per_km: 0.1335, b_uS_per_km: 65.345, max_current_a: 1481, source: "Median of 8 380 kV cables in full_network.csv."}
+  - {kv: 220, edge_type: line,  r_ohm_per_km: 0.0320, x_ohm_per_km: 0.2961, b_uS_per_km: 3.770,  max_current_a: 4000, source: "r', x', b': median of 36 220 kV lines in full_network.csv. Rating: TenneT IP2026 §7.4 (220 kV connections upgraded to 4,000 A)."}
+  - {kv: 220, edge_type: cable, r_ohm_per_km: 0.0601, x_ohm_per_km: 0.2179, b_uS_per_km: 65.973, max_current_a: 600,  source: "Median of 6 220 kV cables in full_network.csv (small sample)."}
+  - {kv: 150, edge_type: line,  r_ohm_per_km: 0.0600, x_ohm_per_km: 0.3300, b_uS_per_km: 3.456,  max_current_a: 900,  source: "Median of 295 150 kV lines in full_network.csv."}
+  - {kv: 150, edge_type: cable, r_ohm_per_km: 0.0800, x_ohm_per_km: 0.1100, b_uS_per_km: 69.115, max_current_a: 800,  source: "Median of 129 150 kV cables in full_network.csv."}
+  - {kv: 110, edge_type: line,  r_ohm_per_km: 0.0800, x_ohm_per_km: 0.3500, b_uS_per_km: 3.142,  max_current_a: 700,  source: "Median of 138 110 kV lines in full_network.csv."}
+  - {kv: 110, edge_type: cable, r_ohm_per_km: 0.1000, x_ohm_per_km: 0.1200, b_uS_per_km: 78.540, max_current_a: 600,  source: "Median of 54 110 kV cables in full_network.csv."}
+
+# Rating used for rows of type lijnverzwaring (line reinforcement), per kV.
+# Same values as the Parameters tab of IP26_line_separate_sheet.xlsx (rows 13, 15, 16).
+# Set to null to use the line_types rating instead.
+reinforced_max_current_a:
+  380: {value: 4000, source: "TenneT IP2026 Net op land §7.4: all domestic 380 kV and 220 kV connections upgraded to 4,000 A."}
+  220: {value: 4000, source: "TenneT IP2026 Net op land §7.4."}
+  150: {value: 1500, source: "Assumption (not published by TenneT), same placeholder as IP26_line_separate_sheet Parameters!C15."}
+  110: {value: 1000, source: "Assumption (not published by TenneT), same placeholder as IP26_line_separate_sheet Parameters!C16."}
+
+# ----------------------------------------------------------------------------
+# Number of circuits per edge (n_circuits). One edge = the parallel equivalent of
+# n circuits (pandapower 'parallel'): R/n, X/n, B*n, I*n.
+# Rules, in this order (column n_circuits_basis shows which one was used):
+#   1. override per OBJECTID
+#   2. project name ('3e circuit' = 1 new circuit, '3e en 4e circuit' = 2, 'N circuits' = N)
+#   3. existing route (types below, or bestaand_nieuw = bestaande verbinding):
+#      number of circuits of that route in full_network.csv (circuit letters W, Z, G, ...)
+#   4. default per kV
+# Then, per project and station pair: features with identical geometry are duplicates
+# (kept, include_in_network = no); if one project is drawn as k different features
+# between the same stations, its circuits are divided over them (N / k).
+# ----------------------------------------------------------------------------
+circuits:
+  override:
+    297: 2   # cable sections on DB-VNG150 W/Z and on DOD-VNG150 W / VNW-VNG150 Z: 2 circuits (the via-chain rule alone finds 1)
+  ignore_circuit_ids: [Nvt]   # 'Nvt' (niet van toepassing) edges in full_network.csv are not counted as circuits
+  name_rules:
+    - {pattern: "3e en 4e circuit", circuits: 2}
+    - {pattern: "3e circuit", circuits: 1}
+    - {pattern: "(\\d+) circuits", circuits: group}
+  existing_route_types: [lijnverzwaring, Verkabelen]
+  default_by_kv: {380: 2, 220: 2, 150: 2, 110: 2}
+  default_source: "Assumption: new TenneT connections are built double-circuit (IP2026 Table 8.3: Rilland-Tilburg 2 circuits of 2,635 MVA; same assumption as Parameters!C19 in IP26_line_separate_sheet)."
+default_circuits: 1      # fallback only
+
+# ----------------------------------------------------------------------------
+# Parameters of the original template IP26_line_separate_sheet, used for the last
+# four columns of every data tab:
+#   X model (Ω) = L·x′·√3/N, X standard (Ω) = L·x′/N (x′ from line_types, per kV and edge type,
+#   so X standard = reactance_ohm), Peak capacity (MVA) = N·cap,
+#   Secure capacity (MW) = MVA·PF·RF, with L = Shape__Length/1000 and N = n_circuits.
+# ----------------------------------------------------------------------------
+template_parameters:
+  capacity_per_circuit_mva: {label: "Thermal capacity per circuit (cap)", value: 1000, unit: "MVA", source: "Value of the original template (Parameters!C6), defined for 380 kV circuits."}
+  power_factor:             {label: "Power factor (PF)", value: 0.95, unit: "–", source: "Original template assumption (Parameters!C7)."}
+  reserve_factor:           {label: "Reserve factor (RF)", value: 1, unit: "–", source: "Original template assumption (Parameters!C8)."}
+  capacity_applies_to_kv: [380]   # other voltages: Peak capacity = sn_mva of the row
+
+# Point types of IP26_point.xlsx listed in the tab IP26_new_stations
+new_station_types: [nieuw hoogspanningsstation]
+
+# ----------------------------------------------------------------------------
+# Station matching
+# ----------------------------------------------------------------------------
+matching:
+  # An assigned station counts as "on the geometry" when it lies within this
+  # distance of an end of a path of the IP26 line.
+  geometry_tolerance_m: 1000
+  # Rows without an entry in 'assignments' get stations automatically: the line
+  # ends (path ends used once) are snapped to the nearest station of the same kV
+  # within this distance; otherwise the end is left empty.
+  auto_snap_max_m: 1500
+  edge_id_prefix: "branch:"
+  edge_id_suffix: "IP26-{oid}"     # edge_id = branch:<FROM>-<TO><kV> IP26-<OBJECTID>
+
+# Stations that are not in the TenneT ArcGIS station list.
+#   origin: full_network = ID/name used in full_network.csv (coordinates added here)
+#           ip2026_point = new station from the IP2026 point layer (name from that layer)
+#           customer     = DSO/customer substation named in the project name
+#           assumed      = not on the map; ID and name assumed (see note)
+# x, y in RD New (EPSG:28992). Coordinates marked "approx" are only used for the
+# distance check in the match log.
+extra_stations:
+  # --- in full_network.csv but not in the ArcGIS station layer ---
+  - {id: ZVL380,  name: "Zandvliet (BE)",                          kv: 380, x: 75689,  y: 376828, origin: full_network, note: "Belgian station; coordinates = NL/BE border end of the IP26 line (approx)."}
+  - {id: VYK380,  name: "Van Eyck (BE)",                           kv: 380, x: 184694, y: 347985, origin: full_network, note: "Belgian station; coordinates = NL/BE border end of the IP26 line (approx)."}
+  - {id: BORN150, name: "Station Born 150",                        kv: 150, x: 186043, y: 340020, origin: full_network, note: "In full_network.csv with name 'BORN150'; proper name used. Coordinates = IP26 line end (approx)."}
+  - {id: BVW150,  name: "Station Beverwijk 150",                   kv: 150, x: 106902, y: 498583, origin: full_network, note: "Co-located with BVW380."}
+  - {id: BWK150,  name: "Station Bleiswijk 150",                   kv: 150, x: 96209,  y: 450112, origin: full_network, note: "Co-located with BWK380."}
+  - {id: CST150,  name: "Station Crayestein 150 kV",               kv: 150, x: 110920, y: 425208, origin: full_network, note: "Name exactly as in full_network.csv. Co-located with CST380."}
+  - {id: SMH150,  name: "Station Simonshaven 150",                 kv: 150, x: 77728,  y: 428458, origin: full_network, note: "In full_network.csv with name 'SMH150'; proper name used. Co-located with SMH380."}
+  - {id: OZN150,  name: "Station Oostzaan 150",                    kv: 150, x: 120166, y: 493484, origin: full_network, note: "In full_network.csv with name 'OZN150'; proper name used. Coordinates from IP2026 point 'Oostzaan 150 kV realiseren station'."}
+  - {id: ZVH150,  name: "Station Zevenhuizen 150",                 kv: 150, x: 101828, y: 447781, origin: full_network, note: "Coordinates from IP2026 point 'Zevenhuizen en Bleiswijk 150 kV realiseren stations'."}
+  # --- new stations, IP2026 point layer ---
+  - {id: TLB380,  name: "Station Tilburg 380",                     kv: 380, x: 132590, y: 402042, origin: ip2026_point, point: 794, note: "IP2026 point 'Tilburg 380 kV plaatsen 4e transformator' (new 380 kV station of ZW380)."}
+  - {id: OIR150,  name: "Station Oirschot 150",                    kv: 150, x: 148763, y: 391736, origin: ip2026_point, point: 989, note: "IP2026 point 'Oirschot 150 kV realiseren station'."}
+  - {id: AMH380,  name: "Station Amaliahaven 380",                 kv: 380, x: 60470,  y: 441134, origin: ip2026_point, point: 984, note: "IP2026 point 'Amaliahaven 380 kV realiseren station'."}
+  - {id: ZBE150,  name: "Station Zeeburgereiland 150",             kv: 150, x: 126691, y: 486986, origin: ip2026_point, point: 1000, note: "IP2026 point 'Zeeburgereiland 150 kV realiseren station'."}
+  - {id: ABKM150, name: "Station Amsterdam Buikslotermeer 150",    kv: 150, x: 124205, y: 490662, origin: ip2026_point, point: 1008, note: "IP2026 point 'Amsterdam Buikslotermeer 150 kV realiseren station'."}
+  - {id: AMVZ150, name: "Station Amstelveen Zuid 150",             kv: 150, x: 116617, y: 474885, origin: ip2026_point, point: 845, note: "IP2026 point 'Amstelveen Zuid 150 kV realiseren station'."}
+  - {id: WCH380,  name: "Station Wijchen 380",                     kv: 380, x: 174957, y: 424199, origin: ip2026_point, point: 972, note: "IP2026 point 'Wijchen 380 kV realiseren station'."}
+  - {id: WCH150,  name: "Station Wijchen 150",                     kv: 150, x: 174957, y: 424199, origin: ip2026_point, point: 972, note: "150 kV side of the new Wijchen station (same location as WCH380)."}
+  - {id: HZR150,  name: "Station Hazerswoude-Rijndijk 150",        kv: 150, x: 97419,  y: 460634, origin: ip2026_point, point: 983, note: "IP2026 point 'Hazerswoude-Rijndijk 150 kV realiseren station'."}
+  - {id: VVL380,  name: "Station Vierverlaten 380",                kv: 380, x: 227686, y: 581269, origin: ip2026_point, point: 748, note: "IP2026 point 'Vierverlaten 380/110 kV realiseren station'."}
+  - {id: A9Z380,  name: "Station A9-Zuid 380",                     kv: 380, x: 110089, y: 491939, origin: ip2026_point, point: 1047, note: "IP2026 point 'A9-Zuid 380/150 kV realiseren station'."}
+  - {id: A9Z150,  name: "Station A9-Zuid 150",                     kv: 150, x: 110089, y: 491939, origin: ip2026_point, point: 1047, note: "150 kV side of A9-Zuid 380/150 kV."}
+  - {id: ASDS150, name: "Station Amsterdam Sloterdijk 150",        kv: 150, x: 114925, y: 490392, origin: ip2026_point, point: 1005, note: "IP2026 point 'Amsterdam Sloterdijk 150 kV realiseren station'."}
+  - {id: AWP150,  name: "Station Amsterdam Westpoort 150",         kv: 150, x: 110888, y: 491467, origin: ip2026_point, point: 1009, note: "IP2026 point 'Amsterdam Westpoort 150 kV realiseren station'."}
+  - {id: KRHD150, name: "Station Kerensheide 150",                 kv: 150, x: 183521, y: 331616, origin: ip2026_point, point: 879, note: "IP2026 point 'Kerensheide 150 kV vervangen station' (not in the ArcGIS station layer)."}
+  - {id: RTDN150, name: "Station Rotterdam Noord 150",             kv: 150, x: 86169,  y: 441109, origin: ip2026_point, point: 884, note: "IP2026 point 'Rotterdam Noord 150 kV realiseren station'."}
+  - {id: MRE150,  name: "Station Metropoolregio Eindhoven 150",    kv: 150, x: 176734, y: 382884, origin: ip2026_point, point: 887, note: "IP2026 point 'Metropoolregio Eindhoven 380/150 kV realiseren station'."}
+  - {id: HEZ150,  name: "Station Heeze 150",                       kv: 150, x: 166174, y: 378721, origin: ip2026_point, point: 889, note: "IP2026 point 'Heeze 150 kV realiseren station'."}
+  - {id: MRWW150, name: "Station Merwedeweg 150",                  kv: 150, x: 71493,  y: 437617, origin: ip2026_point, point: 1003, note: "IP2026 point 'Merwedewegweg 150 kV realiseren station' (spelling in the layer)."}
+  - {id: NDLS380, name: "Station Nieuwdorp Liechtensteinweg 380",  kv: 380, x: 40581,  y: 385531, origin: ip2026_point, point: 1073, note: "IP2026 point 'Nieuwdorp Liechtensteinweg 380 kV realiseren station'."}
+  - {id: NDLS150, name: "Station Nieuwdorp Liechtensteinweg 150",  kv: 150, x: 40581,  y: 385531, origin: ip2026_point, point: 1073, note: "150 kV side of Nieuwdorp Liechtensteinweg."}
+  - {id: HST380,  name: "Station Halsteren 380",                   kv: 380, x: 75582,  y: 395709, origin: ip2026_point, point: 992, note: "IP2026 point 'Halsteren 380 kV realiseren station'."}
+  - {id: HST150,  name: "Station Halsteren 150",                   kv: 150, x: 75631,  y: 395900, origin: ip2026_point, point: 1098, note: "IP2026 point 'Halsteren 150 kV realiseren verb. Stedin Tholen'."}
+  - {id: ZRZ150,  name: "Station Zierikzee 150",                   kv: 150, x: 53853,  y: 406394, origin: ip2026_point, point: 949, note: "IP2026 point 'Halsteren en Zierikzee realiseren 150 kV stations'."}
+  - {id: HHW150,  name: "Station Haarlem Hofmanweg 150",           kv: 150, x: 106005, y: 489632, origin: ip2026_point, point: 1067, note: "IP2026 point 'Haarlem Hofmanweg 150 kV realiseren station' (next to Waarderpolder)."}
+  - {id: AZO150,  name: "Station Amsterdam Zuidoost 150",          kv: 150, x: 128780, y: 478140, origin: ip2026_point, point: 1049, note: "IP2026 point 'Amsterdam Zuidoost 150 kV realiseren station'."}
+  - {id: BMO150,  name: "Station Bijlmer Oost 150",                kv: 150, x: 125080, y: 478477, origin: ip2026_point, point: 1006, note: "IP2026 point 'Bijlmer Oost 150 kV realiseren station'."}
+  - {id: DTNZ110, name: "Station Drachten Zuid 110",               kv: 110, x: 205723, y: 566852, origin: ip2026_point, point: 856, note: "IP2026 point 'Drachten Zuid 110 kV realiseren station'."}
+  - {id: HRVK110, name: "Station Heerenveen KNO 110",              kv: 110, x: 190862, y: 556082, origin: ip2026_point, point: 860, note: "IP2026 point 'Heerenveen KNO 110 kV realiseren station'."}
+  - {id: MEEB110, name: "Station Meeden-2 110",                    kv: 110, x: 259456, y: 571827, origin: ip2026_point, point: 799, note: "IP2026 point 'Meeden-2 110 kV realiseren station'."}
+  - {id: VOB110,  name: "Station Veenoord Boerdijk 110",           kv: 110, x: 252945, y: 527915, origin: ip2026_point, point: 941, note: "IP2026 point 'Veenoord Boerdijk 110 kV realiseren station'."}
+  - {id: AMFN150, name: "Station Amersfoort Noord 150",            kv: 150, x: 154799, y: 470390, origin: ip2026_point, point: 990, note: "IP2026 point 'Amersfoort Noord 150 kV realiseren station'."}
+  - {id: KMRN150, name: "Station Kromme Rijn 150",                 kv: 150, x: 143324, y: 452384, origin: ip2026_point, point: 874, note: "IP2026 point 'Kromme Rijn 150 kV realiseren station'."}
+  - {id: BLTH150, name: "Station Bilthoven 150",                   kv: 150, x: 142422, y: 462439, origin: ip2026_point, point: 872, note: "IP2026 point 'Bilthoven 150 kV realiseren station'."}
+  - {id: UTN150,  name: "Station Utrecht Noord 150",               kv: 150, x: 128511, y: 461703, origin: ip2026_point, point: 1084, note: "IP2026 point 'Utrecht Noord 150 kV realiseren station'."}
+  - {id: EIN380,  name: "Station Einighausen 380",                 kv: 380, x: 183516, y: 334417, origin: ip2026_point, point: 967, note: "IP2026 point 'Einighausen 380 kV realiseren station'."}
+  - {id: APZO150, name: "Station Apeldoorn Zuid-Oost 150",         kv: 150, x: 198455, y: 466833, origin: ip2026_point, point: 833, note: "IP2026 point 'Apeldoorn Zuid-Oost 150 kV realiseren station' (451 m from the east end of the Apeldoorn-Woudhuis cable section)."}
+  - {id: DONN110, name: "Station Drents Overijsselse Netversterking 110 (Wijster)", kv: 110, x: 229973, y: 533231, origin: ip2026_point, point: 957, note: "IP2026 point 'Drents Overijsselse Netversterking 380 en 220 kV' near Wijster (143 m from an end of the DONN 110 kV line). Name assumed: the point names the project, not the place."}
+  - {id: STP150,  name: "Station Schiphol Trade Park 150",         kv: 150, x: 106932, y: 476529, origin: ip2026_point, point: 1001, note: "IP2026 point 'Schiphol Trade Park 150 kV realiseren station'."}
+  - {id: OVA150,  name: "Station Amsterdam Overamstel 150",        kv: 150, x: 124650, y: 483287, origin: ip2026_point, point: 810, note: "IP2026 point 'Amsterdam Overamstel 150 kV realiseren station'."}
+  - {id: HKR150,  name: "Station Hollands Kroon 150",              kv: 150, x: 130029, y: 538766, origin: ip2026_point, point: 1015, note: "IP2026 point 'Hollands Kroon 150 kV realiseren station'."}
+  - {id: GNMS110, name: "Station Groningen Meerstad 110",          kv: 110, x: 242296, y: 584550, origin: assumed,      note: "Named in project 'Vierverlaten-Groningen Meerstad'; no station point in the layer. Coordinates = IP26 line end."}
+  - {id: MDM380,  name: "Station Middenmeer 380",                  kv: 380, x: 128398, y: 531371, origin: assumed,      note: "Project 'Noord-Holland Noord 380 kV realiseren stations en verbinding': new 380 kV station in the Middenmeer area assumed. Coordinates = indicative IP26 line end (3.7 km from Middenmeer 150)."}
+  # --- customer (DSO) substations named in the project names ---
+  - {id: LHVS150, name: "Liander Havenstad 150",                   kv: 150, x: 118555, y: 490401, origin: customer, point: 818, note: "IP2026 points 'Amsterdam Hemweg 150 kV realiseren verb. Liander Havenstad' / 'aansluiten Liander Havenstad 10 kV'."}
+  - {id: LDUI150, name: "Liander Duiven 150",                      kv: 150, x: 197880, y: 442692, origin: customer, point: 859, note: "IP2026 point 'Zevenaar 150 kV realiseren verb. Liander Duiven'."}
+  - {id: LSPL150, name: "Liander Schipluidenlaan 150",             kv: 150, x: 117397, y: 485452, origin: customer, point: 816, note: "IP2026 point 'Nieuwe Meer 150 kV realiseren verb. Liander Schipluidenlaan'."}
+  - {id: LRHS150, name: "Liander Rhijnspoor 150",                  kv: 150, x: 122431, y: 485667, origin: customer, point: 812, note: "IP2026 point 'Zeeburgereiland 150 kV realiseren verb. Liander Rhijnspoor'."}
+  - {id: LWSN150, name: "Liander Weesp Noord 150",                 kv: 150, x: 130307, y: 481644, origin: customer, note: "Project 'Diemen 150 kV realiseren verb. Liander Weesp Noord'. Coordinates = IP26 line end."}
+  - {id: LAVB150, name: "Liander Amstelveen Bolwerk 150",          kv: 150, x: 117605, y: 480032, origin: customer, point: 847, note: "IP2026 point 'Amstelveen Zuid 150 kV realiseren verb. Liander Amstelveen Bolwerk'."}
+  - {id: LBSW150, name: "Liander Basisweg 150",                    kv: 150, x: 115890, y: 489179, origin: customer, point: 813, note: "IP2026 point 'Amsterdam Sloterdijk 150 kV realiseren verb. Liander Basisweg'."}
+  - {id: LSLM150, name: "Liander Slotermeer 150",                  kv: 150, x: 117385, y: 487552, origin: customer, point: 814, note: "IP2026 point 'Amsterdam Sloterdijk 150 kV realiseren verb. Liander Slotermeer'."}
+  - {id: LOSD150, name: "Liander Osdorp 150",                      kv: 150, x: 112207, y: 487473, origin: customer, note: "Project 'Amsterdam Westpoort 150 kV realiseren verb. Liander Osdorp'. Coordinates = IP26 line end."}
+  - {id: LVLB150, name: "Liander Vliegenbos 150",                  kv: 150, x: 123838, y: 488886, origin: customer, point: 828, note: "IP2026 point 'Noord Klaprozenweg 150 kV realiseren verb. Liander Vliegenbos'."}
+  - {id: LFLR150, name: "Liander Flier 150",                       kv: 150, x: 158698, y: 468607, origin: customer, point: 855, note: "IP2026 point 'Amersfoort Noord 150 kV realiseren verb. Liander Flier'."}
+  - {id: STBA150, name: "Stedin Baarn 150",                        kv: 150, x: 148879, y: 467394, origin: customer, point: 991, note: "IP2026 point 'Amersfoort Noord 150 kV aansluiten Stedin Baarn'."}
+  - {id: LGSP150, name: "Liander Gaasperdam 150",                  kv: 150, x: 126718, y: 480080, origin: customer, point: 815, note: "IP2026 point 'Bijlmer Zuid 150 kV realiseren verb. Liander Gaasperdam'."}
+  - {id: LPTH150, name: "Liander Petroleumhaven 150",              kv: 150, x: 118735, y: 491331, origin: customer, point: 817, note: "IP2026 point 'Amsterdam Hemweg 150 kV realiseren verb. Liander Petroleumhaven'."}
+
+# ----------------------------------------------------------------------------
+# Station assignment per IP26 line (OBJECTID).
+#   from / to : station IDs (full_network.csv / ArcGIS STATIONID / extra_stations)
+#   via       : intermediate stations named in the project or on the route
+#   conf      : high   = both stations certain: line ends at the stations and/or confirmed by the
+#                        TenneT conductor IDs (asset layer NETSCHAKELID) at the line ends
+#               medium = loop-in into an existing line (far station is one of the two ends of
+#                        that line) or project name and geometry disagree
+#               low    = indicative trace, ambiguous corridor or assumed station: check
+#   old_chain_first: true = use old_chain before the direct from-to edge for the old line values
+#   old_chain : stations used to look up the old line in full_network.csv when the
+#               direct from-to edge does not exist (lijnverzwaring tab)
+#   note      : shown in the output (match_note)
+# Derived by snapping every path end of the IP26 line (ArcGIS geometry) to the
+# TenneT stations, the IP2026 new-station points and full_network.csv, and
+# checking against the project name. Duplicate features (same project, other
+# circuit) get the same stations.
+# ----------------------------------------------------------------------------
+assignments:
+  290: {from: RLL380, to: ZVL380, conf: high, note: "Line ends at Rilland 380 (120 m) and at the NL/BE border towards Zandvliet; full_network edge RLL-ZVL380."}
+  291: {from: BSL380, to: RLL380, conf: high, note: "Ends at Borssele 380 (99 m) and Rilland 380 (125 m)."}
+  292: {from: RLL380, to: TLB380, conf: high, note: "ZW380. Ends at Rilland 380 (69 m) and at the new Tilburg 380 kV station (IP2026 point, 65 m)."}
+  293: {from: WDT150, to: BOZ150, conf: high, note: "Ends at Woensdrecht (94 m) and Bergen op Zoom (28 m)."}
+  294: {from: GT150, to: WW150, conf: high, note: "Cable section starting near Geertruidenberg 150 (254 m; Donge 231 m). TenneT conductors (asset layer) at the line end: GT-WW150 W. Partial section: length is the cable section only."}
+  295: {from: BORN150, to: GRTH150, conf: high, note: "Ends at Graetheide (119 m) and at Born."}
+  296: {from: BMR150, to: VENR150, conf: high, note: "Ends at Venray (61 m) and Boxmeer 150 (84 m)."}
+  297: {from: DB150, to: DOD150, via: [VNG150], conf: high, note: "Two cable sections either side of Veenendaal 't Goeie Spoor (29 m). TenneT conductors (asset layer) at the line end: west end DB-VNG150 W/Z, east end DOD-VNG150 W and VNW-VNG150 Z. Partial sections: length is the cable sections only."}
+  298: {from: AMLM110, to: HGLW110, conf: high, note: "Pocket Almelo: ends at Almelo Mosterdpot (51 m) and Hengelo Weideweg (76 m)."}
+  299: {from: GSP150, to: WDO150, via: [TNZ150], conf: medium, note: "Geometry runs Goes de Poel (136 m) - past Terneuzen - Westdorpe (50 m), as the existing cable GSP-WDO150 W in full_network. Project name says Terneuzen-Westdorpe; Goes de Poel taken from the geometry."}
+  300: {from: BT150, to: TBN150, via: [OIR150], conf: high, old_chain: [BT150, BXT150, TBN150], note: "Ends at Best (77 m) and Tilburg Noord (157 m); passes new station Oirschot (45 m). Old circuit TBN-BXT-BT150 in full_network."}
+  301: {from: LUTT150, to: GRTH150, conf: low, old_chain: [LUTT150, BORN150, MBT150], old_chain_first: true, note: "Geometry: Lutterade (111 m) - Graetheide (138 m), 3.6 km, along an out-of-service line ('_Buiten Dienst') and BEEK-GRTH150 Z. The project name is Lutterade-Born-Maasbracht (circuits LUTT-BORN150 W, BORN-MBT150 W, LUTT-MBT150 Z); old line values taken from that circuit. Check whether the drawn piece is a new Lutterade-Graetheide link."}
+  302: {from: VHZ150, to: RBZ150, via: [NMR150], conf: high, note: "Route Vijfhuizen (214 m) - Nieuwe Meer (42 m) - Rozenburg Zuid (76 m)."}
+  303: {from: RLL380, to: ZVL380, conf: high, note: "Second circuit Rilland-Zandvliet; ends at Rilland (772 m to RLL150, 1.1 km to RLL380 busbar) and at the NL/BE border."}
+  304: {from: MBT380, to: DOD380, via: [BMR380], conf: high, note: "Ends at Maasbracht 380 (253 m) and Dodewaard 380 (105 m)."}
+  305: {from: GT380, to: EHV380, via: [TLB380], conf: high, note: "Ends at Geertruidenberg 380 (70 m) and Eindhoven 380 (183 m); several path ends at the new Tilburg 380 kV station."}
+  306: {from: GT380, to: RLL380, conf: high, note: "Ends at Geertruidenberg 380 (195 m) and Rilland (545 m to RLL150, 922 m to RLL380)."}
+  307: {from: DOD380, to: DTC380, conf: high, note: "Ends at Dodewaard 380 (90 m) and Doetinchem 380 (66 m)."}
+  308: {from: BVW380, to: BWK380, via: [VHZ380], conf: high, note: "Ends at Beverwijk 380 (33 m) and Bleiswijk 380 (75 m), passing Vijfhuizen 380."}
+  309: {from: ZL380, to: HGL380, conf: high, note: "Ends at Zwolle 380 (88 m) and Hengelo 380 (64 m)."}
+  310: {from: MVL380, to: AMH380, conf: high, note: "Maasvlakte 380 (71 m) to the new Amaliahaven 380 kV station (IP2026 point, 813 m)."}
+  311: {from: KIJ380, to: BVW380, via: [DIM380, OZN380], conf: high, note: "Ends at Krimpen 380 (82 m) and Beverwijk 380 (91 m); path ends at Diemen 380 and Oostzaan 380."}
+  312: {from: DIM150, to: GVL150, conf: high, note: "Ends at Diemen 150 (188 m) and 's Graveland (96 m)."}
+  313: {from: DIM150, to: ZBE150, conf: high, note: "Diemen 150 (0 m) to the new Zeeburgereiland station (IP2026 point, 0 m)."}
+  314: {from: BT150, to: EHVZ150, via: [EHVW150], conf: medium, note: "Geometry: Best (113 m) - Eindhoven Zuid (52 m). Project name Eindhoven Noord-West-Zuid."}
+  315: {from: MEE110, to: WS110, conf: high, note: "Ends at Meeden 110 (88 m) and Winschoten (59 m)."}
+  316: {from: HCL110, to: NVD110, via: [RT110], conf: high, old_chain: [HCL110, RT110, RS110, NVD110], note: "Pocket Harculo: Harculo (56 m) - Raalte - Nijverdal (45 m)."}
+  317: {from: EHVO150, to: HMZ150, conf: high, note: "Ends at Eindhoven Oost (86 m) and Helmond Zuid (69 m)."}
+  318: {from: VVL220, to: ENS220, via: [BGM220, LSM220, OHK220], conf: high, note: "West ring: path ends at Vierverlaten, Bergum, Louwsmeer, Oudehaske and Ens 220."}
+  319: {from: VVL220, to: ENS220, via: [ZYV220, HSW220], conf: high, note: "East ring: path ends at Vierverlaten, Zeyerveen, Hessenweg and Ens 220; one branch ends at Beilen (48 m)."}
+  320: {from: BOEK150, to: BLER150, conf: high, note: "Ends at Boekend (46 m) and Blerick (35 m)."}
+  321: {from: BUGG150, to: BLER150, via: [BELF150], conf: high, note: "Ends at Buggenum (114 m), Belfeld (40 m) and Blerick (70 m)."}
+  322: {from: NDK150, to: ABKM150, conf: high, note: "Noord Klaprozenweg (86 m) to new Amsterdam Buikslotermeer station (IP2026 point, 16 m) for Liander."}
+  323: {from: HW150, to: LHVS150, conf: high, note: "Amsterdam Hemweg (207 m) to Liander Havenstad."}
+  324: {from: HW150, to: NDK150, via: [OZN150], conf: high, note: "Junction with branches to Hemweg (207 m), Noord Klaprozenweg (51 m) and new Oostzaan 150 (0 m). TenneT conductors (asset layer) at the line end: NDK-HW150 P/W/Z and OZN380-HW150: Oostzaan 150 looped into Hemweg-Noord Klaprozenweg."}
+  325: {from: DIM150, to: BN150, conf: high, note: "Ends at Diemen 150 (90 m) and Bijlmer Noord (34 m)."}
+  326: {from: AMV150, to: AMVZ150, conf: high, note: "Amstelveen (34 m) to new Amstelveen Zuid station (IP2026 point, 81 m)."}
+  327: {from: GRTH150, to: SBRN150, via: [BEEK150], conf: high, note: "Ends at Graetheide (86 m) and Schoonbron (30 m)."}
+  328: {from: MDM150, to: DWL150, conf: high, note: "Ends at Middenmeer (70 m) and De Weel (35 m)."}
+  329: {from: ULW150, to: NIWG150, via: [ODR150], conf: high, note: "Cable section from near Oudenrijn (946 m) to Nieuwegein (9 m). TenneT conductors (asset layer) at the line end: ULW-ODR-NIWG150 W/Z. Partial section."}
+  330: {from: WCH150, to: OS150, conf: high, note: "New Wijchen station (IP2026 point, 43 m) to Oss (5 m)."}
+  331: {from: LD150, to: HZR150, conf: high, note: "Hazerswoude-Rijndijk (IP2026 point, 19 m); the other end (4 km from Leiden) meets the TenneT conductors ZT-LD150 W/Z/Nvt, i.e. the 3rd circuit continues to Leiden on the Zoetermeer-Leiden towers."}
+  332: {from: ZVH150, to: GD150, conf: high, note: "Zevenhuizen (IP2026 point, 95 m) to Gouda (0 m)."}
+  333: {from: APD150, to: WHS150, via: [APZO150], conf: high, note: "Cable section: ends 2.0 km from Apeldoorn and 0.9 km from Woudhuis; the east end is 451 m from the new Apeldoorn Zuid-Oost station (IP2026 point 833). TenneT conductors (asset layer) at the line end: APD-WHS150 W/Z (both ends). Partial section."}
+  334: {from: WHS150, to: EBK150, conf: high, note: "Ends at Woudhuis (7 m) and Eerbeek (14 m)."}
+  335: {from: BSL150, to: TNZ150, via: [GSP150], conf: high, note: "Path ends at Borssele 150 (54 m) and Goes de Poel (57 m). TenneT conductors (asset layer) at the line end: BSL-GSP150 W/Z and BSL-TNZ150 W/Z (south end on BSL-TNZ150 W/Z)."}
+  336: {from: VVL380, to: ENS380, conf: high, note: "New Vierverlaten 380 (IP2026 point, 53 m) to Ens 380 (201 m)."}
+  337: {from: LLS380, to: ENS380, conf: high, note: "Ends at Lelystad 380 (0 m) and Ens 380 (143 m)."}
+  338: {from: ZWO150, to: ALR150, conf: high, note: "Ends at Zeewolde (0 m) and Almere (19 m)."}
+  339: {from: SK110, to: RWD110, conf: low, note: "Cable section of 1.1 km starting at Sneek (71 m) towards the north-east. TenneT conductors (asset layer) at the line end: RWD-SK110 R, SK-MNZL110 Z and RWD-MNZL110 W share this corridor; Sneek-Rauwerd assumed, Sneek-Marnezijl (SK-MNZL110) is the alternative."}
+  340: {from: EOS380, to: EEM380, conf: high, note: "Ends at Eemshaven Oudeschip (65 m) and Eemshaven 380 (0 m)."}
+  341: {from: AK150, to: DDM150, conf: high, note: "Ends at Arkel (0 m) and Dordrecht Merwedehaven (0 m)."}
+  342: {from: HTN150, to: OS150, conf: high, note: "Cable section of 2.7 km leaving 's Hertogenbosch Noord (75 m). TenneT conductors (asset layer) at the line end: HTN-OS150 W/Z. Partial section."}
+  343: {from: KBG150, to: DOD150, via: [RK150], conf: high, note: "Geometry Kattenberg (104 m) - Renkum (37 m). TenneT conductors (asset layer) at Renkum: KBG-DOD150 W (passes Renkum), KBG-RK150 W/Z, RK-DOD150 W/Z."}
+  344: {from: DIM380, to: LLS380, conf: high, note: "Ends at Diemen (60-182 m) and Lelystad 380 (0 m)."}
+  345: {from: BVW380, to: MDM380, via: [OZN380], conf: low, note: "Indicative straight trace. South end lies on the TenneT conductors BVW-OZN380 W/Z (loop-in of Beverwijk-Oostzaan 380; Beverwijk taken). North end in the Middenmeer area: no TenneT conductor there; new 380 kV station assumed (Middenmeer 380)."}
+  346: {from: BUGG150, to: BLER150, conf: high, note: "Ends at Buggenum (483 m) and Blerick (71 m)."}
+  347: {from: HW150, to: A9Z150, via: [ASDS150, AWP150], conf: high, note: "Hemweg (135 m) - Sloterdijk (39 m) - Westpoort (0 m) - A9-Zuid (77 m); all new stations from the IP2026 point layer."}
+  348: {from: MBT380, to: EHV380, conf: high, note: "Ends at Maasbracht 380 (133 m) and Eindhoven 380 (48 m)."}
+  349: {from: MBT380, to: EHV380, conf: high, note: "Ends at Maasbracht 380 (133 m) and Eindhoven 380 (0 m)."}
+  350: {from: MBT380, to: DOD380, via: [BMR380], conf: high, note: "Same trace as 304."}
+  351: {from: MBT380, to: DOD380, via: [BMR380], conf: high, note: "Same trace as 304."}
+  352: {from: WCH150, to: OS150, conf: high, note: "Same trace as 330."}
+  353: {from: BVW380, to: BWK380, via: [VHZ380], conf: high, note: "Same trace as 308."}
+  354: {from: DIM380, to: LLS380, conf: high, note: "Same trace as 344."}
+  355: {from: VVL380, to: ENS380, conf: high, note: "Same trace as 336."}
+  356: {from: VVL380, to: ENS380, conf: high, note: "Same trace as 336."}
+  357: {from: VVL220, to: ZYV220, conf: high, note: "Ends at Zeyerveen 220 (117 m) and Vierverlaten 220 (45 m)."}
+  358: {from: BMR150, to: VENR150, conf: high, note: "Same trace as 296."}
+  359: {from: CST380, to: KIJ380, conf: medium, note: "Geometry Crayestein 380 (69 m) - Krimpen 380 (382 m). Project name 'Geertruidenberg-Krimpen of Crayestein'."}
+  360: {from: RLL380, to: TLB380, conf: high, note: "Same trace as 292."}
+  361: {from: GT380, to: RLL380, conf: high, note: "Same trace as 306."}
+  362: {from: DOD150, to: RK150, conf: high, note: "Ends at Dodewaard 150 (180 m) and Renkum (16 m)."}
+  363: {from: GRTH150, to: LIMM150, conf: high, note: "Ends at Graetheide (98 m) and Limmel (1.1 km)."}
+  364: {from: MBT150, to: BUGG150, conf: high, note: "Ends at Maasbracht 150 (119 m) and Buggenum (45 m)."}
+  365: {from: MBT380, to: VYK380, conf: high, note: "Maasbracht 380 (212 m) to the NL/BE border towards Van Eyck; full_network edge VYK-MBT380."}
+  366: {from: BSL150, to: VLO150, conf: high, note: "Ends at Borssele 150 (99 m) and Vlissingen Oost (18 m)."}
+  367: {from: GRTH150, to: KRHD150, conf: medium, note: "Kerensheide (IP2026 point, 0 m). The other end is at the Einighausen/Graetheide site (366 m from Graetheide 150), on the TenneT conductors GRTH-LIMM150 W/Z."}
+  368: {from: KIJ150, to: RTDN150, conf: high, note: "Krimpen 150 (217 m) to new Rotterdam Noord station (IP2026 point, 46 m)."}
+  369: {from: MRE150, to: HEZ150, conf: high, note: "New Metropoolregio Eindhoven (25 m) to new Heeze (87 m), both IP2026 points."}
+  370: {from: MRE150, to: HMZ150, conf: high, note: "New Metropoolregio Eindhoven (18 m) to Helmond Zuid (57 m)."}
+  371: {from: A9Z380, to: VHZ380, via: [BVW380], conf: medium, note: "New A9-Zuid 380 (0 m). The other end (1.5 km) lies on the TenneT conductors BVW-VHZ380 W/Z: A9-Zuid looped into Beverwijk-Vijfhuizen 380 (Vijfhuizen taken as far end)."}
+  372: {from: ZV150, to: LDUI150, conf: high, note: "Zevenaar (87 m) to Liander Duiven."}
+  373: {from: ERP150, to: TWG150, via: [MRWW150], conf: high, note: "Ends at Europoort (0 m) and Theemsweg (22 m); new Merwedeweg station on the route."}
+  374: {from: VVL110, to: GNMS110, conf: medium, note: "Vierverlaten 110 (81 m) to Groningen Meerstad (assumed new station at the line end)."}
+  375: {from: NDLS380, to: BSL380, via: [RLL380], conf: medium, note: "New Nieuwdorp Liechtensteinweg 380 (0 m). The other end lies on the TenneT conductors BSL-RLL380 G/O/P/Z: loop-in of Borssele-Rilland 380 (Borssele taken as far end)."}
+  376: {from: NDLS150, to: BSL150, conf: medium, note: "Short 150 kV link next to Nieuwdorp Liechtensteinweg. TenneT conductors (asset layer) at the line end: BSL-GSP150, BSL-TNZ150, MDB-BSL150, VSG-BSL150: connection into the Borssele 150 kV lines (Borssele taken)."}
+  377: {from: BSL150, to: NDLS150, conf: high, note: "Borssele 150 (47 m) to Nieuwdorp Liechtensteinweg (578 m)."}
+  378: {from: BSL380, to: RLL380, conf: high, note: "Cable section of Borssele-Rilland 380 from near Willem Anna Polder to Rilland 380 (54 m). TenneT conductors (asset layer) at the line end: BSL-RLL380 G/O/P/Z. Partial section."}
+  379: {from: WCH380, to: DOD380, via: [BMR380], conf: medium, note: "New Wijchen 380 (0 m). The other end lies on the TenneT conductors MBT-BMR-DOD380 Z and MBT-DOD380 W: loop-in of Maasbracht-(Boxmeer)-Dodewaard 380 (Dodewaard taken)."}
+  380: {from: VVL220, to: ENS220, via: [BGM220, LSM220, OHK220], conf: high, note: "Same trace as 318."}
+  381: {from: VVL220, to: ENS220, via: [ZYV220, HSW220], conf: high, note: "Same trace as 319."}
+  382: {from: VVL220, to: ENS220, via: [ZYV220, HSW220], conf: high, note: "Same trace as 319."}
+  383: {from: VVL220, to: ENS220, via: [ZYV220, HSW220], conf: high, note: "Same trace as 319."}
+  384: {from: HHW150, to: A9Z150, conf: high, note: "New Haarlem Hofmanweg (10 m, next to Waarderpolder) to new A9-Zuid (82 m)."}
+  385: {from: HW150, to: OZN150, conf: high, note: "Hemweg (195 m) to Oostzaan 150 (32 m)."}
+  386: {from: AZO150, to: BMO150, conf: high, note: "New Amsterdam Zuidoost (20 m) to new Bijlmer Oost (0 m)."}
+  387: {from: NMR150, to: LSPL150, conf: high, note: "Nieuwe Meer (71 m) to Liander Schipluidenlaan."}
+  388: {from: ZBE150, to: LRHS150, conf: high, note: "New Zeeburgereiland (0 m) to Liander Rhijnspoor."}
+  389: {from: ZVD150, to: VW150, conf: high, note: "Ends at Zorgvlied (10 m) and Venserweg (18 m); branches near new Overamstel."}
+  390: {from: DIM150, to: LWSN150, conf: high, note: "Diemen 150 (90 m) to Liander Weesp Noord."}
+  391: {from: PMP150, to: ALR150, conf: high, note: "Ends at Pampus (33 m) and Almere (24 m)."}
+  392: {from: VVL220, to: ENS220, via: [BGM220, LSM220, OHK220], conf: high, note: "Same trace as 318."}
+  393: {from: AMVZ150, to: LAVB150, conf: high, note: "New Amstelveen Zuid (81 m) to Liander Amstelveen Bolwerk."}
+  394: {from: ASDS150, to: LBSW150, conf: high, note: "New Amsterdam Sloterdijk (23 m) to Liander Basisweg."}
+  395: {from: ASDS150, to: LSLM150, conf: high, note: "New Amsterdam Sloterdijk (23 m) to Liander Slotermeer."}
+  396: {from: AWP150, to: LOSD150, conf: high, note: "New Amsterdam Westpoort (14 m) to Liander Osdorp."}
+  397: {from: NDK150, to: LVLB150, conf: high, note: "Noord Klaprozenweg (84 m) to Liander Vliegenbos."}
+  398: {from: HST380, to: RLL380, via: [GT380], conf: medium, note: "New Halsteren 380 (0 m). Branch ends lie on the TenneT conductors GT-RLL380 W/Z: loop-in of Geertruidenberg-Rilland 380 (Rilland taken)."}
+  399: {from: HST150, to: ZRZ150, conf: high, note: "New Halsteren 150 (148 m) to new Zierikzee 150 (3 m)."}
+  400: {from: KIJ380, to: BVW380, via: [DIM380, OZN380], conf: high, note: "Same trace as 311."}
+  401: {from: KIJ380, to: BVW380, via: [DIM380, OZN380], conf: high, note: "Same trace as 311."}
+  402: {from: CST380, to: KIJ380, conf: medium, note: "Same trace as 359."}
+  403: {from: CST380, to: KIJ380, conf: medium, note: "Same trace as 359."}
+  404: {from: DDZ150, to: DDM150, conf: high, note: "Ends at Dordrecht Zuid (0 m) and Dordrecht Merwedehaven (8 m)."}
+  405: {from: CST150, to: DDM150, conf: high, note: "Crayestein (48 m) to Dordrecht Merwedehaven (3 m)."}
+  406: {from: SMH150, to: GVN150, via: [BTL150], conf: medium, note: "Pocket: route Simonshaven (0 m) - Geervliet Noord (25 m) - Botlek and back."}
+  407: {from: MSW150, to: TNT150, conf: high, note: "Merseyweg (8 m). The other end (3.4 km east of Tinte) lies on the TenneT conductors GVN-TNT-ERP150 W/Z: reconnection to Tinte via that circuit."}
+  408: {from: HZR150, to: AP150, via: [ZT150], conf: medium, note: "New Hazerswoude-Rijndijk (16 m). The other end lies on the TenneT conductors ZT-AP150 W/Z: loop-in of Zoetermeer-Alphen a/d Rijn (Alphen taken)."}
+  409: {from: RW150, to: YPB150, conf: high, note: "Ends at Rijswijk (10 m) and Ypenburg (3 m)."}
+  410: {from: GVN150, to: MDH150, conf: high, note: "Ends at Geervliet Noord (238 m) and Middelharnis (58 m)."}
+  411: {from: DTNZ110, to: BGM110, conf: high, note: "New Drachten Zuid (32 m) to Bergum 110 (110 m)."}
+  412: {from: BGM110, to: OWD110, via: [DTN110], conf: high, note: "Path ends at Bergum (77 m), Drachten (34 m) and Oosterwolde (43 m)."}
+  413: {from: OHK110, to: HRVK110, conf: high, note: "Oudehaske 110 (129 m) to new Heerenveen KNO (3 m)."}
+  414: {from: LMR110, to: OHK110, conf: high, note: "Ends at Lemmer (22 m) and Oudehaske (171 m)."}
+  415: {from: LTK110, to: EMZ110, conf: high, note: "Ends at Luttelgeest Kalenbergerweg (43 m) and Emmeloord Zuidervaart (86 m)."}
+  416: {from: GLTK110, to: MEEB110, via: [VDM110], conf: high, note: "Gasselte Kraanlanden (17 m) to new Meeden-2 110 (53 m)."}
+  417: {from: GLTK110, to: MEEB110, via: [VDM110], conf: high, note: "Same trace as 416."}
+  418: {from: VOB110, to: BGMR110, conf: high, note: "New Veenoord Boerdijk (64 m) to Bargermeer (727 m)."}
+  419: {from: ZLH110, to: SW110, via: [HCL110, HGV110, DONN110], conf: low, note: "Several sections: Zwolle Hessenweg (177 m) - Steenwijk (24 m); Hessenweg towards Harculo (end on HCL-ZLW110/HCL-RT110 corridor); a section from the HGV-DDV110/HGV-HDB110 lines near Hoogeveen to the new DONN 380/220 kV station near Wijster (IP2026 point 957, 143 m). One edge Zwolle Hessenweg - Steenwijk used."}
+  420: {from: ZLH110, to: SW110, via: [HCL110, HGV110, DONN110], conf: low, note: "Same trace as 419."}
+  421: {from: ZLF110, to: ZLH110, conf: high, note: "Ends at Zwolle Frankhuis (6 m) and Zwolle Hessenweg (270 m)."}
+  422: {from: DVTP110, to: DVTB110, conf: high, note: "Ends at Deventer Platvoet (33 m) and Bergweide (11 m)."}
+  423: {from: LGK150, to: ZP150, conf: high, note: "Ends at Langerak (15 m) and Zutphen (34 m)."}
+  424: {from: ZP150, to: LC150, conf: high, note: "Ends at Zutphen (67 m) and Lochem (64 m)."}
+  425: {from: NM150, to: DOD150, conf: high, note: "Ends at Nijmegen (54 m) and Dodewaard 150 (51 m)."}
+  426: {from: DOD150, to: EDE150, conf: high, note: "Ends at Dodewaard 150 (45 m) and Ede (23 m)."}
+  427: {from: DOD150, to: DRT150, conf: high, note: "Ends at Dodewaard 150 (127 m) and Druten (18 m)."}
+  428: {from: DRT150, to: TL150, conf: high, old_chain: [DRT150, ZBM150, TL150], note: "Druten (66 m); the other end (2.9 km east of Tiel) lies on the TenneT conductors DRT-ZBM-TL150 W. Old circuit DRT-ZBM-TL150 in full_network."}
+  429: {from: AMFN150, to: ZWO150, conf: high, note: "New Amersfoort Noord (64 m) to Zeewolde (43 m)."}
+  430: {from: AMFN150, to: LFLR150, conf: high, note: "New Amersfoort Noord (29 m) to Liander Flier."}
+  431: {from: AMFN150, to: STBA150, conf: high, note: "New Amersfoort Noord (16 m) to Stedin Baarn."}
+  432: {from: KMRN150, to: BLTH150, conf: high, note: "New Kromme Rijn (11 m) to new Bilthoven (29 m)."}
+  433: {from: BKK150, to: ULW150, via: [UTN150], conf: high, note: "Breukelen Kortrijk (66 m) - new Utrecht Noord (25 m) - Utrecht Lage Weide (4 m). The third branch ends on the TenneT conductors ULW-SOS150 W/Z (Utrecht Noord also looped into Utrecht Lage Weide-Soest)."}
+  434: {from: BUGG150, to: NEDW150, via: [KELP150], conf: high, note: "Ends at Buggenum (74 m) and Nederweert (16 m)."}
+  435: {from: EIN380, to: MBT380, conf: high, note: "New Einighausen 380 (0 m) to Maasbracht 380 (380 m)."}
+  436: {from: MBT380, to: EIN380, conf: high, note: "Maasbracht 380 (173 m) to new Einighausen 380 (27 m)."}
+  437: {from: MZ150, to: EHVO150, conf: high, old_chain: [MZ150, EHVO150], note: "Ends at Maarheeze (54 m) and Eindhoven Oost (45 m)."}
+  438: {from: EHVZ150, to: HPT150, conf: high, note: "Ends at Eindhoven Zuid (43 m) and Hapert (42 m)."}
+  439: {from: TBN150, to: TBZ150, conf: high, note: "Ends at Tilburg Noord (54 m) and Tilburg Zuid (42 m)."}
+  440: {from: TBN150, to: TBW150, conf: high, note: "Ends at Tilburg Noord (103 m) and Tilburg West (56 m)."}
+  441: {from: WDT150, to: DTO150, via: [HST150], conf: high, note: "Ends at Woensdrecht (51 m) and Dinteloord (11 m)."}
+  442: {from: BZ150, to: LGSP150, conf: high, note: "Bijlmer Zuid (16 m) to Liander Gaasperdam."}
+  443: {from: AMLM110, to: AMLT110, conf: high, note: "Ends at Almelo Mosterdpot (61 m) and Almelo Tusveld (42 m)."}
+  444: {from: BVW150, to: OTL150, via: [VLN150], conf: high, note: "Beverwijk (90 m) to Oterleek (150 m); Velsen from project name."}
+  445: {from: AZO150, to: AMVZ150, conf: high, note: "New Amsterdam Zuidoost (20 m) to new Amstelveen Zuid (42 m)."}
+  446: {from: HW150, to: LPTH150, conf: high, note: "Amsterdam Hemweg (167 m) to Liander Petroleumhaven."}
+  447: {from: STP150, to: RBZ150, via: [VHZ150, NMR150], conf: medium, note: "New Schiphol Trade Park (0 m). The other end lies on the TenneT cables VHZ-RBZ150 P and NMR-RBZ150 W: loop-in of the cables to Rozenburg Zuid (Rozenburg Zuid taken)."}
+  448: {from: AZO150, to: GVL150, conf: high, note: "New Amsterdam Zuidoost (24 m) to 's Graveland (58 m). Part of project 'Hilversum 150 kV realiseren station'."}
+  449: {from: OVA150, to: VW150, via: [ZVD150], conf: medium, note: "New Amsterdam Overamstel (0 m). The other end lies on the TenneT cables ZVD-VW150 G/P/Z: loop-in of Venserweg-Zorgvlied (Venserweg taken)."}
+  450: {from: HKR150, to: MDM150, conf: low, note: "New Hollands Kroon (0 m); indicative 2.8 km trace, far end not named. Middenmeer assumed."}
+  451: {from: HW150, to: LHVS150, conf: high, note: "Amsterdam Hemweg to Liander Havenstad (10 kV connection)."}
+  452: {from: DIM380, to: LLS380, conf: high, note: "Same trace as 344: ends at Diemen 380 (182 m) and Lelystad 380 (0 m)."}
+  458: {from: null, to: null, conf: none, note: "No project data and no geometry in IP26_line.xlsx / ArcGIS."}
+  459: {from: null, to: null, conf: none, note: "No project data and no geometry in IP26_line.xlsx / ArcGIS."}
+  460: {from: null, to: null, conf: none, note: "No project data and no geometry in IP26_line.xlsx / ArcGIS."}
+  461: {from: null, to: null, conf: none, note: "No project data and no geometry in IP26_line.xlsx / ArcGIS."}
+
+# ----------------------------------------------------------------------------
+# Text of the Notes tab
+# ----------------------------------------------------------------------------
+notes:
+  - "Purpose: the IP2026 line projects (TenneT Investeringsplan 2026, ArcGIS layer IP26_line) written as network edges in the format of full_network.csv, one tab per werkzaamheden type."
+  - "One row = one IP26 line feature = one edge (one circuit). Features that TenneT drew twice for the same project (other circuit) are kept as separate edges, like the W/Z circuits in full_network.csv."
+  - "Stations: every path end of the IP26 line geometry (RD New) was snapped to the TenneT station layer (TenneT_Assets_Hoogspanning, 371 stations), to the new stations of the IP2026 point layer and to the stations of full_network.csv, and checked against the project name. Station IDs and names are those of full_network.csv where the station exists there, otherwise the ArcGIS STATIONID / OBJECTOMSCHRIJVING, otherwise a new ID (tab Stations, column origin). Name priority: 1) old line file full_network.csv, 2) TenneT ArcGIS map (station layer, OBJECTOMSCHRIJVING), 3) IP2026 point file (new stations) / project name (customer substations) / assumed. Columns from_name_source and to_name_source show which one was used for every row."
+  - "Verification of loop-ins, partial sections and medium/low matches: the TenneT conductor layers (TenneT_Assets_Hoogspanning layers 2 and 3, field NETSCHAKELID = circuit ID, same naming as full_network.csv) were queried around each line end; the circuits found are quoted in match_note. The TenneT grid maps (tennet.eu, grid maps June 2026) label only the main 380/220 kV stations and the cross-border stations, so they confirm those names but cannot resolve 150/110 kV or new stations."
+  - "Tab Station_match gives, per row, the distance from each assigned station to the nearest end of the line, the confidence and the reasoning. Confidence: high = both stations certain; medium = loop-in into an existing line or project name and geometry differ; low = indicative trace, ambiguous corridor or assumed station: check before use. Partial sections (cable sections etc.) are named in match_note."
+  - "Electrical values per circuit: R = r' x length, X = x' x length, B = b' x length (b' in µS/km), with r', x', b' per voltage level and edge type from the Parameters tab (defaults: medians of full_network.csv). Per unit on Sbase = 100 MVA: Zbase = kV^2/Sbase, r_pu = R/Zbase, x_pu = X/Zbase, susceptance_pu_total = B x Zbase, susceptance_pu_half = total/2."
+  - "length_m = Shape__Length of the IP26 line (ArcGIS, indicative trace). For partial sections (e.g. cable sections) this is the section length, not the full circuit."
+  - "max_current_a: rating per voltage level and edge type (Parameters tab); for lijnverzwaring rows the rating after reinforcement (380/220 kV 4,000 A per IP2026 §7.4; 150/110 kV assumed). sn_mva = sqrt(3) x kV x I / 1000."
+  - "edge_type: bovengronds = line, ondergronds = cable (from bovengronds_ondergrond)."
+  - "lijnverzwaring tab: the 'Old line values' columns come from full_network.csv: the edge(s) between the same from and to station (direct), or the chain of edges through the via stations. Values are per circuit; 'Matched circuits' gives how many parallel circuits exist. DLR is not in full_network.csv and is left empty."
+  - "IP26_point.xlsx (all 366 IP2026 project points) is an input: the coordinates of the new stations are taken from it (column point in extra_stations), tab Station_match shows the point of the same project (n_nummer = nummer) and its distance to the line, and tab IP26_new_stations lists all new-station points and whether an IP26 line connects to them."
+  - "n_circuits (N): circuits represented by one edge (parallel equivalent: R/N, X/N, B·N, I·N). Rule per row in column n_circuits_basis: 1) config override, 2) project name ('3e circuit' = 1, '3e en 4e circuit' = 2, 'N circuits'), 3) existing route (lijnverzwaring, Verkabelen, bestaande verbinding): number of circuits of that route in full_network.csv ('Nvt' edges not counted), 4) default 2 per new connection (TenneT builds double-circuit; IP2026 Table 8.3). Projects drawn as several identical features: the first is used, the copies are kept with include_in_network = no. Projects drawn as k different features between the same stations: N divided over them."
+  - "Filter include_in_network = yes before building a network model, otherwise duplicate features are counted twice."
+  - "Last four columns (from the original template IP26_line_separate_sheet): X model = L·x′·√3/N, X standard = L·x′/N, Peak capacity = N·cap, Secure capacity = MVA·PF·RF, with L = Shape__Length/1000, x′ = the x′ of the row's voltage and edge type (Parameters, 'Electrical parameters per circuit'; so X standard = reactance_ohm and X model = √3 × reactance_ohm), cap = 1000 MVA per 380 kV circuit, PF = 0.95, RF = 1 (Parameters tab, template block). For 220/150/110 kV the template has no capacity value, so Peak capacity = sn_mva of the row."
+  - "Rows 458-461 have no project data and no geometry in the input; they are kept without stations or values."

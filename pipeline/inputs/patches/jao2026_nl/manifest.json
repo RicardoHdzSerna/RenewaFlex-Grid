@@ -1,0 +1,207 @@
+{
+ "status": "finished",
+ "started": "2026-10-16T11:43:41",
+ "config": {
+  "script": "96_build_nl_patch_from_gridaware.py",
+  "base_version": "v27",
+  "patch_name": "jao2026_nl",
+  "brief": "user brief 2026-10-16 ('complete the Dutch part of JAO 2026 with elements from the GridAware network'), section 2a",
+  "ready_items": [
+   [
+    "branch:BVW-VHZ380 W",
+    "W",
+    "2.860119",
+    "12.2",
+    "3000"
+   ],
+   [
+    "branch:BVW-VHZ380 Z",
+    "Z",
+    "2.860119",
+    "12.2",
+    "3000"
+   ],
+   [
+    "branch:BWK-VHZ380 O",
+    "O",
+    "9.920326",
+    "45.97",
+    "3000"
+   ],
+   [
+    "branch:BWK-VHZ380 P",
+    "P",
+    "9.920326",
+    "45.97",
+    "3000"
+   ],
+   [
+    "branch:BVW-OZN380 W",
+    "W",
+    "4.352655",
+    "15.9",
+    "3300"
+   ],
+   [
+    "branch:BVW-OZN380 Z",
+    "Z",
+    "4.353",
+    "17.0",
+    "3300"
+   ],
+   [
+    "branch:BGM-VVL220 W",
+    "W",
+    "8.5441",
+    "32.48",
+    "2500"
+   ],
+   [
+    "branch:BGM-VVL220 Z",
+    "Z",
+    "8.5393",
+    "32.48",
+    "2500"
+   ]
+  ],
+  "new_buses_rd": {
+   "BEVERWIJK_380": [
+    106901.9,
+    498583.1
+   ],
+   "VIJFHUIZEN_380": [
+    107881.0,
+    487537.4
+   ]
+  },
+  "coordinate_source": "RD from the brief (TenneT station layer used in the IP26 work), EPSG:28992 -> WGS84 by the RD approximation formulas",
+  "coordinate_check": "every IP26 point named '<station> 380|220[/nnn] kV ...' whose station is a Dutch workbook bus: converted point vs the bus's JAO coordinates; abort if fewer than 3 such points or their median difference exceeds 0.006 degrees",
+  "eic_scheme": "PATCH-NL-nnnn in the order of ready_items",
+  "line_name_style": "<From>-<To><kV> <circuit> as the Dutch JAO rows",
+  "transferred_quantities": [
+   "current A",
+   "reactance ohm",
+   "length km"
+  ],
+  "R_B": "0 as every JAO row",
+  "aliases_for_node_diff": {
+   "KRIMPEN A/D IJSSEL": "KRIMPEN AAN DEN IJSSEL",
+   "COMPENSATIE EN FILTERSTATION EEMSHAVEN": "COMPENSATIE FILTERSTATION EEMSHAVEN"
+  },
+  "items_2b_station_ids": {
+   "BMR380": "2b: second Maasbracht-Dodewaard circuit (Boxmeer)",
+   "WAZ380": "2b: Wijk aan Zee / Hollandse Kust landing",
+   "HNL220": "2b: Wijk aan Zee / Hollandse Kust landing",
+   "HWK_A220": "2b: Wijk aan Zee / Hollandse Kust landing",
+   "HWK_B220": "2b: Wijk aan Zee / Hollandse Kust landing",
+   "HWK_N220": "2b: Wijk aan Zee / Hollandse Kust landing"
+  },
+  "offshore_station_ids_for_node_diff": [
+   "BSA220",
+   "BSB220",
+   "EGE220",
+   "EGE380",
+   "GEZI220",
+   "GEZII220",
+   "HKZ_A220",
+   "HKZ_B220",
+   "HZL220",
+   "ZKL220"
+  ],
+  "validation_data_read": "none",
+  "script_sha256": "2f3647569b3d9f175a191f4bac95f14c7b239a4eef550a6219773f4adb390fd2"
+ },
+ "inputs_sha256": {
+  "inputs/derived/jao_core_v27/jao_core.xlsx": "680d508962ac2a2ecba3994a9b0a198c2ba40b4b0fb000656094e6e8cbeaa09c",
+  "inputs/derived/jao_core_v27/row_decisions.csv": "897344ea85c800832f15b1edd2bf370af45711997435dc7e78f43b2647bd2f65",
+  "inputs/raw/202603_Core Static Grid Model_External.xlsx": "fcf99279135433f3bf6f9dd587418de1bd289039c82cc0cf2ce54f2d48613d4e",
+  "inputs/external/gridaware_full_network_2026-10-16/full_network.csv": "6e009210a8b38616e66e95c406348e3107624a80e2d3c56d8cae5710b33749c5",
+  "inputs/external/tennet_ip2026_2026-10-16/Bijlage 4 koppeling projecten aan knelpunten_0.pdf": "5ec5b5a3f0e6142235fccb25b07b7667719b6daebaa3c3f08b2b2f51fdaf0ab6",
+  "inputs/external/tennet_ip2026_2026-10-16/IP26_point.xlsx": "71a210fed61da6d4e8c6ae84639620a8791211623d51bdf3841e9323a11e1faa",
+  "inputs/external/jao_fb/final_2026-01-14/raw_2026-01-14T02_p00.json": "31bf5c56af42a0cf08b773a906f41642484c9182fb3595742527a28fda17f81f",
+  "inputs/external/jao_fb/final_2026-01-14/raw_2026-01-14T02_p01.json": "77befb3e9ced126f064a672bf83a1269b9ea2a615cc0ff7e400d132bc70381c1",
+  "inputs/external/jao_fb/final_2026-01-14/raw_2026-01-14T02_p02.json": "4fd6bb766f18fc48e0106b152eb5176b7e026f804ec14f6dd2ad022a43ed4ce0",
+  "inputs/external/jao_fb/final_2026-01-14/raw_2026-01-14T02_p03.json": "d9591d9e45478fc48a9b355877e9a48d0fd0e5da02716daa627e900cdc51f7d5",
+  "inputs/external/jao_fb/final_2026-01-14/raw_2026-01-14T02_p04.json": "f7b4d2efbf542d570f141ae384a580c9e770507fb71f96908b266e99cfe28d2f",
+  "inputs/external/jao_fb/final_2026-01-14/raw_2026-01-14T02_p05.json": "07a504dcb0acc1eca7b37665ee1be2f0837459398a033e8f18dc0d74108816a8",
+  "inputs/external/jao_fb/final_2026-01-14/raw_2026-01-14T02_p06.json": "cca24cf4f98b994228721c67e7b8c687d30100f23cbe3fa97d94396ca9e98bcb",
+  "inputs/external/jao_fb/final_2026-01-14/raw_2026-01-14T08_p00.json": "07493b01b6faad447c5a96320efec842db789024e02e88ffbcf77360d349cb7b",
+  "inputs/external/jao_fb/final_2026-01-14/raw_2026-01-14T08_p01.json": "ce9b308376ccdb621a367301ce0c08e952a97054d52b50b1f785857e1b4d30a8",
+  "inputs/external/jao_fb/final_2026-01-14/raw_2026-01-14T08_p02.json": "06f2f3a3cec650e670fb1b87eeeb4e8692e00b9a9b0c62c1c72bd46180252455",
+  "inputs/external/jao_fb/final_2026-01-14/raw_2026-01-14T08_p03.json": "38aeed0879900b38626235dec5b2432ab5ecb5c01d92441e64f6e5c5f39e78d7",
+  "inputs/external/jao_fb/final_2026-01-14/raw_2026-01-14T08_p04.json": "0cec730450cae6136aa691f165db7dd25de9822ae2116f1aa65226aae94a587d",
+  "inputs/external/jao_fb/final_2026-01-14/raw_2026-01-14T08_p05.json": "70b594bf16058d173618079a856449b1035ab5568d65c1560fe3b811662ca6d7",
+  "inputs/external/jao_fb/final_2026-01-14/raw_2026-01-14T08_p06.json": "1901dfa4ccf885634be3a87714c5794f82414e0a3584ef9cf9c0edd943cee3bc",
+  "inputs/external/jao_fb/final_2026-01-14/raw_2026-01-14T12_p00.json": "bf9876fe701cd5d937d07cf04d800a9315d69c1ccc5dad4a46a771403a2142e2",
+  "inputs/external/jao_fb/final_2026-01-14/raw_2026-01-14T12_p01.json": "18e604e7f58413bec279095dae4a69f966537df375569620d34b3e13a5400df2",
+  "inputs/external/jao_fb/final_2026-01-14/raw_2026-01-14T12_p02.json": "0306bf8b7356b9998639f77721561ef4fee6657e5d6600b58ddf810df9e1bd28",
+  "inputs/external/jao_fb/final_2026-01-14/raw_2026-01-14T12_p03.json": "10fae24e6202c13b512da93aef0d03350752e6e5f9bcd6c3cb3eac85463cd412",
+  "inputs/external/jao_fb/final_2026-01-14/raw_2026-01-14T12_p04.json": "47d7fd2746d165cf0881235c4cca1b05c30311ac739429bdc641069eaa712577",
+  "inputs/external/jao_fb/final_2026-01-14/raw_2026-01-14T12_p05.json": "3c443b61f93f3659ceee4c85814510e253ad528548533c6a4d563b484b8be915",
+  "inputs/external/jao_fb/final_2026-01-14/raw_2026-01-14T12_p06.json": "de97584becdcf422715c44a834911b1db01cc12208031ef503c5ec6f520f1d70",
+  "inputs/external/jao_fb/final_2026-01-14/raw_2026-01-14T18_p00.json": "ddc8a108a44bd61917a644d1ab250bb5c3b17746e5c681aebe1f30e3befb5cf0",
+  "inputs/external/jao_fb/final_2026-01-14/raw_2026-01-14T18_p01.json": "b0b392ef02422ca074177dfee3aa3622a160d0a69fc6368fec6690a4691493d1",
+  "inputs/external/jao_fb/final_2026-01-14/raw_2026-01-14T18_p02.json": "80c1768f3e69153f0e75a9e87dfc8c8dee167297e211ec2b37058170a4045242",
+  "inputs/external/jao_fb/final_2026-01-14/raw_2026-01-14T18_p03.json": "b847cb0e9f34a7bcace25092641bd735d0ad8ed67740c04e2ad8a428d2ed82e7",
+  "inputs/external/jao_fb/final_2026-01-14/raw_2026-01-14T18_p04.json": "25a33d82ed559bee2ff75c3ad818b2700565b0c4eaf7a1ac3c7542f58a4c9e0e",
+  "inputs/external/jao_fb/final_2026-01-14/raw_2026-01-14T18_p05.json": "16df64115e1a79c9452da01563c0c0a23501e6e1def78799c7f18980bf2970af",
+  "inputs/external/jao_fb/final_2026-01-14/raw_2026-01-14T18_p06.json": "eb06436711d1dca4bf4eae4d2ed143febb3f69016cf9ae93f1461f58219911f1",
+  "inputs/external/jao_fb/final_2026-07-15/raw_2026-07-15T02_p00.json": "8a351a40e670deae53739b6da3af6d2d1ce922028573b0ad7b1b95594fda1af0",
+  "inputs/external/jao_fb/final_2026-07-15/raw_2026-07-15T02_p01.json": "5d3f2d5ba0aa884abb8a567d5376b0bb4f1224776156bb73258129792c6ef857",
+  "inputs/external/jao_fb/final_2026-07-15/raw_2026-07-15T02_p02.json": "716979f386be51407961c18fd1d73d0e96c911041211a17d6c96899e7efb0063",
+  "inputs/external/jao_fb/final_2026-07-15/raw_2026-07-15T02_p03.json": "0b8a442296dc7d8d582fa81abd801ef77a6b8b1b1be5f26815acf5a563e0d3d4",
+  "inputs/external/jao_fb/final_2026-07-15/raw_2026-07-15T02_p04.json": "76ca54ad5a459354a0af16bd7d02c878ba6055a8d6fe9f077f84703809778ded",
+  "inputs/external/jao_fb/final_2026-07-15/raw_2026-07-15T02_p05.json": "22af16d9cd0ed138339ccb82dd29952439d237192504ee9e05dd4ecfc846253f",
+  "inputs/external/jao_fb/final_2026-07-15/raw_2026-07-15T02_p06.json": "744e396dfbbdf304f9b5b09d5c873175e5980cb65abead5901c37fe99cf74726",
+  "inputs/external/jao_fb/final_2026-07-15/raw_2026-07-15T02_p07.json": "ca6d15d1c0f019bb9d922ea0e4c9c0c985195006f0369e1285b9419e27ded678",
+  "inputs/external/jao_fb/final_2026-07-15/raw_2026-07-15T02_p08.json": "fd1bbf41e7be20bc580111c3bdd4ed3f74bc6672cd8b85ca9e8f095f6e144172",
+  "inputs/external/jao_fb/final_2026-07-15/raw_2026-07-15T02_p09.json": "15392de0134a7110b54fa5b39dca6611f2285f55620fc16798819f766ab6c1f4",
+  "inputs/external/jao_fb/final_2026-07-15/raw_2026-07-15T08_p00.json": "df7402f75e651aa84e046ab4bf4be44b62268227743175c475e509bfd75a9cb5",
+  "inputs/external/jao_fb/final_2026-07-15/raw_2026-07-15T08_p01.json": "6232e04e1353d1fa5780ae6d62278731c03fc657f71aa12bbaa6f77f02336192",
+  "inputs/external/jao_fb/final_2026-07-15/raw_2026-07-15T08_p02.json": "e8478b9c2b5ac171b3d2cf0de5adf7968162ff8fd8503f0bc43c04080e2401af",
+  "inputs/external/jao_fb/final_2026-07-15/raw_2026-07-15T08_p03.json": "d90d78fce51838d0bf8f65a652084aaeb4d2afe4de096814a0e55946995b5bea",
+  "inputs/external/jao_fb/final_2026-07-15/raw_2026-07-15T08_p04.json": "bf77a6355844c9d46216d4d83bfa989cf827f8081793308eb5c0ea0622f87b10",
+  "inputs/external/jao_fb/final_2026-07-15/raw_2026-07-15T08_p05.json": "ad8beb149bdedabd9e52e02e06c31d61f2a2ab1bf0b7340d6d0dafebb3adf5b4",
+  "inputs/external/jao_fb/final_2026-07-15/raw_2026-07-15T08_p06.json": "4b9442fa2660b6986e8d90d2790f42e004d8e9ebd328932d28dd958c6cd25501",
+  "inputs/external/jao_fb/final_2026-07-15/raw_2026-07-15T08_p07.json": "27df3361bf446ccee36af2f4c754e3e7813c5845785acb2698f5de85919ae212",
+  "inputs/external/jao_fb/final_2026-07-15/raw_2026-07-15T08_p08.json": "6dec589b0097f26b5ca540eb10977d07579aa0f58ccf618558a8684d9f83978b",
+  "inputs/external/jao_fb/final_2026-07-15/raw_2026-07-15T08_p09.json": "30cf4be7cd64e2ddecc416a94a199ce57fc1f33571013277a8aef43be987aef8",
+  "inputs/external/jao_fb/final_2026-07-15/raw_2026-07-15T12_p00.json": "b2726dcb32eda6dedcce12638ab1a5562d310a2c301b04ac6fc1d9f817557a06",
+  "inputs/external/jao_fb/final_2026-07-15/raw_2026-07-15T12_p01.json": "3670eacd8f75700184cc6657f6bf2a94f197ea61c8d896036dae06286044b5a6",
+  "inputs/external/jao_fb/final_2026-07-15/raw_2026-07-15T12_p02.json": "64892ea404f15ad1a30e0b599129ba97948ac1d86917b37e7dcb4c36827388e5",
+  "inputs/external/jao_fb/final_2026-07-15/raw_2026-07-15T12_p03.json": "a65bceef6239f26740b3e8d93517dfe2ecdcfe6205c0eee784fec80b0adc3aa2",
+  "inputs/external/jao_fb/final_2026-07-15/raw_2026-07-15T12_p04.json": "fee438ff4241205dc8951998c606d787bffc12f7bb7862ea3d44ee0a5b2c3989",
+  "inputs/external/jao_fb/final_2026-07-15/raw_2026-07-15T12_p05.json": "370ae5a4506454ff9446545070df0abea7fbc084d85b5233cac254c3a73a3c88",
+  "inputs/external/jao_fb/final_2026-07-15/raw_2026-07-15T12_p06.json": "4d1e504108e133682d74531983f09518b10d2f253e15d662731c5c903ca67366",
+  "inputs/external/jao_fb/final_2026-07-15/raw_2026-07-15T12_p07.json": "b5830abbda23fe70798ddc2b2dd856e947209935e5ed31f430caa7a6061a9489",
+  "inputs/external/jao_fb/final_2026-07-15/raw_2026-07-15T12_p08.json": "d8ab026f76a67eeccc176de8c5ec7fde0f2cd8abcac352905badc5b7d11d3349",
+  "inputs/external/jao_fb/final_2026-07-15/raw_2026-07-15T12_p09.json": "a8abc4cf857648f1cf0d62f297bd7f2aa6c7bdd7eb3346a8b04926bc61aa6e0b",
+  "inputs/external/jao_fb/final_2026-07-15/raw_2026-07-15T18_p00.json": "08df99b1c02db3933c9736b71a585fa9143220cd318ee32f0f46cd1862d92db6",
+  "inputs/external/jao_fb/final_2026-07-15/raw_2026-07-15T18_p01.json": "3b4b84340d14827a630d03adcb45e981e1b5a1083ee80517fe03dad36b4f7341",
+  "inputs/external/jao_fb/final_2026-07-15/raw_2026-07-15T18_p02.json": "0a612329d0ce1aa70282d3c54b961b2266411b5cbf1d95d8abe2bb9101f47293",
+  "inputs/external/jao_fb/final_2026-07-15/raw_2026-07-15T18_p03.json": "ce696a94657b12f3f24038af8f4ad7e9ea4837ab440a67fb2c02edce134c4f07",
+  "inputs/external/jao_fb/final_2026-07-15/raw_2026-07-15T18_p04.json": "c9e9e9a3ec1561f345e5050b853d01b27b9cca499c50ce762c60f7061b0eacc9",
+  "inputs/external/jao_fb/final_2026-07-15/raw_2026-07-15T18_p05.json": "fb9fb52dfb2f8ac0d1f710f66c30e43c01cd66de2a66f47ef7bb5b4a38ff386c",
+  "inputs/external/jao_fb/final_2026-07-15/raw_2026-07-15T18_p06.json": "1294bc23073bbfa0183c92f2066e3775dfe0d30b208f9305e09b9bbceaf60143",
+  "inputs/external/jao_fb/final_2026-07-15/raw_2026-07-15T18_p07.json": "984212f546ad6c6dc2ea90ea0cde1385e4b68fbfa2a6c2f6140e05072fa14fb4",
+  "inputs/external/jao_fb/final_2026-07-15/raw_2026-07-15T18_p08.json": "7fa28ac8910a71f75c58aff5ced5b8a6760244ad13496da50e456ae9af9f2820",
+  "inputs/external/jao_fb/final_2026-07-15/raw_2026-07-15T18_p09.json": "dba1f8860b1507f89be9772e8bf219f118bb6c7ddc254bbfbeec4ec8747dcbb1",
+  "inputs/external/jao_fb/raw_2026-09-10T02.json": "d426698b892c9607eace9467b111f53222147d3008f396a0d59b317903949bac",
+  "inputs/external/jao_fb/raw_2026-09-10T08.json": "225320153569d79796a9887e0e67aa39d40d0c1a68cccb4ce5979e5a2728ed1c",
+  "inputs/external/jao_fb/raw_2026-09-10T12.json": "3bfba5f1fee0bf2699dc31f38de29614d1aa00acd86e62e707e346ceb981dd80",
+  "inputs/external/jao_fb/raw_2026-09-10T18.json": "866a86b9b5f09d3cecc42a5af0a948728d3565334cc83a2b791e21dec87ce139"
+ },
+ "finished": "2026-10-16T11:43:42",
+ "outputs_sha256": {
+  "CHANGELOG.md": "54e89341f5dde8ce07206e55e5cc1106f629d41e29f5d612c67ff1df8e54b3c0",
+  "checks.json": "43f1f91e5bf3180f6c7c249f1e9cab1a62f6e0d8cb0b54e9d820932257478c3e",
+  "evidence_ip26.csv": "fbbb8cce12f6595651efc94f5a10d7e0ecf445f70ca8f1479b96c1e6805dc78f",
+  "evidence_jao2026_fb.csv": "bca56131fe514c4adeb9fce2944a08fa85e8fdf433c91dbd3ebd1e6caa867cab",
+  "lines_add.csv": "8cd5edb8de87ce21f958f2b6b8d0ceb067125587121dbbb88b052e1be08dbcea",
+  "node_diff.csv": "6e44b5a118e4a7c96480be18b724acfb0e1b0a591b68cc5da8aac82a1862008c",
+  "nodes_add.csv": "58f62a0e664248cd58e7001be69e345c4a64b98034e0a223cbcb9c129234e061",
+  "patch_metadata.csv": "28424bb38e1cd36ede8ef8cb9d888a82b7b8ad138611633b4d02b0d6e6029cb8",
+  "proposals_2b.csv": "16e42c609121fa23a78e64b305035695f31159649241f692f918f00f555adb27",
+  "transformers_add.csv": "02663e6b5b5ec36f7605b9772332aad2ee29e2eef1ca10ce7f9616724dc89f58"
+ }
+}

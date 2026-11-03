@@ -1,0 +1,69 @@
+{
+ "status": "finished",
+ "finished": "2026-10-16T13:04:36",
+ "config": {
+  "script": "100_apply_workbook_patches.py",
+  "script_sha256": "82a678bb0f620e631036eb559eb499cd63e251d28b2cfa368fa8a57e13bb9ceb",
+  "source_version": "v27",
+  "new_version": "v29",
+  "patches": [
+   {
+    "patch": "patches/jao2026_nl",
+    "patch_script": "96_build_nl_patch_from_gridaware.py",
+    "base_version": "v27",
+    "rows_to_add": {
+     "Nodes": 2,
+     "Lines": 8,
+     "Transformers": 0
+    },
+    "rows_skipped": 0
+   },
+   {
+    "patch": "patches/jao2026_nl_2",
+    "patch_script": "99_build_nl_patch2.py",
+    "base_version": "v28",
+    "rows_to_add": {
+     "Nodes": 1,
+     "Lines": 3,
+     "Transformers": 0
+    },
+    "rows_skipped": 0
+   }
+  ],
+  "substation_map": "source bytes kept, new rows appended as text",
+  "validation_data_read": "none",
+  "representative_buses": "unchanged (new buses IsRepresentative = 0)"
+ },
+ "inputs_sha256": {
+  "jao_core.xlsx": "680d508962ac2a2ecba3994a9b0a198c2ba40b4b0fb000656094e6e8cbeaa09c",
+  "build_report.md": "b027d7aeec9dd87dffaf12386c37fcef3f174aeffd56ebabc03cfb993d269d0e",
+  "row_decisions.csv": "897344ea85c800832f15b1edd2bf370af45711997435dc7e78f43b2647bd2f65",
+  "substation_map.csv": "cb69c6655273444cb03d1718f4fa92ac8bd5cfa8781cee1f4631f081c3bd298a",
+  "jao2026_nl/CHANGELOG.md": "54e89341f5dde8ce07206e55e5cc1106f629d41e29f5d612c67ff1df8e54b3c0",
+  "jao2026_nl/checks.json": "43f1f91e5bf3180f6c7c249f1e9cab1a62f6e0d8cb0b54e9d820932257478c3e",
+  "jao2026_nl/evidence_ip26.csv": "fbbb8cce12f6595651efc94f5a10d7e0ecf445f70ca8f1479b96c1e6805dc78f",
+  "jao2026_nl/evidence_jao2026_fb.csv": "bca56131fe514c4adeb9fce2944a08fa85e8fdf433c91dbd3ebd1e6caa867cab",
+  "jao2026_nl/lines_add.csv": "8cd5edb8de87ce21f958f2b6b8d0ceb067125587121dbbb88b052e1be08dbcea",
+  "jao2026_nl/node_diff.csv": "6e44b5a118e4a7c96480be18b724acfb0e1b0a591b68cc5da8aac82a1862008c",
+  "jao2026_nl/nodes_add.csv": "58f62a0e664248cd58e7001be69e345c4a64b98034e0a223cbcb9c129234e061",
+  "jao2026_nl/patch_metadata.csv": "28424bb38e1cd36ede8ef8cb9d888a82b7b8ad138611633b4d02b0d6e6029cb8",
+  "jao2026_nl/proposals_2b.csv": "16e42c609121fa23a78e64b305035695f31159649241f692f918f00f555adb27",
+  "jao2026_nl/transformers_add.csv": "02663e6b5b5ec36f7605b9772332aad2ee29e2eef1ca10ce7f9616724dc89f58",
+  "jao2026_nl_2/CHANGELOG.md": "6de8b2c4bb769e4bcfbbbc68f723554d9969ffd118370732e299bc74d4bdaaea",
+  "jao2026_nl_2/checks.json": "cf4ed12de9024c9651370e6861b9d78db1f4e65a67e98e7cad420c533a7767fb",
+  "jao2026_nl_2/eic_alias.csv": "e0c9ff98005520372ce8a5e4615e2eb3e8e90d6ccd471cce56ad2a5b5b180d5f",
+  "jao2026_nl_2/lines_add.csv": "1ef0e6060dbe9267dda2e87e589244e7aea79a4e1b0c112961227bdffea024cf",
+  "jao2026_nl_2/nodes_add.csv": "f5c59848c9ea2eceaaa839a1c30a033861b5f3c77b6b15ae967705676acbb4ad",
+  "jao2026_nl_2/patch_metadata.csv": "81203361c9d5f121a9e72706ccce54b3ff0ee092de97a0677ad3a14e2cf4fcee",
+  "jao2026_nl_2/transformers_add.csv": "02663e6b5b5ec36f7605b9772332aad2ee29e2eef1ca10ce7f9616724dc89f58"
+ },
+ "outputs_sha256": {
+  "build_report.md": "15389b2013b6489d588cc7e73773c03cfc36d2682b011333edf942a79b9cf265",
+  "corrections.csv": "d15aa679a0e737f831a59652a374cb70cd433868a7e417be55dfe09febb9dc4b",
+  "jao_core.xlsx": "e2a998bab2b806dca67fff80a77a49c9f7ce470e4b9ca1b048db2740c79827af",
+  "patch_applied.csv": "18a9f8aeda1165c26b9da1dcee2e03bab6ce28b972aba68b00830323a751dba7",
+  "row_decisions.csv": "897344ea85c800832f15b1edd2bf370af45711997435dc7e78f43b2647bd2f65",
+  "sha256.txt": "b96ea586e33f15b259f6e004d19ad381e436e1aa2b8f79310224a49e09254297",
+  "substation_map.csv": "b8f11af2b9c5a6f64a486e511af763cca41caa39065aa832047331a3aa58888f"
+ }
+}

@@ -1,0 +1,63 @@
+# ============================================================================
+# Configuration for ip26_horizon_filter.py
+# Reads the scenario workbooks made by ip26_network_scenarios.py and writes, per
+# scenario, one workbook per horizon year (2030, 2040) with only the IP26 lines
+# that are in service by that year. Projects in phase "Studie" are removed first.
+# ============================================================================
+
+paths:
+  input_folder: output                                   # where the scenario workbooks are (relative to this file)
+  input_pattern: IP26_line_network_edges_{scenario}.xlsx
+  output_folder: output/horizons
+  output_pattern: IP26_line_network_edges_{scenario}_{horizon}.xlsx
+
+# Scenarios to process (each needs its workbook in input_folder).
+scenarios: [median, mean, q1, q3, template, median_oldline]
+
+# Horizon years. A line is kept when its commissioning year (N_ibn_jaar_ip2026) is
+# not later than the horizon year.
+horizons: [2030, 2035, 2040]   # 2035 added for the handover (3 Nov 2026)
+
+# Which year of a range such as "2029-2030" counts:
+#   end   = last year of the range (line fully in service; conservative, default)
+#   start = first year of the range
+year_basis: end
+inclusive: true            # true: year <= horizon; false: year < horizon
+
+# Projects removed before the horizon filter (column n_projectfase_ip).
+exclude_phases: [Studie]
+# Rows without a commissioning year or phase (e.g. empty rows 458-461) are removed.
+drop_rows_without_year: true
+# Duplicate features (same project drawn twice, include_in_network = no) are removed.
+drop_duplicate_features: true
+# Columns kept in the data tabs: from edge_id up to and including this column.
+keep_columns_until: source
+
+# Data tabs that are filtered (all werkzaamheden tabs and tab 1). Other tabs
+# (Parameters, Stations, IP26_new_stations, Notes) are copied unchanged;
+# Station_match is filtered to the kept OBJECTIDs.
+filter_match_tab: Station_match
+
+# ----------------------------------------------------------------------------
+# Check against the GridAware network (full_network.csv). Adds columns after 'source':
+# network_action, applies_to_listed_branches, branches_also_listed_by, full_network_edge_ids,
+# full_network_circuits, full_network_max_current_a, full_network_length_km, n_circuits,
+# per_circuit_* values, action_note.
+# applies_to_listed_branches marks which row applies a change to a branch (each branch is changed once):
+# rows of the same project listing the same branches -> the longest row applies, the others are duplicates;
+# new-edge rows only reference the branches they list (loop-in / existing circuits).
+# Reinforcements/cabling of an existing connection -> "modify existing branch" (apply the
+# per-circuit rating and parameters to the listed branches, do not add the edge);
+# extra circuits -> "new edge (extra circuits)"; no route -> "new edge (new connection)".
+# ----------------------------------------------------------------------------
+network_check:
+  enabled: true
+  network_file: DATA/full_network.csv         # relative to this config file
+  assignments_config: config_scenarios.yaml    # old_chain per OBJECTID
+  decisions_config: config_decisions.yaml      # review decisions: circuit_assignment, route_choice, splits
+  edge_types: [line, cable]
+  ignore_circuit_ids: [Nvt]
+  circuit_rules:                               # projects that add circuits: circuits after the project
+    - {pattern: "3e en 4e circuit", required: 4}
+    - {pattern: "3e circuit", required: 3}
+    - {pattern: "(\\d+) circuits", required: group}

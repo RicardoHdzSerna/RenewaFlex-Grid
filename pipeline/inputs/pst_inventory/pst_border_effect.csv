@@ -1,0 +1,172 @@
+corridor,border,net_border_shift_mw_per_deg,net_border_shift_mw_at_range
+Meeden-Diele (NL-DE),AT-CZ,-0.199,-2.580
+Meeden-Diele (NL-DE),AT-DE,0.346,4.486
+Meeden-Diele (NL-DE),AT-HU,-0.136,-1.769
+Meeden-Diele (NL-DE),AT-SI,-0.011,-0.138
+Meeden-Diele (NL-DE),BE-DE,-0.784,-10.169
+Meeden-Diele (NL-DE),BE-FR,-4.203,-54.541
+Meeden-Diele (NL-DE),BE-NL,4.987,64.710
+Meeden-Diele (NL-DE),CZ-DE,0.142,1.845
+Meeden-Diele (NL-DE),CZ-PL,-0.362,-4.694
+Meeden-Diele (NL-DE),CZ-SK,0.021,0.269
+Meeden-Diele (NL-DE),DE-FR,4.203,54.541
+Meeden-Diele (NL-DE),DE-NL,-4.987,-64.710
+Meeden-Diele (NL-DE),DE-PL,0.488,6.331
+Meeden-Diele (NL-DE),HR-HU,-0.007,-0.089
+Meeden-Diele (NL-DE),HR-SI,0.007,0.089
+Meeden-Diele (NL-DE),HU-RO,0.000,0.000
+Meeden-Diele (NL-DE),HU-SI,0.004,0.049
+Meeden-Diele (NL-DE),HU-SK,-0.147,-1.906
+Meeden-Diele (NL-DE),PL-SK,0.126,1.637
+"Conneforde-Diele (DE, feeds Meeden-Diele)",AT-CZ,-0.245,-1.780
+"Conneforde-Diele (DE, feeds Meeden-Diele)",AT-DE,0.435,3.166
+"Conneforde-Diele (DE, feeds Meeden-Diele)",AT-HU,-0.177,-1.286
+"Conneforde-Diele (DE, feeds Meeden-Diele)",AT-SI,-0.014,-0.100
+"Conneforde-Diele (DE, feeds Meeden-Diele)",BE-DE,-0.377,-2.741
+"Conneforde-Diele (DE, feeds Meeden-Diele)",BE-FR,-2.457,-17.866
+"Conneforde-Diele (DE, feeds Meeden-Diele)",BE-NL,2.834,20.607
+"Conneforde-Diele (DE, feeds Meeden-Diele)",CZ-DE,0.216,1.570
+"Conneforde-Diele (DE, feeds Meeden-Diele)",CZ-PL,-0.482,-3.509
+"Conneforde-Diele (DE, feeds Meeden-Diele)",CZ-SK,0.022,0.159
+"Conneforde-Diele (DE, feeds Meeden-Diele)",DE-FR,2.457,17.866
+"Conneforde-Diele (DE, feeds Meeden-Diele)",DE-NL,-2.834,-20.607
+"Conneforde-Diele (DE, feeds Meeden-Diele)",DE-PL,0.651,4.736
+"Conneforde-Diele (DE, feeds Meeden-Diele)",HR-HU,-0.009,-0.065
+"Conneforde-Diele (DE, feeds Meeden-Diele)",HR-SI,0.009,0.065
+"Conneforde-Diele (DE, feeds Meeden-Diele)",HU-RO,0.000,0.000
+"Conneforde-Diele (DE, feeds Meeden-Diele)",HU-SI,0.005,0.035
+"Conneforde-Diele (DE, feeds Meeden-Diele)",HU-SK,-0.191,-1.386
+"Conneforde-Diele (DE, feeds Meeden-Diele)",PL-SK,0.169,1.228
+Gronau-Hengelo (DE-NL),AT-CZ,0.179,1.134
+Gronau-Hengelo (DE-NL),AT-DE,-0.306,-1.937
+Gronau-Hengelo (DE-NL),AT-HU,0.118,0.746
+Gronau-Hengelo (DE-NL),AT-SI,0.009,0.058
+Gronau-Hengelo (DE-NL),BE-DE,0.672,4.257
+Gronau-Hengelo (DE-NL),BE-FR,3.697,23.439
+Gronau-Hengelo (DE-NL),BE-NL,-4.369,-27.696
+Gronau-Hengelo (DE-NL),CZ-DE,-0.105,-0.668
+Gronau-Hengelo (DE-NL),CZ-PL,0.305,1.933
+Gronau-Hengelo (DE-NL),CZ-SK,-0.021,-0.131
+Gronau-Hengelo (DE-NL),DE-FR,-3.697,-23.439
+Gronau-Hengelo (DE-NL),DE-NL,4.369,27.696
+Gronau-Hengelo (DE-NL),DE-PL,-0.411,-2.605
+Gronau-Hengelo (DE-NL),HR-HU,0.006,0.037
+Gronau-Hengelo (DE-NL),HR-SI,-0.006,-0.037
+Gronau-Hengelo (DE-NL),HU-RO,-0.000,-0.000
+Gronau-Hengelo (DE-NL),HU-SI,-0.003,-0.021
+Gronau-Hengelo (DE-NL),HU-SK,0.127,0.804
+Gronau-Hengelo (DE-NL),PL-SK,-0.106,-0.672
+Van Eyck-Maasbracht (BE-NL),AT-CZ,-0.117,-0.790
+Van Eyck-Maasbracht (BE-NL),AT-DE,0.194,1.309
+Van Eyck-Maasbracht (BE-NL),AT-HU,-0.071,-0.481
+Van Eyck-Maasbracht (BE-NL),AT-SI,-0.006,-0.037
+Van Eyck-Maasbracht (BE-NL),BE-DE,-10.737,-72.312
+Van Eyck-Maasbracht (BE-NL),BE-FR,-28.584,-192.509
+Van Eyck-Maasbracht (BE-NL),BE-NL,39.321,264.821
+Van Eyck-Maasbracht (BE-NL),CZ-DE,0.043,0.287
+Van Eyck-Maasbracht (BE-NL),CZ-PL,-0.176,-1.188
+Van Eyck-Maasbracht (BE-NL),CZ-SK,0.016,0.110
+Van Eyck-Maasbracht (BE-NL),DE-FR,28.584,192.509
+Van Eyck-Maasbracht (BE-NL),DE-NL,-39.321,-264.821
+Van Eyck-Maasbracht (BE-NL),DE-PL,0.237,1.597
+Van Eyck-Maasbracht (BE-NL),HR-HU,-0.004,-0.024
+Van Eyck-Maasbracht (BE-NL),HR-SI,0.004,0.024
+Van Eyck-Maasbracht (BE-NL),HU-RO,0.000,0.000
+Van Eyck-Maasbracht (BE-NL),HU-SI,0.002,0.013
+Van Eyck-Maasbracht (BE-NL),HU-SK,-0.077,-0.519
+Van Eyck-Maasbracht (BE-NL),PL-SK,0.061,0.409
+Zandvliet-Rilland (BE-NL),AT-CZ,-0.128,-0.860
+Zandvliet-Rilland (BE-NL),AT-DE,0.216,1.455
+Zandvliet-Rilland (BE-NL),AT-HU,-0.082,-0.551
+Zandvliet-Rilland (BE-NL),AT-SI,-0.006,-0.043
+Zandvliet-Rilland (BE-NL),BE-DE,-2.849,-19.187
+Zandvliet-Rilland (BE-NL),BE-FR,-14.894,-100.306
+Zandvliet-Rilland (BE-NL),BE-NL,17.743,119.493
+Zandvliet-Rilland (BE-NL),CZ-DE,0.065,0.439
+Zandvliet-Rilland (BE-NL),CZ-PL,-0.209,-1.406
+Zandvliet-Rilland (BE-NL),CZ-SK,0.016,0.107
+Zandvliet-Rilland (BE-NL),DE-FR,14.894,100.306
+Zandvliet-Rilland (BE-NL),DE-NL,-17.743,-119.493
+Zandvliet-Rilland (BE-NL),DE-PL,0.281,1.894
+Zandvliet-Rilland (BE-NL),HR-HU,-0.004,-0.028
+Zandvliet-Rilland (BE-NL),HR-SI,0.004,0.028
+Zandvliet-Rilland (BE-NL),HU-RO,0.000,0.000
+Zandvliet-Rilland (BE-NL),HU-SI,0.002,0.015
+Zandvliet-Rilland (BE-NL),HU-SK,-0.088,-0.594
+Zandvliet-Rilland (BE-NL),PL-SK,0.072,0.488
+Vierraden-Krajnik (DE-PL),AT-CZ,-0.256,-3.137
+Vierraden-Krajnik (DE-PL),AT-DE,2.756,33.730
+Vierraden-Krajnik (DE-PL),AT-HU,-2.320,-28.391
+Vierraden-Krajnik (DE-PL),AT-SI,-0.180,-2.201
+Vierraden-Krajnik (DE-PL),BE-DE,-0.031,-0.378
+Vierraden-Krajnik (DE-PL),BE-FR,-0.466,-5.705
+Vierraden-Krajnik (DE-PL),BE-NL,0.497,6.083
+Vierraden-Krajnik (DE-PL),CZ-DE,9.501,116.269
+Vierraden-Krajnik (DE-PL),CZ-PL,-8.642,-105.760
+Vierraden-Krajnik (DE-PL),CZ-SK,-1.115,-13.646
+Vierraden-Krajnik (DE-PL),DE-FR,0.466,5.705
+Vierraden-Krajnik (DE-PL),DE-NL,-0.497,-6.083
+Vierraden-Krajnik (DE-PL),DE-PL,12.257,149.999
+Vierraden-Krajnik (DE-PL),HR-HU,-0.120,-1.470
+Vierraden-Krajnik (DE-PL),HR-SI,0.120,1.470
+Vierraden-Krajnik (DE-PL),HU-RO,0.000,0.000
+Vierraden-Krajnik (DE-PL),HU-SI,0.060,0.732
+Vierraden-Krajnik (DE-PL),HU-SK,-2.500,-30.593
+Vierraden-Krajnik (DE-PL),PL-SK,3.615,44.238
+Mikulowa-Hagenwerder (PL-DE),AT-CZ,0.161,1.633
+Mikulowa-Hagenwerder (PL-DE),AT-DE,-3.760,-38.170
+Mikulowa-Hagenwerder (PL-DE),AT-HU,3.342,33.922
+Mikulowa-Hagenwerder (PL-DE),AT-SI,0.258,2.615
+Mikulowa-Hagenwerder (PL-DE),BE-DE,-0.002,-0.019
+Mikulowa-Hagenwerder (PL-DE),BE-FR,0.023,0.234
+Mikulowa-Hagenwerder (PL-DE),BE-NL,-0.021,-0.215
+Mikulowa-Hagenwerder (PL-DE),CZ-DE,-17.678,-179.441
+Mikulowa-Hagenwerder (PL-DE),CZ-PL,18.019,182.901
+Mikulowa-Hagenwerder (PL-DE),CZ-SK,-0.180,-1.828
+Mikulowa-Hagenwerder (PL-DE),DE-FR,-0.023,-0.234
+Mikulowa-Hagenwerder (PL-DE),DE-NL,0.021,0.215
+Mikulowa-Hagenwerder (PL-DE),DE-PL,-21.438,-217.611
+Mikulowa-Hagenwerder (PL-DE),HR-HU,0.169,1.719
+Mikulowa-Hagenwerder (PL-DE),HR-SI,-0.169,-1.719
+Mikulowa-Hagenwerder (PL-DE),HU-RO,0.000,0.000
+Mikulowa-Hagenwerder (PL-DE),HU-SI,-0.088,-0.896
+Mikulowa-Hagenwerder (PL-DE),HU-SK,3.599,36.537
+Mikulowa-Hagenwerder (PL-DE),PL-SK,-3.419,-34.709
+"Roehrsdorf-Hradec (DE-CZ), German end",AT-CZ,-7.175,-43.906
+"Roehrsdorf-Hradec (DE-CZ), German end",AT-DE,5.363,32.819
+"Roehrsdorf-Hradec (DE-CZ), German end",AT-HU,1.684,10.307
+"Roehrsdorf-Hradec (DE-CZ), German end",AT-SI,0.127,0.780
+"Roehrsdorf-Hradec (DE-CZ), German end",BE-DE,-0.030,-0.183
+"Roehrsdorf-Hradec (DE-CZ), German end",BE-FR,-0.650,-3.978
+"Roehrsdorf-Hradec (DE-CZ), German end",BE-NL,0.680,4.161
+"Roehrsdorf-Hradec (DE-CZ), German end",CZ-DE,-27.623,-169.030
+"Roehrsdorf-Hradec (DE-CZ), German end",CZ-PL,18.092,110.705
+"Roehrsdorf-Hradec (DE-CZ), German end",CZ-SK,2.357,14.420
+"Roehrsdorf-Hradec (DE-CZ), German end",DE-FR,0.650,3.978
+"Roehrsdorf-Hradec (DE-CZ), German end",DE-NL,-0.680,-4.161
+"Roehrsdorf-Hradec (DE-CZ), German end",DE-PL,-22.260,-136.211
+"Roehrsdorf-Hradec (DE-CZ), German end",HR-HU,0.091,0.559
+"Roehrsdorf-Hradec (DE-CZ), German end",HR-SI,-0.091,-0.559
+"Roehrsdorf-Hradec (DE-CZ), German end",HU-RO,0.000,0.000
+"Roehrsdorf-Hradec (DE-CZ), German end",HU-SI,-0.036,-0.221
+"Roehrsdorf-Hradec (DE-CZ), German end",HU-SK,1.812,11.086
+"Roehrsdorf-Hradec (DE-CZ), German end",PL-SK,-4.168,-25.506
+"Hradec-Roehrsdorf (CZ-DE), Czech end",AT-CZ,7.175,40.174
+"Hradec-Roehrsdorf (CZ-DE), Czech end",AT-DE,-5.363,-30.030
+"Hradec-Roehrsdorf (CZ-DE), Czech end",AT-HU,-1.684,-9.431
+"Hradec-Roehrsdorf (CZ-DE), Czech end",AT-SI,-0.127,-0.713
+"Hradec-Roehrsdorf (CZ-DE), Czech end",BE-DE,0.030,0.167
+"Hradec-Roehrsdorf (CZ-DE), Czech end",BE-FR,0.650,3.640
+"Hradec-Roehrsdorf (CZ-DE), Czech end",BE-NL,-0.680,-3.808
+"Hradec-Roehrsdorf (CZ-DE), Czech end",CZ-DE,27.623,154.665
+"Hradec-Roehrsdorf (CZ-DE), Czech end",CZ-PL,-18.092,-101.297
+"Hradec-Roehrsdorf (CZ-DE), Czech end",CZ-SK,-2.357,-13.194
+"Hradec-Roehrsdorf (CZ-DE), Czech end",DE-FR,-0.650,-3.640
+"Hradec-Roehrsdorf (CZ-DE), Czech end",DE-NL,0.680,3.808
+"Hradec-Roehrsdorf (CZ-DE), Czech end",DE-PL,22.260,124.635
+"Hradec-Roehrsdorf (CZ-DE), Czech end",HR-HU,-0.091,-0.511
+"Hradec-Roehrsdorf (CZ-DE), Czech end",HR-SI,0.091,0.511
+"Hradec-Roehrsdorf (CZ-DE), Czech end",HU-RO,-0.000,-0.000
+"Hradec-Roehrsdorf (CZ-DE), Czech end",HU-SI,0.036,0.202
+"Hradec-Roehrsdorf (CZ-DE), Czech end",HU-SK,-1.812,-10.144
+"Hradec-Roehrsdorf (CZ-DE), Czech end",PL-SK,4.168,23.338

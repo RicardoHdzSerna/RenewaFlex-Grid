@@ -1,0 +1,67 @@
+# ============================================================================
+# Configuration for ip26_final_network.py (step 5)
+# Builds the final 2030 / 2040 networks as a derived layer:
+#   GridAware's base network (full_network.csv) + the IP26 changes of the horizon workbooks,
+# applied by code, every change recorded and traceable.
+# ============================================================================
+
+paths:                                   # relative to this config file
+  base_network: DATA/full_network.csv   # GridAware's base network (never changed on disk)
+  horizon_folder: output/horizons
+  horizon_pattern: IP26_line_network_edges_{scenario}_{horizon}.xlsx
+  horizon_tab: "1"                       # tab with all IP26 edges of the horizon
+  scenario_folder: output
+  scenario_pattern: IP26_line_network_edges_{scenario}.xlsx   # for project number / name / type / year
+  output_folder: output_final           # one workbook per scenario and horizon (tabs network, change_log)
+  decisions_config: config_decisions.yaml   # review decisions (split, cable location, circuits, route, copies)
+  stations_file: DATA/stations_tennet_arcgis.csv   # station coordinates (RD) for the split / section location
+  endpoints_file: DATA/ip26_line_endpoints.csv     # IP26 line ends (RD) for the split / section location
+  points_file: DATA/IP26_point.xlsx                # IP2026 project points (congestion type) for the New_stations tab
+
+scenarios: [median, mean, q1, q3, template, median_oldline]
+horizons: [2030, 2035, 2040]   # 2035 added for the handover (3 Nov 2026)
+
+# ----------------------------------------------------------------------------
+# "modify existing branch": series combination per listed branch of full_network.csv
+#   R, X, B = old per-km value x unchanged length + new per-km value x upgraded length
+#   rating  = min(old, new)
+# Old per-km values = GridAware's branch value / GridAware's branch length. New per-km values = IP26
+# per-circuit value / IP26 length (from the horizon workbook of the scenario).
+# ----------------------------------------------------------------------------
+modify:
+  # Upgraded length of a branch. The IP26 length (length_m of the IP26 edge, from the line
+  # geometry) is spread over the listed route in proportion to the branch lengths:
+  #   upgraded_length = branch_length x min(1, IP26 length / route length)
+  # route length = the direct branch, or the sum of the sections of a multi-station route.
+  # When IP26 length / route length >= full_coverage_threshold the whole branch counts as
+  # upgraded (the IP26 trace and GridAware's length differ only by geometry). Use 1.0 to always
+  # apply the measured share.
+  full_coverage_threshold: 1.0   # review 16-10-2026, point 5: length weighting for every partial upgrade (no 70 % rule)
+  # rating of a partially upgraded branch: min (old, new) as requested
+  # rating of a fully upgraded branch:  new  (the whole branch is replaced) or min
+  rating_full: new
+  rating_partial: min
+  # type / edge_type of a fully upgraded branch: "ip26" = type of the IP26 edge (e.g. a cabled line becomes a
+  # cable); "base" = keep GridAware's type. Partially upgraded branches keep GridAware's type; the sections are listed in
+  # the column section_types.
+  type_on_full_coverage: ip26
+  # sn_mva of a changed branch: "scale" = GridAware's sn_mva x new rating / old rating (keeps his
+  # convention per branch); "formula" = sqrt(3) x kV x I / 1000
+  sn_mva: scale
+  sbase_mva: 100                        # for the per-unit values (Zbase = kV^2 / Sbase)
+
+# ----------------------------------------------------------------------------
+# Other network actions
+# ----------------------------------------------------------------------------
+# "new edge (new connection)" and "new edge (extra circuits)": true = add the IP26 edge to the
+# final network (record_status "new (IP26)"); false = only list them in the change log.
+add_new_edges: true
+# "already in full_network": nothing changes; listed in the change log.
+# Only rows with applies_to_listed_branches = yes (set by ip26_horizon_filter.py) change branches; reference-only
+# rows are logged, not applied. Row-specific decisions (290 -> G / 303 -> W, 302 route, split of BSL-RLL380 at
+# NDLS380 and the location of the 378 cable, manual: copies never changed) are in config_decisions.yaml.
+
+record_status:                          # values of the record_status column
+  base: base
+  derived: derived
+  new: new (IP26)

@@ -1,0 +1,50 @@
+# ============================================================================
+# Configuration for ip26_vs_full_network.py
+# Which IP26 projects are already in GridAware's 2030 network (full_network.csv)?
+# Result per IP26 line and per project: in full_network / partly / not in full_network.
+# ============================================================================
+
+paths:
+  input_folder: DATA                     # data folder inside NewLines_IP26 (relative to this config file)
+  output_folder: output
+  network_file: full_network.csv            # GridAware's 2030 network (edge list)
+  ip26_file: IP26_line.xlsx                 # TenneT IP2026 line export
+  # Stations, via stations, circuits and duplicates per IP26 line: taken from a
+  # workbook made by ip26_network_scenarios.py / ip26_network_build.py (output folder).
+  edges_workbook: IP26_line_network_edges_median.xlsx
+  # Config with the station assignments (old_chain is used when the direct route is missing).
+  network_config: config_scenarios.yaml
+  # Optional: GridAware's node coordinates (GridAware topology map). CSV with columns
+  # node_id (or station_id), x_rd, y_rd. Leave empty if not available.
+  juan_nodes_file: ""
+  output_file: IP26_projects_vs_full_network.xlsx
+
+# Edges of full_network.csv that count as a route between two stations.
+edge_types: [line, cable]
+# Circuit letters that are not a real circuit (not counted).
+ignore_circuit_ids: [Nvt]
+
+# Projects that add circuits: the route must have at least this many circuits in
+# full_network.csv to count as "in" (pattern in n_projectnaam -> required circuits).
+circuit_rules:
+  - {pattern: "3e en 4e circuit", required: 4}
+  - {pattern: "3e circuit", required: 3}
+  - {pattern: "(\\d+) circuits", required: group}
+
+# Upgrades (lijnverzwaring): the upgrade counts as "in" when the rating of the
+# route in full_network.csv is at least the target rating (A) per kV.
+# 380/220 kV: TenneT IP2026 §7.4 (4,000 A). 150/110 kV: assumptions (same as the
+# reinforced ratings in config_network.yaml) -> result marked 'assumed target'.
+upgrade_target_rating_a: {380: 4000, 220: 4000, 150: 1500, 110: 1000}
+upgrade_target_is_assumption: [150, 110]
+# false: at the assumed kV levels the upgrade is reported as 'not verifiable' (status partly)
+# instead of being compared with the assumed target.
+verify_assumed_targets: false
+
+# Cabling projects (Verkabelen): "in" when the route is a cable in full_network.csv.
+cabling_types: [Verkabelen]
+upgrade_types: [lijnverzwaring]
+
+# Horizon of the GridAware network: projects with a commissioning year (end year of the
+# range) up to this year are expected to be in it.
+network_year: 2030

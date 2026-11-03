@@ -1,0 +1,4 @@
+jao_eic,jao_name,our_eic,requires_any_of,reason
+49T000000000007A,Maasbracht - Boxmeer 380 Zwart,PATCH-NL-0009,,same element: JAO monitors this segment of the second Maasbracht-Dodewaard circuit
+49T000000000006C,Boxmeer - Dodewaard 380 Zwart,PATCH-NL-0010,,same element: JAO monitors this segment of the second Maasbracht-Dodewaard circuit
+49T000000000149R,Boxmeer-Boxmeer 380 Zwart,,49T000000000007A;49T000000000006C,"element inside Boxmeer station (no counterpart in our grid); in JAO's outage sets it accompanies the two segments, whose removal already takes the circuit out; ignored only then"

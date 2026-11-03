@@ -1,0 +1,2 @@
+6f3e7f580c1584a15b8229112fdb6b8b4c3c502fbcd678b2e8b08cf3238b7518  inputs/external/acer_decision_11_2022/Annex_V.xlsx
+d0f3f47b680646d73aa5196b8fe50a08b3e6a00bbcdc947fe77e45e2345f124c  inputs/external/acer_decision_11_2022/Annex_VI.zip

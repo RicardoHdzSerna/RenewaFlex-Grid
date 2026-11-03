@@ -1,0 +1,29 @@
+project,project_name,kv,work,phase_layer,ibn_ip2026,ibn_end,miek,features,trace_km,rule_project,rule_tennet,in_horizon
+A-1000664,Rilland-Zandvliet 380 kV vervangen geleiders,380kV,lijnverzwaring,Realisatie,2025,2025.0,n.v.t.,290;303,6.2,True,True,True
+A-1003091,Amaliahaven 380 kV realiseren station,380kV,nieuwe verbinding,Realisatie,2027,2027.0,nMIEK,310,2.1,True,True,True
+A-1002896,Borssele-Rilland 380 kV verkabelen verbinding,380kV,Verkabelen,Realisatie,2028,2028.0,n.v.t.,378,19.8,True,True,True
+A-1003600,Nieuwdorp Liechtensteinweg 380 kV realiseren station,380kV,nieuwe verbinding,Realisatie,2029-2030,2030.0,nMIEK,375,1.2,True,True,True
+A-1003120,Halsteren 380 kV realiseren station,380kV,nieuwe verbinding,Realisatie,2030-2031,2031.0,pMIEK,398,3.5,True,True,True
+A-1003430,Krimpen-Diemen-Beverwijk 380 kV verzwaren verbinding,380kV,lijnverzwaring,Realisatie,2030-2031,2031.0,n.v.t.,311;400;401,89.0,True,True,True
+A-1002678,Rilland-Tilburg 380 kV realiseren verbinding ZW380,380kV,nieuwe verbinding,Realisatie,2031-2034,2034.0,pMIEK,292;360,78.1,True,True,True
+A-1003078,Dodewaard-Doetinchem 380 kV verzwaren verbinding,380kV,lijnverzwaring,Voorbereiding,2030-2031,2031.0,pMIEK,307,44.6,True,False,True
+A-1003069,Einighausen 380 kV realiseren station,380kV,nieuwe verbinding,Voorbereiding,2031-2034,2034.0,nMIEK,435,21.0,True,False,True
+A-1003079,Maasbracht-Boxmeer-Dodewaard 380 kV verzwaren verbinding,380kV,lijnverzwaring,Voorbereiding,2031-2034,2034.0,n.v.t.,304;350;351,99.5,True,False,True
+A-1003432,Eemshaven Oudeschip-Eemshaven 380 kV realiseren 3e circuit,380kV,nieuwe verbinding,Voorbereiding,2031-2034,2034.0,n.v.t.,340,1.4,True,False,True
+A-1003408,A9-Zuid 380/150 kV realiseren station,380kV,nieuwe verbinding,Voorbereiding,2032-2035,2035.0,nMIEK,371,1.5,True,False,True
+A-1003434,Geertruidenberg-Rilland 380 kV verzwaren verbinding,380kV,lijnverzwaring,Voorbereiding,2032-2035,2035.0,n.v.t.,306;361,60.1,True,False,True
+A-1000363,Beverwijk-Vijfhuizen-Bleiswijk 380 kV verzwaren verbinding,380kV,lijnverzwaring,Studie,2030-2031,2031.0,n.v.t.,308;353,58.1,False,False,True
+A-1003075,Wijchen 380 kV realiseren station,380kV,nieuwe verbinding,Voorbereiding,2033-2036,2036.0,nMIEK,379,0.6,False,False,False
+A-1000362,Borssele-Rilland 380 kV verzwaren verbinding,380kV,lijnverzwaring,Studie,2033-2037,2037.0,n.v.t.,291,39.1,False,False,False
+A-1002394,Zwolle-Hengelo 380 kV verzwaren verbinding,380kV,lijnverzwaring,Studie,2033-2037,2037.0,n.v.t.,309,60.7,False,False,False
+A-1001071,Maasbracht - Van Eyck 380 kV verzwaren verbinding,380kV,lijnverzwaring,Studie,2034-2038,2038.0,n.v.t.,365,8.4,False,False,False
+A-1002806,Vierverlaten-Ens 380 kV realiseren verbinding,380kV,nieuwe verbinding,Realisatie,2035-2038,2038.0,nMIEK,336;355;356,92.5,False,False,False
+A-1003017,Noord-Holland Noord 380 kV realiseren stations en verbinding,380kV,lijnverzwaring,Voorbereiding,2035-2038,2038.0,nMIEK,345,39.3,False,False,False
+A-1003429,Maasbracht-Eindhoven 380 kV realiseren 3e en 4e circuit,380kV,lijnverzwaring,Voorbereiding,2035-2038,2038.0,pMIEK,348;349,42.9,False,False,False
+A-1000366,Vierverlaten-Oudehaske-Ens 220 kV verzwaren west ring,220kV,lijnverzwaring,Studie,2035-2039,2039.0,n.v.t.,318;380;392,115.0,False,False,False
+A-1000367,Vierverlaten-Hessenweg-Ens 220 kV verzwaren oost ring,220kV,lijnverzwaring,Studie,2035-2039,2039.0,n.v.t.,319;357;381;382;383,133.6,False,False,False
+A-1003439,Geertruidenberg-Eindhoven 380 kV verzwaren verbinding,380kV,lijnverzwaring,Studie,2035-2039,2039.0,n.v.t.,305,63.4,False,False,False
+A-1002904,Geertruidenberg-Krimpen of Crayestein 380 kV realiseren verbinding,380kV,nieuwe verbinding,Voorbereiding,2037-2040,2040.0,n.v.t.,359;402;403,43.8,False,False,False
+A-1002902,Diemen-Lelystad 380 kV realiseren 3e en 4e circuit,380kV,nieuwe verbinding,Voorbereiding,2038-2041,2041.0,nMIEK,344;354;452,44.7,False,False,False
+A-1002903,Lelystad-Ens 380 kV realiseren 3e en 4e circuit,380kV,nieuwe verbinding,Voorbereiding,2038-2041,2041.0,nMIEK,337,18.8,False,False,False
+A-1003070,Maasbracht-Einighausen 380 kV realiseren 3e en 4e circuit,380kV,nieuwe verbinding,Studie,2039-2043,2043.0,n.v.t.,436,18.7,False,False,False

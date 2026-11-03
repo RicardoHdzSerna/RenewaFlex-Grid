@@ -1,0 +1,6 @@
+# Python 3.9 (the pipeline venv ~/.tulipa_pipeline_venv); versions as frozen on 2026-10-16
+numpy==2.0.2
+pandas==2.3.3
+scipy==1.13.1
+openpyxl==3.1.5
+pyarrow==21.0.0

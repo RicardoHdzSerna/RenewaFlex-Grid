@@ -1,0 +1,17 @@
+patch_id,page,project,project_name,ibn,bottleneck_no,bottleneck
+PATCH-NL-0001,7,A-1000363,Beverwijk-Vijfhuizen-Bleiswijk 380 kV verzwaren verbinding,2030-2031,1611,Beverwijk-Vijfhuizen 380 kV
+PATCH-NL-0001,7,A-1000363,Beverwijk-Vijfhuizen-Bleiswijk 380 kV verzwaren verbinding,2030-2031,1612,Beverwijk-Vijfhuizen 380 kV
+PATCH-NL-0001,7,A-1000362,Borssele-Rilland 380 kV verzwaren verbinding,2033-2037,1612,Beverwijk-Vijfhuizen 380 kV
+PATCH-NL-0001,30,A-1003408,A9-Zuid 380/150 kV realiseren station,2032-2035,1611,Beverwijk-Vijfhuizen 380 kV
+PATCH-NL-0002,7,A-1000363,Beverwijk-Vijfhuizen-Bleiswijk 380 kV verzwaren verbinding,2030-2031,1611,Beverwijk-Vijfhuizen 380 kV
+PATCH-NL-0002,7,A-1000363,Beverwijk-Vijfhuizen-Bleiswijk 380 kV verzwaren verbinding,2030-2031,1612,Beverwijk-Vijfhuizen 380 kV
+PATCH-NL-0002,7,A-1000362,Borssele-Rilland 380 kV verzwaren verbinding,2033-2037,1612,Beverwijk-Vijfhuizen 380 kV
+PATCH-NL-0002,30,A-1003408,A9-Zuid 380/150 kV realiseren station,2032-2035,1611,Beverwijk-Vijfhuizen 380 kV
+PATCH-NL-0003,7,A-1000363,Beverwijk-Vijfhuizen-Bleiswijk 380 kV verzwaren verbinding,2030-2031,2070,Bleiswijk-Vijfhuizen 380 kV
+PATCH-NL-0004,7,A-1000363,Beverwijk-Vijfhuizen-Bleiswijk 380 kV verzwaren verbinding,2030-2031,2070,Bleiswijk-Vijfhuizen 380 kV
+PATCH-NL-0005,31,A-1003430,Krimpen-Diemen-Beverwijk 380 kV verzwaren verbinding,2030-2031,1573,Beverwijk-Oostzaan 380 kV
+PATCH-NL-0006,31,A-1003430,Krimpen-Diemen-Beverwijk 380 kV verzwaren verbinding,2030-2031,1573,Beverwijk-Oostzaan 380 kV
+PATCH-NL-0007,8,A-1000366,Vierverlaten-Oudehaske-Ens 220 kV verzwaren west ring,2035-2039,1608,Bergum-Vierverlaten 220 kV
+PATCH-NL-0007,19,A-1002806,Vierverlaten-Ens 380 kV realiseren verbinding,2035-2038,1608,Bergum-Vierverlaten 220 kV
+PATCH-NL-0008,8,A-1000366,Vierverlaten-Oudehaske-Ens 220 kV verzwaren west ring,2035-2039,1608,Bergum-Vierverlaten 220 kV
+PATCH-NL-0008,19,A-1002806,Vierverlaten-Ens 380 kV realiseren verbinding,2035-2038,1608,Bergum-Vierverlaten 220 kV

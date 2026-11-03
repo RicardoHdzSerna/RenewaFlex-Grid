@@ -1,0 +1,33 @@
+e_node,bus,kv,basis
+E-BGM,BERGUM_220,220,station name; JAO bus 220 kV only
+E-BMR,BOXMEER_380,380,station name; 380 kV bus of the station
+E-BSL,BORSSELE_380,380,station name; 380 kV bus of the station
+E-BVW,BEVERWIJK_380,380,station name; 380 kV bus of the station
+E-BWK,BLEISWIJK_380,380,station name; 380 kV bus of the station
+E-CST,CRAYESTEIN_380,380,station name; 380 kV bus of the station
+E-DIM,DIEMEN_380,380,station name; 380 kV bus of the station
+E-DOD,DODEWAARD_380,380,station name; 380 kV bus of the station
+E-DTC,DOETINCHEM_380,380,station name; 380 kV bus of the station
+E-EEM,EEMSHAVEN_380,380,station name; 380 kV bus of the station
+E-EHV,EINDHOVEN_380,380,station name; 380 kV bus of the station
+E-ENS,ENS_380,380,station name; 380 kV bus of the station
+E-GER,GEERTRUIDENBERG_380,380,station name; 380 kV bus of the station
+E-HGL,HENGELO_380,380,station name; 380 kV bus of the station
+E-KIJ,KRIMPEN AAN DEN IJSSEL_380,380,station name; 380 kV bus of the station
+E-LLS,LELYSTAD_380,380,station name; 380 kV bus of the station
+E-LSM,LOUWSMEER_220,220,station name; JAO bus 220 kV only
+E-MBT,MAASBRACHT_380,380,station name; 380 kV bus of the station
+E-MEE,MEEDEN_380,380,station name; 380 kV bus of the station
+E-MVL,MAASVLAKTE_380,380,station name; 380 kV bus of the station
+E-OHK,OUDEHASKE_220,220,station name; JAO bus 220 kV only
+E-OZN,OOSTZAAN_380,380,station name; 380 kV bus of the station
+E-RIL,RILLAND_380,380,station name; 380 kV bus of the station
+E-SMH,SIMONSHAVEN_380,380,station name; 380 kV bus of the station
+E-TIL,TILBURG_380,380,station name; 380 kV bus of the station; added by IP2026 patch (2035 grids)
+E-VHZ,VIJFHUIZEN_380,380,station name; 380 kV bus of the station
+E-VVL,VIERVERLATEN_380,380,station name; 380 kV bus of the station
+E-WES,WESTERLEE_380,380,station name; 380 kV bus of the station
+E-WEW,WEIWERD_220,220,station name; JAO bus 220 kV only
+E-WTR,WATERINGEN_380,380,station name; 380 kV bus of the station
+E-ZWO,ZWOLLE_380,380,station name; 380 kV bus of the station
+E-ZYV,ZEYERVEEN_220,220,station name; JAO bus 220 kV only

@@ -1,0 +1,79 @@
+side,station_id,station_name,kV,jao_bus,status,connects_to_220_380kV,all_connections,recommendation
+GridAware,BGM220,Station Bergum 220,220,BERGUM_220,in workbook as BERGUM_220 (NL),LSM220 VVL220,BGM110(transformer) LSM220(line) VVL220(line),present
+GridAware,BKK380,Station Breukelen Kortrijk 380,380,BREUKELEN KORTRIJK_380,in workbook as BREUKELEN KORTRIJK_380 (NL),DIM380 KIJ380,BKK150(transformer) DIM380(line) KIJ380(line),present
+GridAware,BMR380,Station Boxmeer 380,380,BOXMEER_380,absent from JAO,DOD380 MBT380,BMR150(transformer) DOD380(line) MBT380(line),report only (2b: second Maasbracht-Dodewaard circuit (Boxmeer))
+GridAware,BRITNED,BritNed (UK interconnector),380,BRITNED_380,absent from JAO,MVL380,MVL380(line),not needed: HVDC terminal (DC links are not AC branches; Tulipa models them as transport flows)
+GridAware,BSA220,Station Borssele Alpha 220,220,BORSSELE ALPHA_220,absent from JAO,ZKL220,ZKL220(line),later: offshore wind landing or platform; needed only if offshore wind is placed at its landing point
+GridAware,BSB220,Station Borssele Beta 220,220,BORSSELE BETA_220,absent from JAO,ZKL220,ZKL220(line),later: offshore wind landing or platform; needed only if offshore wind is placed at its landing point
+GridAware,BSL380,Station Borssele 380,380,BORSSELE_380,in workbook as BORSSELE_380 (NL),RLL380 ZKL220,BSL150(transformer) RLL380(line) ZKL220(transformer),present
+GridAware,BVW380,Station Beverwijk 380,380,BEVERWIJK_380,added by this patch as BEVERWIJK_380,OZN380 VHZ380 WAZ380,BVW150(transformer) OZN380(line) VHZ380(line) WAZ380(cable),add (this patch)
+GridAware,BWK380,Station Bleiswijk 380,380,BLEISWIJK_380,in workbook as BLEISWIJK_380 (NL),KIJ380 VHZ380 WTR380,BWK150(transformer) KIJ380(line) VHZ380(line) WTR380(line),present
+GridAware,CFE380,Compensatie en Filterstation Eemshaven 380,380,COMPENSATIE FILTERSTATION EEMSHAVEN_380,in workbook as COMPENSATIE FILTERSTATION EEMSHAVEN_380 (NL),EOS380,EOS380(cable),present
+GridAware,COBRA,COBRA (Denmark interconnector),380,COBRA_380,absent from JAO,EOS380,EOS380(line),not needed: HVDC terminal (DC links are not AC branches; Tulipa models them as transport flows)
+GridAware,CST380,Station Crayestein 380,380,CRAYESTEIN_380,in workbook as CRAYESTEIN_380 (NL),KIJ380 SMH380,CST150(transformer) KIJ380(line) SMH380(line),present
+GridAware,DES220,Station Delesto 220,220,DELESTO_220,in workbook as DELESTO_220 (NL),WEW220,WEW220(cable),present
+GridAware,DIL380,Diele (DE),380,DIELE_380,in workbook as DIELE_380 (DE),MEE380,MEE380(line),present
+GridAware,DIM380,Station Diemen 380,380,DIEMEN_380,in workbook as DIEMEN_380 (NL),BKK380 DMV380 KIJ380 LLS380 OZN380,BKK380(line) DIM150(transformer) DMV380(line) KIJ380(line) LLS380(line) OZN380(line),present
+GridAware,DKG380,Station Doekegat 380,380,DOEKEGAT_380,absent from JAO,EOS380,EOS380(line),"not needed: radial (one neighbouring 220/380 kV station); carries only its own injection, which the zonal model does not place there"
+GridAware,DMV380,Station Diemer Vijfhoek 380,380,DIEMER VIJFHOEK_380,absent from JAO,DIM380,DIM380(line),"not needed: radial (one neighbouring 220/380 kV station); carries only its own injection, which the zonal model does not place there"
+GridAware,DOD380,Station Dodewaard 380,380,DODEWAARD_380,in workbook as DODEWAARD_380 (NL),BMR380 DTC380 MBT380,BMR380(line) DOD150(transformer) DTC380(line) MBT380(line),present
+GridAware,DTC380,Station Doetinchem 380,380,DOETINCHEM_380,in workbook as DOETINCHEM_380 (NL),DOD380 HGL380 NDR380,DOD380(line) HGL380(line) LGK150(transformer) NDR380(line),present
+GridAware,EDC380,Station Eemshaven Converterstation 380,380,EEMSHAVEN CONVERTERSTATION_380,in workbook as EEMSHAVEN CONVERTERSTATION_380 (NL),EEM380,EEM380(cable),present
+GridAware,EEM220,Station Eemshaven 220,220,EEMSHAVEN_220,in workbook as EEMSHAVEN_220 (NL),EEM380 EHA220 RBB220,EEM380(transformer) EHA220(cable) RBB220(line),present
+GridAware,EEM380,Station Eemshaven 380,380,EEMSHAVEN_380,in workbook as EEMSHAVEN_380 (NL),EDC380 EEM220 EOS380 MEE380 NORNED,EDC380(cable) EEM220(transformer) EOS380(line) MEE380(line) NORNED(line),present
+GridAware,EGE220,Eemshaven-Gemini 220,220,EEMSHAVEN-GEMINI_220,absent from JAO,EOS380 GEZI220 GEZII220,EOS380(transformer) GEZI220(line) GEZII220(line),later: offshore wind landing or platform; needed only if offshore wind is placed at its landing point
+GridAware,EGE380,Eemshaven-Gemini,380,EEMSHAVEN-GEMINI_380,absent from JAO,EOS380,EOS380(line),later: offshore wind landing or platform; needed only if offshore wind is placed at its landing point
+GridAware,EGEN380,Station Enecogen 380,380,ENECOGEN_380,absent from JAO,MVL380,MVL380(line),"not needed: radial (one neighbouring 220/380 kV station); carries only its own injection, which the zonal model does not place there"
+GridAware,EHA220,Station Eemshaven Oost 220,220,EEMSHAVEN OOST_220,in workbook as EEMSHAVEN OOST_220 (NL),EEM220,EEM220(cable),present
+GridAware,EHS380,Station Eemshaven Synergieweg 380,380,EEMSHAVEN SYNERGIEWEG_380,in workbook as EEMSHAVEN SYNERGIEWEG_380 (NL),EOS380,EOS380(line),present
+GridAware,EHV380,Station Eindhoven 380,380,EINDHOVEN_380,in workbook as EINDHOVEN_380 (NL),GT380 MBT380,EHVO150(transformer) GT380(line) MBT380(line),present
+GridAware,ENS220,Station Ens 220,220,ENS_220,in workbook as ENS_220 (NL),ENS380 HSW220 OHK220,ENS380(transformer) HSW220(line) OHK220(line),present
+GridAware,ENS380,Station Ens 380,380,ENS_380,in workbook as ENS_380 (NL),ENS220 LLS380 ZL380,ENS220(transformer) LLS380(line) ZL380(line),present
+GridAware,EOS380,Station Eemshaven Oudeschip 380,380,EEMSHAVEN OUDESCHIP_380,in workbook as EEMSHAVEN OUDESCHIP_380 (NL),CFE380 COBRA DKG380 EEM380 EGE220 EGE380 EHS380 WDC380,CFE380(cable) COBRA(line) DKG380(line) EEM380(line) EGE220(transformer) EGE380(line) EHS380(line) WDC380(cable),present
+GridAware,GEZI220,Windpark Gemini 1,220,WINDPARK GEMINI 1_220,absent from JAO,EGE220,EGE220(line),later: offshore wind landing or platform; needed only if offshore wind is placed at its landing point
+GridAware,GEZII220,Windpark Gemini 2,220,WINDPARK GEMINI 2_220,absent from JAO,EGE220,EGE220(line),later: offshore wind landing or platform; needed only if offshore wind is placed at its landing point
+GridAware,GNA380,Gronau (DE),380,GRONAU_380,in workbook as GRONAU_380 (DE),HGL380,HGL380(line),present
+GridAware,GT380,Station Geertruidenberg 380,380,GEERTRUIDENBERG_380,in workbook as GEERTRUIDENBERG_380 (NL),EHV380 KIJ380 RLL380,EHV380(line) GT150(transformer) KIJ380(line) RLL380(line),present
+GridAware,HGL380,Station Hengelo 380,380,HENGELO_380,in workbook as HENGELO_380 (NL),DTC380 GNA380 ZL380,DTC380(line) GNA380(line) HGLO110(transformer) ZL380(line),present
+GridAware,HKZ_A220,Hollandse Kust Zuid Alpha,220,HOLLANDSE KUST ZUID ALPHA_220,absent from JAO,HZL220,HZL220(line),later: offshore wind landing or platform; needed only if offshore wind is placed at its landing point
+GridAware,HKZ_B220,Hollandse Kust Zuid Beta,220,HOLLANDSE KUST ZUID BETA_220,absent from JAO,HZL220,HZL220(line),later: offshore wind landing or platform; needed only if offshore wind is placed at its landing point
+GridAware,HNL220,Hollandse Kust Noord 220 kV (replacing HNL_-D1),220,HOLLANDSE KUST NOORD_220,absent from JAO,HWK_A220 HWK_B220 HWK_N220 WAZ380,HWK_A220(line) HWK_B220(line) HWK_N220(line) WAZ380(transformer),report only (2b: Wijk aan Zee / Hollandse Kust landing)
+GridAware,HSW220,Station Hessenweg 220,220,HESSENWEG_220,in workbook as HESSENWEG_220 (NL),ENS220 ZL380 ZYV220,ENS220(line) ZL380(transformer) ZLH110(transformer) ZYV220(line),present
+GridAware,HVH380,Station Hoek Van Holland 380,380,HOEK VAN HOLLAND_380,absent from JAO,MVL380 WL380,MVL380(line) WL380(line),"later: on a through path; topology differs from JAO, check before adding"
+GridAware,HWK_A220,Hollandse Kust West Alpha,220,HOLLANDSE KUST WEST ALPHA_220,absent from JAO,HNL220,HNL220(line),report only (2b: Wijk aan Zee / Hollandse Kust landing)
+GridAware,HWK_B220,Hollandse Kust West Beta,220,HOLLANDSE KUST WEST BETA_220,absent from JAO,HNL220,HNL220(line),report only (2b: Wijk aan Zee / Hollandse Kust landing)
+GridAware,HWK_N220,Hollandse Kust West North,220,HOLLANDSE KUST WEST NORTH_220,absent from JAO,HNL220,HNL220(line),report only (2b: Wijk aan Zee / Hollandse Kust landing)
+GridAware,HZL220,Station Hollandse Kust Zuid 220,220,HOLLANDSE KUST ZUID_220,absent from JAO,HKZ_A220 HKZ_B220 HZL380,HKZ_A220(line) HKZ_B220(line) HZL380(transformer),later: offshore wind landing or platform; needed only if offshore wind is placed at its landing point
+GridAware,HZL380,Station Hollandse Kust Zuid Landstation 380,380,HOLLANDSE KUST ZUID LANDSTATION_380,in workbook as HOLLANDSE KUST ZUID LANDSTATION_380 (NL),HZL220 MVL380,HZL220(transformer) MVL380(line),present
+GridAware,KIJ380,Station Krimpen a/d IJssel 380,380,KRIMPEN AAN DEN IJSSEL_380,in workbook as KRIMPEN AAN DEN IJSSEL_380 (NL),BKK380 BWK380 CST380 DIM380 GT380,BKK380(line) BWK380(line) CST380(line) DIM380(line) GT380(line) KIJ150(transformer),present
+GridAware,LLS380,Station Lelystad 380,380,LELYSTAD_380,in workbook as LELYSTAD_380 (NL),DIM380 ENS380,DIM380(line) ENS380(line) LLS150(transformer),present
+GridAware,LSM220,Station Louwsmeer 220,220,LOUWSMEER_220,in workbook as LOUWSMEER_220 (NL),BGM220 OHK220,BGM220(line) LSM110(transformer) OHK220(line),present
+GridAware,MBT380,Station Maasbracht 380,380,MAASBRACHT_380,in workbook as MAASBRACHT_380 (NL),BMR380 DOD380 EHV380 RMK380 SDF380 VYK380,BMR380(line) DOD380(line) EHV380(line) MBT150(transformer) RMK380(line) SDF380(line) VYK380(line),present
+GridAware,MEE220,Station Meeden 220,220,MEEDEN_220,in workbook as MEEDEN_220 (NL),MEE380 WEW220,MEE110(transformer) MEE380(transformer) WEW220(line),present
+GridAware,MEE380,Station Meeden 380,380,MEEDEN_380,in workbook as MEEDEN_380 (NL),DIL380 EEM380 MEE220 ZL380,DIL380(line) EEM380(line) MEE220(transformer) ZL380(line),present
+GridAware,MSEC380,Station Maasstroom centrale 380,380,MAASSTROOM CENTRALE_380,absent from JAO,SMH380,SMH380(line),"not needed: radial (one neighbouring 220/380 kV station); carries only its own injection, which the zonal model does not place there"
+GridAware,MVL380,Station Maasvlakte 380,380,MAASVLAKTE_380,in workbook as MAASVLAKTE_380 (NL),BRITNED EGEN380 HVH380 HZL380 SMH380,BRITNED(line) EGEN380(line) HVH380(line) HZL380(line) MVL150(transformer) SMH380(line),present
+GridAware,NDR380,Niederrhein (DE),380,NIEDERRHEIN_380,in workbook as NIEDERRHEIN_380 (DE),DTC380,DTC380(line),present
+GridAware,NORNED,NorNed (NO interconnector),380,NORNED_380,absent from JAO,EEM380,EEM380(line),not needed: HVDC terminal (DC links are not AC branches; Tulipa models them as transport flows)
+GridAware,OHK220,Station Oudehaske 220,220,OUDEHASKE_220,in workbook as OUDEHASKE_220 (NL),ENS220 LSM220,ENS220(line) LSM220(line) OHK110(transformer),present
+GridAware,OPD220,Station Oostpolder 220,220,OOSTPOLDER_220,absent from JAO,RBB220,RBB220(cable),"not needed: radial (one neighbouring 220/380 kV station); carries only its own injection, which the zonal model does not place there"
+GridAware,OZN380,Station Oostzaan 380,380,OOSTZAAN_380,in workbook as OOSTZAAN_380 (NL),BVW380 DIM380,BVW380(line) DIM380(line) OZN150(transformer),present
+GridAware,RBB220,Station Robbenplaat 220,220,ROBBENPLAAT_220,"in workbook, merged into EEMSHAVEN_220 (zero-impedance link, builder rule)",EEM220 OPD220 WEW220,EEM220(line) OPD220(cable) RBB110(transformer) WEW220(line),present
+GridAware,RLL380,Station Rilland 380,380,RILLAND_380,in workbook as RILLAND_380 (NL),BSL380 GT380 ZVL380,BSL380(line) GT380(line) ZVL380(line),present
+GridAware,RMK380,Oberzier (DE),380,OBERZIER_380,in workbook as OBERZIER_380 (DE),MBT380,MBT380(line),present
+GridAware,SDF380,Siersdorf (DE),380,SIERSDORF_380,in workbook as SIERSDORF_380 (DE),MBT380,MBT380(line),present
+GridAware,SMH380,Station Simonshaven 380,380,SIMONSHAVEN_380,in workbook as SIMONSHAVEN_380 (NL),CST380 MSEC380 MVL380,CST380(line) MSEC380(line) MVL380(line) SMH150(transformer),present
+GridAware,VHZ380,Station Vijfhuizen 380,380,VIJFHUIZEN_380,added by this patch as VIJFHUIZEN_380,BVW380 BWK380,BVW380(line) BWK380(line) VHZ150(transformer),add (this patch)
+GridAware,VVL220,Station Vierverlaten 220,220,VIERVERLATEN_220,in workbook as VIERVERLATEN_220 (NL),BGM220 ZYV220,BGM220(line) VVL110(transformer) ZYV220(line),present
+GridAware,VYK380,Van Eyck (BE),380,VAN EYCK_380,in workbook as VAN EYCK_380 (BE),MBT380,MBT380(line),present
+GridAware,WAZ380,Station Wijk aan Zee 380,380,WIJK AAN ZEE_380,in the JAO file as WIJK AAN ZEE_380 but excluded by the builder as an isolated fragment,BVW380 HNL220,BVW380(cable) HNL220(transformer),report only (2b: Wijk aan Zee / Hollandse Kust landing)
+GridAware,WDC380,Station Waddenweg Converterstation 380,380,WADDENWEG CONVERTERSTATION_380,absent from JAO,EOS380,EOS380(cable),not needed: HVDC terminal (DC links are not AC branches; Tulipa models them as transport flows)
+GridAware,WEW220,Station Weiwerd 220,220,WEIWERD_220,in workbook as WEIWERD_220 (NL),DES220 MEE220 RBB220,DES220(cable) MEE220(line) RBB220(line) WEW110(transformer),present
+GridAware,WL380,Station Westerlee 380,380,WESTERLEE_380,in workbook as WESTERLEE_380 (NL),HVH380 WTR380,HVH380(line) WL150(transformer) WTR380(line),present
+GridAware,WTR380,Station Wateringen 380,380,WATERINGEN_380,in workbook as WATERINGEN_380 (NL),BWK380 WL380,BWK380(line) WL380(line) WTR150(transformer),present
+GridAware,ZKL220,ZKL220,220,ZKL220_220,absent from JAO,BSA220 BSB220 BSL380,BSA220(line) BSB220(line) BSL380(transformer),later: offshore wind landing or platform; needed only if offshore wind is placed at its landing point
+GridAware,ZL380,Station Zwolle 380,380,ZWOLLE_380,in workbook as ZWOLLE_380 (NL),ENS380 HGL380 HSW220 MEE380,ENS380(line) HGL380(line) HSW220(transformer) MEE380(line),present
+GridAware,ZVL380,Zandvliet (BE),380,ZANDVLIET_380,in workbook as ZANDVLIET_380 (BE),RLL380,RLL380(line),present
+GridAware,ZYV220,Station Zeyerveen 220,220,ZEYERVEEN_220,in workbook as ZEYERVEEN_220 (NL),HSW220 VVL220,HSW220(line) VVL220(line) ZYV110(transformer),present
+JAO only,,,380,VIERVERLATEN_380,"in workbook, not in the GridAware file under this name",EEMSHAVEN OUDESCHIP_380,,flag
+JAO only,,,380,ZEEUWSE KUST LANDSTATION_380,"in workbook, not in the GridAware file under this name",BORSSELE_380,,flag

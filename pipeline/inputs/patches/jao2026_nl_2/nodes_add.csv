@@ -1,0 +1,2 @@
+Bus,IsRepresentative,Type,PD,QD,GS,BS,Area,Vm,Va,baseKV,Zone,Vmax,Vmin,Latitude,Longitude
+BOXMEER_380,0,1,0,0,0,0,NL,1,0,380,NL,1.1,0.9,51.62,5.89

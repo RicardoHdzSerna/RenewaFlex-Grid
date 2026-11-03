@@ -1,0 +1,897 @@
+{
+ "capacity_convention_k": {
+  "Lines 220 kV": {
+   "rows": 1278,
+   "k_median": 225.0001,
+   "k_min": 224.9961,
+   "k_max": 225.0007,
+   "relative_spread": 2.0379908510959432e-05
+  },
+  "Lines 380 kV": {
+   "rows": 1320,
+   "k_median": 400.0,
+   "k_min": 399.9995,
+   "k_max": 400.0009,
+   "relative_spread": 3.410415301480149e-06
+  },
+  "Tielines 220 kV": {
+   "rows": 47,
+   "k_median": 225.0001,
+   "k_min": 224.9998,
+   "k_max": 225.0004,
+   "relative_spread": 2.6808899613439686e-06
+  },
+  "Tielines 380 kV": {
+   "rows": 101,
+   "k_median": 400.0,
+   "k_min": 399.9999,
+   "k_max": 400.0002,
+   "relative_spread": 6.866806008680089e-07
+  },
+  "Transformers 110 kV": {
+   "rows": 20,
+   "k_median": 110.0002,
+   "k_min": 110.0,
+   "k_max": 110.0002,
+   "relative_spread": 1.722771185708877e-06
+  },
+  "Transformers 220 kV": {
+   "rows": 40,
+   "k_median": 225.0001,
+   "k_min": 224.9998,
+   "k_max": 225.0002,
+   "relative_spread": 1.8262526034095499e-06
+  },
+  "Transformers 380 kV": {
+   "rows": 405,
+   "k_median": 400.0,
+   "k_min": 399.9991,
+   "k_max": 400.0005,
+   "relative_spread": 3.5623592392656706e-06
+  },
+  "Transformers 750 kV": {
+   "rows": 2,
+   "k_median": 750.0002,
+   "k_min": 750.0002,
+   "k_max": 750.0002,
+   "relative_spread": 0.0
+  }
+ },
+ "voltage_level_of_dutch_rows": {
+  "380": [
+   380
+  ],
+  "220": [
+   220
+  ]
+ },
+ "k_used": {
+  "380": 400.0,
+  "220": 225.0
+ },
+ "brief_table_comparison": [
+  {
+   "edge_id": "branch:BVW-VHZ380 W",
+   "X_ohm_file": 2.860119,
+   "X_ohm_brief": "2.860119",
+   "km_file": 12.2,
+   "km_brief": "12.2",
+   "A_file": 3000.0,
+   "A_brief": "3000",
+   "agrees_to_brief_rounding": true
+  },
+  {
+   "edge_id": "branch:BVW-VHZ380 Z",
+   "X_ohm_file": 2.860119,
+   "X_ohm_brief": "2.860119",
+   "km_file": 12.2,
+   "km_brief": "12.2",
+   "A_file": 3000.0,
+   "A_brief": "3000",
+   "agrees_to_brief_rounding": true
+  },
+  {
+   "edge_id": "branch:BWK-VHZ380 O",
+   "X_ohm_file": 9.920326,
+   "X_ohm_brief": "9.920326",
+   "km_file": 45.97,
+   "km_brief": "45.97",
+   "A_file": 3000.0,
+   "A_brief": "3000",
+   "agrees_to_brief_rounding": true
+  },
+  {
+   "edge_id": "branch:BWK-VHZ380 P",
+   "X_ohm_file": 9.920326,
+   "X_ohm_brief": "9.920326",
+   "km_file": 45.97,
+   "km_brief": "45.97",
+   "A_file": 3000.0,
+   "A_brief": "3000",
+   "agrees_to_brief_rounding": true
+  },
+  {
+   "edge_id": "branch:BVW-OZN380 W",
+   "X_ohm_file": 4.352655,
+   "X_ohm_brief": "4.352655",
+   "km_file": 15.9,
+   "km_brief": "15.9",
+   "A_file": 3300.0,
+   "A_brief": "3300",
+   "agrees_to_brief_rounding": true
+  },
+  {
+   "edge_id": "branch:BVW-OZN380 Z",
+   "X_ohm_file": 4.353,
+   "X_ohm_brief": "4.353",
+   "km_file": 17.0,
+   "km_brief": "17.0",
+   "A_file": 3300.0,
+   "A_brief": "3300",
+   "agrees_to_brief_rounding": true
+  },
+  {
+   "edge_id": "branch:BGM-VVL220 W",
+   "X_ohm_file": 8.5441,
+   "X_ohm_brief": "8.5441",
+   "km_file": 32.4798,
+   "km_brief": "32.48",
+   "A_file": 2500.0,
+   "A_brief": "2500",
+   "agrees_to_brief_rounding": true
+  },
+  {
+   "edge_id": "branch:BGM-VVL220 Z",
+   "X_ohm_file": 8.5393,
+   "X_ohm_brief": "8.5393",
+   "km_file": 32.4798,
+   "km_brief": "32.48",
+   "A_file": 2500.0,
+   "A_brief": "2500",
+   "agrees_to_brief_rounding": true
+  }
+ ],
+ "annex4_records_parsed": {
+  "candidates": 2472,
+  "parsed": 2451
+ },
+ "coordinate_conversion_check": {
+  "points": 32,
+  "median_abs_diff_deg": 0.004,
+  "max_abs_diff_deg": 0.024
+ },
+ "coordinates": [
+  {
+   "check": "IP26 point vs JAO bus",
+   "bus": "LELYSTAD_380",
+   "ip26_point": "Lelystad 380 kV plaatsen spoelen",
+   "rd": [
+    165336.9517999999,
+    509980.7622999996
+   ],
+   "wgs84": [
+    52.57732,
+    5.5397
+   ],
+   "jao": [
+    52.58,
+    5.54
+   ],
+   "max_abs_diff_deg": 0.0027
+  },
+  {
+   "check": "IP26 point vs JAO bus",
+   "bus": "BLEISWIJK_380",
+   "ip26_point": "Bleiswijk 380 kV plaatsen spoelen",
+   "rd": [
+    96305.57589999959,
+    450087.2080000006
+   ],
+   "wgs84": [
+    52.03601,
+    4.5318
+   ],
+   "jao": [
+    52.04,
+    4.53
+   ],
+   "max_abs_diff_deg": 0.004
+  },
+  {
+   "check": "IP26 point vs JAO bus",
+   "bus": "VIERVERLATEN_380",
+   "ip26_point": "Vierverlaten 380/110 kV realiseren station",
+   "rd": [
+    227685.8385000005,
+    581268.8632999994
+   ],
+   "wgs84": [
+    53.21311,
+    6.47526
+   ],
+   "jao": [
+    53.21,
+    6.48
+   ],
+   "max_abs_diff_deg": 0.0047
+  },
+  {
+   "check": "IP26 point vs JAO bus",
+   "bus": "CRAYESTEIN_380",
+   "ip26_point": "Crayestein 380 kV plaatsen 4e transformator",
+   "rd": [
+    110907.9563000016,
+    425255.433699999
+   ],
+   "wgs84": [
+    51.81418,
+    4.74778
+   ],
+   "jao": [
+    51.81,
+    4.75
+   ],
+   "max_abs_diff_deg": 0.0042
+  },
+  {
+   "check": "IP26 point vs JAO bus",
+   "bus": "WATERINGEN_380",
+   "ip26_point": "Wateringen 380 kV plaatsen 4e transformator",
+   "rd": [
+    80832.97569999844,
+    448024.9107000008
+   ],
+   "wgs84": [
+    52.01562,
+    4.30678
+   ],
+   "jao": [
+    52.02,
+    4.31
+   ],
+   "max_abs_diff_deg": 0.0044
+  },
+  {
+   "check": "IP26 point vs JAO bus",
+   "bus": "DIEMEN_380",
+   "ip26_point": "Diemen 380 kV uitbreiden rail en 3e rail",
+   "rd": [
+    129590.1950000003,
+    483286.5976999998
+   ],
+   "wgs84": [
+    52.33692,
+    5.01438
+   ],
+   "jao": [
+    52.34,
+    5.01
+   ],
+   "max_abs_diff_deg": 0.0044
+  },
+  {
+   "check": "IP26 point vs JAO bus",
+   "bus": "GEERTRUIDENBERG_380",
+   "ip26_point": "Geertruidenberg 380 kV uitbreiden station",
+   "rd": [
+    116644.8361999989,
+    412789.4244999997
+   ],
+   "wgs84": [
+    51.70256,
+    4.83235
+   ],
+   "jao": [
+    51.72000000000001,
+    4.85
+   ],
+   "max_abs_diff_deg": 0.0176
+  },
+  {
+   "check": "IP26 point vs JAO bus",
+   "bus": "MEEDEN_380",
+   "ip26_point": "Meeden 380 kV vervangen en uitbreiden station",
+   "rd": [
+    259627.0152000003,
+    571902.7756999992
+   ],
+   "wgs84": [
+    53.12368,
+    6.9502
+   ],
+   "jao": [
+    53.14,
+    6.97
+   ],
+   "max_abs_diff_deg": 0.0198
+  },
+  {
+   "check": "IP26 point vs JAO bus",
+   "bus": "BLEISWIJK_380",
+   "ip26_point": "Bleiswijk 380 kV plaatsen 4e transformator",
+   "rd": [
+    96237.56179999933,
+    450104.5714000016
+   ],
+   "wgs84": [
+    52.03616,
+    4.5308
+   ],
+   "jao": [
+    52.04,
+    4.53
+   ],
+   "max_abs_diff_deg": 0.0038
+  },
+  {
+   "check": "IP26 point vs JAO bus",
+   "bus": "MAASVLAKTE_380",
+   "ip26_point": "Maasvlakte 380 kV vervangen transformatoren",
+   "rd": [
+    61183.84169999883,
+    441726.5192999989
+   ],
+   "wgs84": [
+    51.95605,
+    4.02234
+   ],
+   "jao": [
+    51.98,
+    4.03
+   ],
+   "max_abs_diff_deg": 0.024
+  },
+  {
+   "check": "IP26 point vs JAO bus",
+   "bus": "HENGELO_380",
+   "ip26_point": "Hengelo 380 kV plaatsen 4e transformator",
+   "rd": [
+    248739.6042000018,
+    474320.7265999988
+   ],
+   "wgs84": [
+    52.24895,
+    6.75993
+   ],
+   "jao": [
+    52.25,
+    6.76
+   ],
+   "max_abs_diff_deg": 0.0011
+  },
+  {
+   "check": "IP26 point vs JAO bus",
+   "bus": "MAASBRACHT_380",
+   "ip26_point": "Maasbracht 380 kV vervangen station",
+   "rd": [
+    192177.4463,
+    351132.131099999
+   ],
+   "wgs84": [
+    51.14844,
+    5.91852
+   ],
+   "jao": [
+    51.15,
+    5.92
+   ],
+   "max_abs_diff_deg": 0.0016
+  },
+  {
+   "check": "IP26 point vs JAO bus",
+   "bus": "BORSSELE_380",
+   "ip26_point": "Borssele 380 kV plaatsen 4e transformator",
+   "rd": [
+    39580.26419999823,
+    383988.2470999993
+   ],
+   "wgs84": [
+    51.43318,
+    3.72731
+   ],
+   "jao": [
+    51.45,
+    3.75
+   ],
+   "max_abs_diff_deg": 0.0227
+  },
+  {
+   "check": "IP26 point vs JAO bus",
+   "bus": "ZEYERVEEN_220",
+   "ip26_point": "Zeyerveen 220 kV plaatsen en vervangen transformatoren",
+   "rd": [
+    231332.2928999998,
+    558688.6180999987
+   ],
+   "wgs84": [
+    53.00973,
+    6.5245
+   ],
+   "jao": [
+    53.01,
+    6.52
+   ],
+   "max_abs_diff_deg": 0.0045
+  },
+  {
+   "check": "IP26 point vs JAO bus",
+   "bus": "EINDHOVEN_380",
+   "ip26_point": "Eindhoven 380 kV vervangen transformatoren TR402 en TR403",
+   "rd": [
+    165092.431400001,
+    384232.1367000006
+   ],
+   "wgs84": [
+    51.44709,
+    5.53238
+   ],
+   "jao": [
+    51.47000000000001,
+    5.55
+   ],
+   "max_abs_diff_deg": 0.0229
+  },
+  {
+   "check": "IP26 point vs JAO bus",
+   "bus": "OOSTZAAN_380",
+   "ip26_point": "Oostzaan 380 kV plaatsen transformator",
+   "rd": [
+    120243.4316999987,
+    493585.1545999981
+   ],
+   "wgs84": [
+    52.42896,
+    4.87618
+   ],
+   "jao": [
+    52.43,
+    4.88
+   ],
+   "max_abs_diff_deg": 0.0038
+  },
+  {
+   "check": "IP26 point vs JAO bus",
+   "bus": "ENS_380",
+   "ip26_point": "Ens 380 kV vergroten transformator-capaciteit 380-220 kV",
+   "rd": [
+    183537.0483999997,
+    514635.5056999996
+   ],
+   "wgs84": [
+    52.6185,
+    5.80859
+   ],
+   "jao": [
+    52.62,
+    5.81
+   ],
+   "max_abs_diff_deg": 0.0015
+  },
+  {
+   "check": "IP26 point vs JAO bus",
+   "bus": "SIMONSHAVEN_380",
+   "ip26_point": "Simonshaven 380 kV realiseren pocket",
+   "rd": [
+    77727.68279999867,
+    428457.8859999999
+   ],
+   "wgs84": [
+    51.83935,
+    4.26595
+   ],
+   "jao": [
+    51.84,
+    4.27
+   ],
+   "max_abs_diff_deg": 0.004
+  },
+  {
+   "check": "IP26 point vs JAO bus",
+   "bus": "EEMSHAVEN OUDESCHIP_380",
+   "ip26_point": "Eemshaven Oudeschip 380 kV realiseren velden",
+   "rd": [
+    253037.6160999984,
+    606527.8055999987
+   ],
+   "wgs84": [
+    53.43596,
+    6.86239
+   ],
+   "jao": [
+    53.44,
+    6.86
+   ],
+   "max_abs_diff_deg": 0.004
+  },
+  {
+   "check": "IP26 point vs JAO bus",
+   "bus": "GEERTRUIDENBERG_380",
+   "ip26_point": "Geertruidenberg 380 kV plaatsen transformator",
+   "rd": [
+    116698.1064999998,
+    412590.7410999984
+   ],
+   "wgs84": [
+    51.70077,
+    4.83314
+   ],
+   "jao": [
+    51.72000000000001,
+    4.85
+   ],
+   "max_abs_diff_deg": 0.0192
+  },
+  {
+   "check": "IP26 point vs JAO bus",
+   "bus": "MEEDEN_380",
+   "ip26_point": "Meeden 380 kV plaatsen transformator 380/220 kV",
+   "rd": [
+    259625.2912999988,
+    571876.1829999983
+   ],
+   "wgs84": [
+    53.12345,
+    6.95017
+   ],
+   "jao": [
+    53.14,
+    6.97
+   ],
+   "max_abs_diff_deg": 0.0198
+  },
+  {
+   "check": "IP26 point vs JAO bus",
+   "bus": "HENGELO_380",
+   "ip26_point": "Hengelo 380 kV - Hengelo Oele 110 kV vervangen stations",
+   "rd": [
+    248688.3575999998,
+    474310.2184000015
+   ],
+   "wgs84": [
+    52.24886,
+    6.75917
+   ],
+   "jao": [
+    52.25,
+    6.76
+   ],
+   "max_abs_diff_deg": 0.0011
+  },
+  {
+   "check": "IP26 point vs JAO bus",
+   "bus": "SIMONSHAVEN_380",
+   "ip26_point": "Simonshaven 380 kV verzwaren station",
+   "rd": [
+    77739.10750000179,
+    428475.7681000009
+   ],
+   "wgs84": [
+    51.83951,
+    4.26611
+   ],
+   "jao": [
+    51.84,
+    4.27
+   ],
+   "max_abs_diff_deg": 0.0039
+  },
+  {
+   "check": "IP26 point vs JAO bus",
+   "bus": "BORSSELE_380",
+   "ip26_point": "Borssele 380 kV aansluiten IJmuiden Ver Alfa",
+   "rd": [
+    39556.13369999826,
+    384079.6451000012
+   ],
+   "wgs84": [
+    51.434,
+    3.72693
+   ],
+   "jao": [
+    51.45,
+    3.75
+   ],
+   "max_abs_diff_deg": 0.0231
+  },
+  {
+   "check": "IP26 point vs JAO bus",
+   "bus": "ENS_380",
+   "ip26_point": "Ens 380 kV plaatsen transformator 380/110",
+   "rd": [
+    183535.6099000014,
+    514542.0003999993
+   ],
+   "wgs84": [
+    52.61766,
+    5.80856
+   ],
+   "jao": [
+    52.62,
+    5.81
+   ],
+   "max_abs_diff_deg": 0.0023
+  },
+  {
+   "check": "IP26 point vs JAO bus",
+   "bus": "ENS_380",
+   "ip26_point": "Ens 380 kV vervangen primair secundair, PMU",
+   "rd": [
+    183541.7664999999,
+    514399.1915999986
+   ],
+   "wgs84": [
+    52.61638,
+    5.80864
+   ],
+   "jao": [
+    52.62,
+    5.81
+   ],
+   "max_abs_diff_deg": 0.0036
+  },
+  {
+   "check": "IP26 point vs JAO bus",
+   "bus": "BREUKELEN KORTRIJK_380",
+   "ip26_point": "Breukelen Kortrijk 380 kV verzwaren station",
+   "rd": [
+    127621.5756999999,
+    463748.2855999991
+   ],
+   "wgs84": [
+    52.16122,
+    4.98708
+   ],
+   "jao": [
+    52.16,
+    4.99
+   ],
+   "max_abs_diff_deg": 0.0029
+  },
+  {
+   "check": "IP26 point vs JAO bus",
+   "bus": "DODEWAARD_380",
+   "ip26_point": "Dodewaard 380 kV verzwaren netwerk",
+   "rd": [
+    174059.1048999988,
+    437708.3513999991
+   ],
+   "wgs84": [
+    51.92752,
+    5.6643
+   ],
+   "jao": [
+    51.93,
+    5.66
+   ],
+   "max_abs_diff_deg": 0.0043
+  },
+  {
+   "check": "IP26 point vs JAO bus",
+   "bus": "DOETINCHEM_380",
+   "ip26_point": "Doetinchem 380 kV verzwaren 380/150 kV netwerk",
+   "rd": [
+    214285.625,
+    444033.4699999988
+   ],
+   "wgs84": [
+    51.98154,
+    6.25018
+   ],
+   "jao": [
+    51.98,
+    6.25
+   ],
+   "max_abs_diff_deg": 0.0015
+  },
+  {
+   "check": "IP26 point vs JAO bus",
+   "bus": "LELYSTAD_380",
+   "ip26_point": "Lelystad 380 kV verzwaren 380/150 kV netwerk",
+   "rd": [
+    165263.1614000015,
+    509861.0909000002
+   ],
+   "wgs84": [
+    52.57624,
+    5.53861
+   ],
+   "jao": [
+    52.58,
+    5.54
+   ],
+   "max_abs_diff_deg": 0.0038
+  },
+  {
+   "check": "IP26 point vs JAO bus",
+   "bus": "ENS_380",
+   "ip26_point": "Ens 380 kV uitbreiden rail",
+   "rd": [
+    183539.9255000018,
+    514447.0566000007
+   ],
+   "wgs84": [
+    52.61681,
+    5.80862
+   ],
+   "jao": [
+    52.62,
+    5.81
+   ],
+   "max_abs_diff_deg": 0.0032
+  },
+  {
+   "check": "IP26 point vs JAO bus",
+   "bus": "GEERTRUIDENBERG_380",
+   "ip26_point": "Geertruidenberg 380 kV vervangen transformatoren",
+   "rd": [
+    116684.5306999981,
+    412637.9849000014
+   ],
+   "wgs84": [
+    51.7012,
+    4.83294
+   ],
+   "jao": [
+    51.72000000000001,
+    4.85
+   ],
+   "max_abs_diff_deg": 0.0188
+  },
+  {
+   "station": "BEVERWIJK_380",
+   "rd_brief": [
+    106901.9,
+    498583.1
+   ],
+   "wgs84": [
+    52.47287,
+    4.67932
+   ],
+   "round_trip_m": 0.0,
+   "ip26_points_same_station": [
+    "Beverwijk 380 kV plaatsen 4e transformator",
+    "Beverwijk 380 kV plaatsen transformator"
+   ],
+   "distance_to_them_m": [
+    11.5,
+    20.4
+   ]
+  },
+  {
+   "station": "VIJFHUIZEN_380",
+   "rd_brief": [
+    107881.0,
+    487537.4
+   ],
+   "wgs84": [
+    52.37369,
+    4.69528
+   ],
+   "round_trip_m": 0.0,
+   "ip26_points_same_station": [
+    "Vijfhuizen 380 kV plaatsen 4e transformator"
+   ],
+   "distance_to_them_m": [
+    35.7
+   ]
+  }
+ ],
+ "x_ohm_per_km": {
+  "Beverwijk-Vijfhuizen380 W": 0.2344,
+  "Beverwijk-Vijfhuizen380 Z": 0.2344,
+  "Bleiswijk-Vijfhuizen380 O": 0.2158,
+  "Bleiswijk-Vijfhuizen380 P": 0.2158,
+  "Beverwijk-Oostzaan380 W": 0.2738,
+  "Beverwijk-Oostzaan380 Z": 0.2561,
+  "Bergum-Vierverlaten220 W": 0.2631,
+  "Bergum-Vierverlaten220 Z": 0.2629
+ },
+ "x_ohm_per_km_dutch_jao_rows_median": {
+  "220": 0.2627,
+  "380": 0.273
+ },
+ "capacity_check": {
+  "Beverwijk-Vijfhuizen380 W": {
+   "I_A": 3000.0,
+   "k": 400.0,
+   "Capacity_MW": 2078.461,
+   "sqrt3_k_I": 2078.461
+  },
+  "Beverwijk-Vijfhuizen380 Z": {
+   "I_A": 3000.0,
+   "k": 400.0,
+   "Capacity_MW": 2078.461,
+   "sqrt3_k_I": 2078.461
+  },
+  "Bleiswijk-Vijfhuizen380 O": {
+   "I_A": 3000.0,
+   "k": 400.0,
+   "Capacity_MW": 2078.461,
+   "sqrt3_k_I": 2078.461
+  },
+  "Bleiswijk-Vijfhuizen380 P": {
+   "I_A": 3000.0,
+   "k": 400.0,
+   "Capacity_MW": 2078.461,
+   "sqrt3_k_I": 2078.461
+  },
+  "Beverwijk-Oostzaan380 W": {
+   "I_A": 3300.0,
+   "k": 400.0,
+   "Capacity_MW": 2286.307,
+   "sqrt3_k_I": 2286.307
+  },
+  "Beverwijk-Oostzaan380 Z": {
+   "I_A": 3300.0,
+   "k": 400.0,
+   "Capacity_MW": 2286.307,
+   "sqrt3_k_I": 2286.307
+  },
+  "Bergum-Vierverlaten220 W": {
+   "I_A": 2500.0,
+   "k": 225.0,
+   "Capacity_MW": 974.279,
+   "sqrt3_k_I": 974.279
+  },
+  "Bergum-Vierverlaten220 Z": {
+   "I_A": 2500.0,
+   "k": 225.0,
+   "Capacity_MW": 974.279,
+   "sqrt3_k_I": 974.279
+  }
+ },
+ "node_diff_counts": [
+  {
+   "side": "JAO only",
+   "recommendation": "flag",
+   "n": 2
+  },
+  {
+   "side": "GridAware",
+   "recommendation": "add (this patch)",
+   "n": 2
+  },
+  {
+   "side": "GridAware",
+   "recommendation": "later: offshore wind landing or platform; needed only if offshore wind is placed at its landing point",
+   "n": 10
+  },
+  {
+   "side": "GridAware",
+   "recommendation": "later: on a through path; topology differs from JAO, check before adding",
+   "n": 1
+  },
+  {
+   "side": "GridAware",
+   "recommendation": "not needed: HVDC terminal (DC links are not AC branches; Tulipa models them as transport flows)",
+   "n": 4
+  },
+  {
+   "side": "GridAware",
+   "recommendation": "not needed: radial (one neighbouring 220/380 kV station); carries only its own injection, which the zonal model does not place there",
+   "n": 5
+  },
+  {
+   "side": "GridAware",
+   "recommendation": "present",
+   "n": 48
+  },
+  {
+   "side": "GridAware",
+   "recommendation": "report only (2b: Wijk aan Zee / Hollandse Kust landing)",
+   "n": 5
+  },
+  {
+   "side": "GridAware",
+   "recommendation": "report only (2b: second Maasbracht-Dodewaard circuit (Boxmeer))",
+   "n": 1
+  }
+ ],
+ "counts": {
+  "nodes_add": 2,
+  "lines_add": 8,
+  "transformers_add": 0,
+  "dutch_nodes_before": 42,
+  "dutch_nodes_after_expected": 44
+ }
+}

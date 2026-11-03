@@ -1,0 +1,6 @@
+[deps]
+DuckDB = "d2f5444f-75bc-4fdf-ac35-56f514c445e1"
+ElectricityNetworkReduction = "8d6c9889-004b-5ffc-a588-babdd84958c6"
+HiGHS = "87dc4568-4c63-4d18-b0c0-bb2238e4078b"
+TulipaEnergyModel = "5d7bd171-d18e-45a5-9111-f1f11ac5d04d"
+TulipaIO = "7b3808b7-0819-42d4-885c-978ba173db11"

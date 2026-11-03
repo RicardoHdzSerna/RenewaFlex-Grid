@@ -1,0 +1,62 @@
+name,tso,kv_primary,kv_secondary,same_voltage,x_ohm,taps_for_remedial_actions,angle_regulation_pct_per_tap,type,max_tap_used,angle_at_range_deg,comment
+PST Rohrsdorf 441,50HERTZ,410.0000,410.0000,True,12.1870,-10;10,1.0690,Symmetrical,10.0000,6.1191,
+PST Rohrsdorf 442,50HERTZ,410.0000,410.0000,True,12.6070,-10;10,1.0690,Symmetrical,10.0000,6.1191,
+PST Vierraden 441,50HERTZ,410.0000,410.0000,True,12.1870,-10;10,1.0690,Symmetrical,10.0000,6.1191,
+PST Vierraden 442,50HERTZ,410.0000,410.0000,True,12.1870,-10;10,1.0690,Symmetrical,10.0000,6.1191,
+PST Vierraden 443,50HERTZ,410.0000,410.0000,True,12.6070,-10;10,1.0690,Symmetrical,10.0000,6.1191,
+PST Vierraden 444,50HERTZ,410.0000,410.0000,True,12.6070,-10;10,1.0690,Symmetrical,10.0000,6.1191,
+PST Hamburg/Ost 441,50HERTZ,410.0000,410.0000,True,12.1870,-10;10,1.0690,Symmetrical,10.0000,6.1191,
+PST Hamburg/Ost 442,50HERTZ,410.0000,410.0000,True,12.1870,-10;10,1.0690,Symmetrical,10.0000,6.1191,
+PST Hamburg/Ost 443,50HERTZ,410.0000,410.0000,True,12.6070,-10;10,1.0690,Symmetrical,10.0000,6.1191,
+PST Hamburg/Ost 444,50HERTZ,410.0000,410.0000,True,12.6070,-10;10,1.0690,Symmetrical,10.0000,6.1191,
+TR Gronau TR 441 E,AMPRION GMBH,400.0000,400.0000,True,3.3100,-10; 10,1.1110,ASYM,10.0000,6.3396,
+TR Hanekenfaher TR 442 E,AMPRION GMBH,400.0000,400.0000,True,3.3100,,,SYMM,,,
+TR Hanekenfaher TR 441 E,AMPRION GMBH,400.0000,400.0000,True,11.1700,,,SYMM,,,
+TR Oberzier TR 442 E,AMPRION GMBH,400.0000,400.0000,True,9.0000,-5; 5,0.5900,SYMM,5.0000,1.6901,
+PST Ernsthofen EHPST,APG,220.0000,220.0000,True,12.8270,-6; +6,2.2520,Symmetrical,6.0000,7.7301,connected to substation Ernsthofen
+PST Lienz LIPST,APG,220.0000,220.0000,True,23.5910,,3.6160,Symmetrical,,,coordinated in Italy North; connected to substation Lienz
+PST Tauern TAPST,APG,220.0000,220.0000,True,12.8270,-6; +6,2.2520,Symmetrical,6.0000,7.7301,connected to substation Tauern
+PST Ternitz TEPST,APG,220.0000,220.0000,True,12.8270,-6; +6,2.2520,Symmetrical,6.0000,7.7301,connected to substation Ternitz
+TR Nauders NRPST21,APG,220.0000,220.0000,True,7.7600,,4.5500,Symmetrical,,,
+TR Nauders NRPST22,APG,220.0000,220.0000,True,7.7600,,4.5500,Symmetrical,,,
+PST Hradec 1,CEPS,400.0000,400.0000,True,25.5000,<-6;6>,1.6300,symmetrical,6.0000,5.5991,connected to tieline 10T-CZ-DE-00002U
+PST Hradec 2,CEPS,400.0000,400.0000,True,25.5900,<-6;6>,1.6300,symmetrical,6.0000,5.5991,connected to tieline 10T-CZ-DE-00002U
+PST Hradec 3,CEPS,400.0000,400.0000,True,25.4400,<-6;6>,1.6300,symmetrical,6.0000,5.5991,connected to tieline 10T-CZ-DE-00003S
+PST Divaca,ELES,400.0000,400.0000,True,24.4890,,2.2700,Symetrical,,,"Two transformers in parallel, modelled as one (EICs: 28T-0000001569-4, 28T-0000001568-7), used as RA in CSE CCR. Line connected to PST is Divaca - Redipuglia 400 kV (SI-IT tieline)"
+TR AUBANGE PST 1,ELIA,243.0000,243.0000,True,9.8400,0,1.8700,Symmetrical,0.0000,,
+TR VAN EYCK PST 1,ELIA,400.0000,400.0000,True,10.5000,-8;8,1.4710,Symmetrical,8.0000,6.7348,
+TR VAN EYCK PST 2,ELIA,400.0000,400.0000,True,10.4900,-8;8,1.4710,Symmetrical,8.0000,6.7348,
+TR ZANDVLIET PST 2,ELIA,400.0000,400.0000,True,10.6400,-8;8,1.4710,Symmetrical,8.0000,6.7348,
+TR MONCEAU PST 1,ELIA,245.0000,160.0000,False,15.9200,0,1.6670,Symmetrical,0.0000,,
+TR ZANDVLIET PST 3,ELIA,400.0000,400.0000,True,11.2700,-8;8,1.4710,Symmetrical,8.0000,6.7348,
+TR ZANDVLIET PST 4,ELIA,400.0000,400.0000,True,11.2700,-8;8,1.4710,Symmetrical,8.0000,6.7348,
+TR4 400/220 kV Zerjavinec,HOPS,400.0000,231.0000,False,16.3000,-12;12,0.9000,Symmetrical/Asymmetrical,12.0000,6.1819,usually works in asymmetrical mode
+PST GRUDZIADZ-A3,PSE,400.0000,220.0000,False,12.4870,,0.7580,Symmetrical,,,Change of tap position of phase shifting transformer (400/220) in substation Grudziadz
+PST JOACHIMOW-TD1,PSE,220.0000,220.0000,True,0.9874,,1.4580,Symmetrical,,,Change of tap position of phase shifting transformer (400/220) in substation Joachimow
+PST JOACHIMOW-TD2,PSE,220.0000,220.0000,True,0.9970,,1.4580,Symmetrical,,,Change of tap position of phase shifting transformer (400/220) in substation Joachimow
+PST MIKULOWA-PF1,PSE,400.0000,400.0000,True,11.6160,-8;8,1.1080,Symmetrical,8.0000,5.0754,Change of tap position of phase shifting transformer (400) on line Mikulowa-Hagenwerder (line 10T-DE-PL-00001D)
+PST MIKULOWA-PF2,PSE,400.0000,400.0000,True,11.6320,-8;8,1.1080,Symmetrical,8.0000,5.0754,Change of tap position of phase shifting transformer (400) on line Mikulowa-Hagenwerder (line 10T-DE-PL-00001D)
+PST MIKULOWA-PF3,PSE,400.0000,400.0000,True,11.6000,-8;8,1.1080,Symmetrical,8.0000,5.0754,Change of tap position of phase shifting transformer (400) on line Mikulowa-Hagenwerder (line 10T-DE-PL-00002B)
+PSTMIKULOWA-PF4,PSE,400.0000,400.0000,True,11.5680,-8;8,1.1080,Symmetrical,8.0000,5.0754,Change of tap position of phase shifting transformer (400) on line Mikulowa-Hagenwerder (line 10T-DE-PL-00002B)
+PST MIKULOWA-TD1,PSE,220.0000,220.0000,True,0.8712,-5;5,1.4580,Symmetrical,5.0000,4.1750,Change of tap position of phase shifting transformer (400/220) in substation Mikulowa
+PST MIKULOWA-TD2,PSE,220.0000,220.0000,True,0.8712,-5;5,1.4580,Symmetrical,5.0000,4.1750,Change of tap position of phase shifting transformer (400/220) in substation Mikulowa
+PST Arad 400/220 3,TEL,400.0000,231.0000,False,45.9900,-12;0,1.2500,Asymmetrical,12.0000,8.5308,Connected in substation 400/220 kV Arad (RO)
+PST Urechesti 400/220 1,TEL,400.0000,231.0000,False,45.9900,-12;0,1.2500,Asymmetrical,12.0000,8.5308,Connected in substation 400/220 kV Urechesti (RO)
+PST Meeden PST W,TENNET NL,400.0000,400.0000,True,10.0060,-5/5,4.5490,Symmetrical,5.0000,12.9762,Connected to tie-lie 10T-DE-NL-00002T and 10T-DE-NL-00001V
+PST Meeden PST Z,TENNET NL,400.0000,400.0000,True,10.0060,-5/5,4.5490,Symmetrical,5.0000,12.9762,Connected to tie-lie 10T-DE-NL-00002T and 10T-DE-NL-00001V
+PST Diele T441,TENNETGMBH,380.0000,380.0000,True,12.3200,-10;10,1.2710,Symmetrical,10.0000,7.2725,"Connected to the line ""Conneforde - Diele rot"" (EIC: 11TD2L0000000471)"
+PST Diele T442,TENNETGMBH,380.0000,380.0000,True,12.3200,-10;10,1.2710,Symmetrical,10.0000,7.2725,"Connected to the line ""Conneforde - Diele weiss"" (EIC: 11TD2L000000049Y)"
+PST Krempermarsch T441A,TENNETGMBH,380.0000,380.0000,True,11.9800,,1.2710,Symmetrical,,,"Connected to the lines ""Krempermarsch - Stade/W rot"" (EIC: 11T0-0000-2198-P) and ""Wilster/W - Krempermarsch rot"" (EIC: 11T0-0000-2199-M)"
+PST Krempermarsch T441B,TENNETGMBH,380.0000,380.0000,True,11.9400,,1.2710,Symmetrical,,,"Connected to the lines ""Krempermarsch - Stade/W rot"" (EIC: 11T0-0000-2198-P) and ""Wilster/W - Krempermarsch rot"" (EIC: 11T0-0000-2199-M)"
+PST Krempermarsch T442A,TENNETGMBH,380.0000,380.0000,True,11.9100,,1.2710,Symmetrical,,,"Connected to the lines ""Krempermarsch - Stade/W gelb"" (EIC: 11T0-0000-2192-6) and ""Wilster/W - Krempermarsch gelb"" (EIC: 11T0-0000-2191-9)"
+PST Krempermarsch T442B,TENNETGMBH,380.0000,380.0000,True,11.9300,,1.2710,Symmetrical,,,"Connected to the lines ""Krempermarsch - Stade/W gelb"" (EIC: 11T0-0000-2192-6) and ""Wilster/W - Krempermarsch gelb"" (EIC: 11T0-0000-2191-9)"
+PST Wuergau T441A,TENNETGMBH,380.0000,380.0000,True,11.9800,,1.2710,Symmetrical,,,"Connected to the line ""Redwitz - Wuergau 436"" (EIC: 11TD2L000000255V)"
+PST Wuergau T441B,TENNETGMBH,380.0000,380.0000,True,11.9700,,1.2710,Symmetrical,,,"Connected to the line ""Redwitz - Wuergau 436"" (EIC: 11TD2L000000255V)"
+PST Wuergau T442A,TENNETGMBH,380.0000,380.0000,True,11.9700,,1.2710,Symmetrical,,,"Connected to the line ""Redwitz - Wuergau 457"" (EIC: 11T0-0000-1906-X)"
+PST Wuergau T442B,TENNETGMBH,380.0000,380.0000,True,12.0300,,1.2710,Symmetrical,,,"Connected to the line ""Redwitz - Wuergau 457"" (EIC: 11T0-0000-1906-X)"
+TR Doerpen/W T441,TENNETGMBH,380.0000,380.0000,True,42.1100,,,,,,Transformer at converter station connected to offshore windfarm
+TR Doerpen/W T442,TENNETGMBH,380.0000,380.0000,True,41.9400,,,,,,Transformer at converter station connected to offshore windfarm
+TR Doerpen/W T443,TENNETGMBH,380.0000,380.0000,True,42.9000,,,,,,Transformer at converter station connected to offshore windfarm
+TR Doerpen/W T444,TENNETGMBH,380.0000,380.0000,True,43.0800,,,,,,Transformer at converter station connected to offshore windfarm
+PST / 380-220kV / Buers / Trafo 37,TRANSNETBW,380.0000,220.0000,False,19.3200,-17;17,1.7940,Asymmetrical,17.0000,16.9607,
+TR / 380-220kV / Kuehmoos Trafo 401,TRANSNETBW,380.0000,220.0000,False,24.4800,-4;6,,Asymmetrical,6.0000,,

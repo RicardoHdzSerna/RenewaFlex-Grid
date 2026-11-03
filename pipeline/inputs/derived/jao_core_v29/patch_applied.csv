@@ -1,0 +1,15 @@
+patch,sheet,patch_id,status
+jao2026_nl,Nodes,BEVERWIJK_380,added
+jao2026_nl,Nodes,VIJFHUIZEN_380,added
+jao2026_nl,Lines,PATCH-NL-0001,added
+jao2026_nl,Lines,PATCH-NL-0002,added
+jao2026_nl,Lines,PATCH-NL-0003,added
+jao2026_nl,Lines,PATCH-NL-0004,added
+jao2026_nl,Lines,PATCH-NL-0005,added
+jao2026_nl,Lines,PATCH-NL-0006,added
+jao2026_nl,Lines,PATCH-NL-0007,added
+jao2026_nl,Lines,PATCH-NL-0008,added
+jao2026_nl_2,Nodes,BOXMEER_380,added
+jao2026_nl_2,Lines,PATCH-NL-0009,added
+jao2026_nl_2,Lines,PATCH-NL-0010,added
+jao2026_nl_2,Lines,PATCH-NL-0011,added
